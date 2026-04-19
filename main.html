@@ -3,861 +3,2033 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HackTrack - Your Hackathon Manager</title>
+    <title>HackTrack — Elite Hackathon Command Center</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #4361ee;
-            --secondary: #3a0ca3;
-            --success: #4cc9f0;
-            --warning: #f72585;
-            --light: #f8f9fa;
-            --dark: #212529;
-            --gray: #6c757d;
-            --bg-color: #f5f7fb;
-            --card-bg: #ffffff;
-            --text-color: #212529;
-            --border-radius: 8px;
-            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            --header-gradient: linear-gradient(135deg, #4361ee, #3a0ca3);
+            --primary: #6366f1;
+            --primary-light: #818cf8;
+            --primary-dark: #4f46e5;
+            --primary-glow: rgba(99,102,241,0.4);
+            --accent: #06d6a0;
+            --accent-glow: rgba(6,214,160,0.3);
+            --warning: #ef4444;
+            --warning-light: #fca5a5;
+            --warning-glow: rgba(239,68,68,0.3);
+            --orange: #f59e0b;
+            --orange-glow: rgba(245,158,11,0.3);
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: rgba(18,18,26,0.8);
+            --bg-card-hover: rgba(25,25,38,0.9);
+            --bg-elevated: #1a1a2e;
+            --bg-input: rgba(30,30,50,0.6);
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border: rgba(99,102,241,0.15);
+            --border-hover: rgba(99,102,241,0.35);
+            --glass: rgba(255,255,255,0.03);
+            --glass-border: rgba(255,255,255,0.06);
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
+            --shadow-md: 0 8px 32px rgba(0,0,0,0.4);
+            --shadow-lg: 0 16px 64px rgba(0,0,0,0.5);
+            --shadow-glow: 0 0 40px var(--primary-glow);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --radius-full: 9999px;
+            --transition-fast: 0.15s cubic-bezier(0.4,0,0.2,1);
+            --transition-base: 0.3s cubic-bezier(0.4,0,0.2,1);
+            --transition-smooth: 0.5s cubic-bezier(0.16,1,0.3,1);
+            --transition-spring: 0.6s cubic-bezier(0.34,1.56,0.64,1);
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
         }
 
-        /* Dark Theme */
-        .theme-dark {
-            --primary: #6c63ff;
-            --secondary: #4a44c9;
-            --success: #00b4d8;
-            --warning: #f72585;
-            --light: #2d3748;
-            --dark: #f7fafc;
-            --gray: #a0aec0;
-            --bg-color: #1a202c;
-            --card-bg: #2d3748;
-            --text-color: #f7fafc;
-            --header-gradient: linear-gradient(135deg, #2d3748, #4a5568);
-            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        .theme-light {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #f1f5f9;
+            --bg-card: rgba(255,255,255,0.85);
+            --bg-card-hover: rgba(255,255,255,0.95);
+            --bg-elevated: #ffffff;
+            --bg-input: rgba(241,245,249,0.8);
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --border: rgba(99,102,241,0.12);
+            --border-hover: rgba(99,102,241,0.3);
+            --glass: rgba(255,255,255,0.5);
+            --glass-border: rgba(255,255,255,0.8);
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+            --shadow-md: 0 8px 32px rgba(0,0,0,0.08);
+            --shadow-lg: 0 16px 64px rgba(0,0,0,0.1);
+            --shadow-glow: 0 0 40px rgba(99,102,241,0.1);
         }
 
-        /* Ocean Theme */
         .theme-ocean {
-            --primary: #00b4d8;
-            --secondary: #0077b6;
-            --success: #90e0ef;
-            --warning: #f72585;
-            --light: #caf0f8;
-            --dark: #03045e;
-            --gray: #48cae4;
-            --bg-color: #caf0f8;
-            --card-bg: #ffffff;
-            --text-color: #03045e;
-            --header-gradient: linear-gradient(135deg, #00b4d8, #0077b6);
+            --primary: #0ea5e9;
+            --primary-light: #38bdf8;
+            --primary-dark: #0284c7;
+            --primary-glow: rgba(14,165,233,0.4);
+            --accent: #22d3ee;
+            --accent-glow: rgba(34,211,238,0.3);
+            --bg-primary: #020617;
+            --bg-secondary: #0f172a;
+            --bg-card: rgba(15,23,42,0.8);
+            --bg-card-hover: rgba(20,30,55,0.9);
+            --bg-elevated: #1e293b;
+            --bg-input: rgba(30,41,59,0.6);
+            --border: rgba(14,165,233,0.15);
+            --border-hover: rgba(14,165,233,0.35);
+            --glass: rgba(14,165,233,0.03);
+            --glass-border: rgba(14,165,233,0.06);
+            --shadow-glow: 0 0 40px rgba(14,165,233,0.3);
         }
 
-        /* Forest Theme */
         .theme-forest {
-            --primary: #2a9d8f;
-            --secondary: #264653;
-            --success: #e9c46a;
-            --warning: #e76f51;
-            --light: #f1faee;
-            --dark: #1d3557;
-            --gray: #457b9d;
-            --bg-color: #f1faee;
-            --card-bg: #ffffff;
-            --text-color: #1d3557;
-            --header-gradient: linear-gradient(135deg, #2a9d8f, #264653);
+            --primary: #10b981;
+            --primary-light: #34d399;
+            --primary-dark: #059669;
+            --primary-glow: rgba(16,185,129,0.4);
+            --accent: #a3e635;
+            --accent-glow: rgba(163,230,53,0.3);
+            --bg-primary: #052e16;
+            --bg-secondary: #064e3b;
+            --bg-card: rgba(6,78,59,0.5);
+            --bg-card-hover: rgba(6,78,59,0.7);
+            --bg-elevated: #065f46;
+            --bg-input: rgba(6,95,70,0.4);
+            --border: rgba(16,185,129,0.15);
+            --border-hover: rgba(16,185,129,0.35);
+            --glass: rgba(16,185,129,0.03);
+            --glass-border: rgba(16,185,129,0.06);
+            --shadow-glow: 0 0 40px rgba(16,185,129,0.3);
         }
 
-        /* Sunset Theme */
         .theme-sunset {
-            --primary: #ff6b6b;
-            --secondary: #ff9e00;
-            --success: #4ecdc4;
-            --warning: #ff9e00;
-            --light: #ffe66d;
-            --dark: #292f36;
-            --gray: #ff9e00;
-            --bg-color: #f7fff7;
-            --card-bg: #ffffff;
-            --text-color: #292f36;
-            --header-gradient: linear-gradient(135deg, #ff6b6b, #ff9e00);
+            --primary: #f43f5e;
+            --primary-light: #fb7185;
+            --primary-dark: #e11d48;
+            --primary-glow: rgba(244,63,94,0.4);
+            --accent: #fb923c;
+            --accent-glow: rgba(251,146,60,0.3);
+            --bg-primary: #1a0a0a;
+            --bg-secondary: #2a1010;
+            --bg-card: rgba(42,16,16,0.7);
+            --bg-card-hover: rgba(55,20,20,0.85);
+            --bg-elevated: #3b1515;
+            --bg-input: rgba(59,21,21,0.5);
+            --border: rgba(244,63,94,0.15);
+            --border-hover: rgba(244,63,94,0.35);
+            --glass: rgba(244,63,94,0.03);
+            --glass-border: rgba(244,63,94,0.06);
+            --shadow-glow: 0 0 40px rgba(244,63,94,0.3);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            transition: background-color 0.3s, color 0.3s;
-        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--primary-glow); border-radius: var(--radius-full); }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+
+        html { scroll-behavior: smooth; }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            font-family: var(--font-display);
+            background: var(--bg-primary);
+            color: var(--text-primary);
             line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
+        /* ===== CURSOR FOLLOWER ===== */
+        .cursor-glow {
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.3s;
+            opacity: 0.15;
         }
 
-        header {
-            background: var(--header-gradient);
-            color: white;
-            padding: 2rem 0;
-            border-radius: var(--border-radius);
-            margin-bottom: 2rem;
-            box-shadow: var(--box-shadow);
-            text-align: center;
-            position: relative;
+        /* ===== PARTICLE CANVAS ===== */
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
         }
 
-        .theme-selector {
-            position: absolute;
-            top: 20px;
-            right: 20px;
+        /* ===== PAGE LOADER ===== */
+        .page-loader {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-primary);
+            z-index: 10000;
             display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 24px;
+            transition: opacity 0.6s, visibility 0.6s;
+        }
+        .page-loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        .loader-logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: loaderPulse 1.5s ease-in-out infinite;
+        }
+        .loader-bar-track {
+            width: 200px;
+            height: 3px;
+            background: var(--bg-elevated);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+        }
+        .loader-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: var(--radius-full);
+            animation: loaderFill 1.8s ease-in-out forwards;
+        }
+        @keyframes loaderPulse {
+            0%,100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.7; }
+        }
+        @keyframes loaderFill {
+            0% { width: 0%; }
+            60% { width: 80%; }
+            100% { width: 100%; }
+        }
+
+        /* ===== MAIN WRAPPER ===== */
+        .main-wrapper {
+            position: relative;
+            z-index: 1;
+            max-width: 1340px;
+            margin: 0 auto;
+            padding: 24px 28px 80px;
+        }
+
+        /* ===== TOP NAV BAR ===== */
+        .top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 24px;
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-xl);
+            margin-bottom: 32px;
+            animation: slideDown 0.8s var(--transition-smooth) both;
+        }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .top-bar-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: white;
+            box-shadow: 0 4px 16px var(--primary-glow);
+            animation: logoFloat 3s ease-in-out infinite;
+        }
+        @keyframes logoFloat {
+            0%,100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-3px) rotate(2deg); }
+        }
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        .logo-text span {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .top-bar-right {
+            display: flex;
+            align-items: center;
             gap: 10px;
         }
-
-        .theme-option {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
+        .theme-pill {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-full);
             cursor: pointer;
-            border: 2px solid white;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            border: 2px solid transparent;
+            transition: all var(--transition-spring);
+            position: relative;
+        }
+        .theme-pill:hover {
+            transform: scale(1.2);
+            border-color: var(--text-primary);
+        }
+        .theme-pill.active-theme {
+            border-color: var(--text-primary);
+            box-shadow: 0 0 12px var(--primary-glow);
+        }
+        .pill-default { background: linear-gradient(135deg, #6366f1, #06d6a0); }
+        .pill-light { background: linear-gradient(135deg, #f1f5f9, #e2e8f0); }
+        .pill-ocean { background: linear-gradient(135deg, #0ea5e9, #22d3ee); }
+        .pill-forest { background: linear-gradient(135deg, #10b981, #a3e635); }
+        .pill-sunset { background: linear-gradient(135deg, #f43f5e, #fb923c); }
+
+        .kbd-hint {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-left: 12px;
+        }
+        .kbd {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
         }
 
-        .theme-default { background: linear-gradient(135deg, #4361ee, #3a0ca3); }
-        .theme-dark { background: linear-gradient(135deg, #2d3748, #4a5568); }
-        .theme-ocean { background: linear-gradient(135deg, #00b4d8, #0077b6); }
-        .theme-forest { background: linear-gradient(135deg, #2a9d8f, #264653); }
-        .theme-sunset { background: linear-gradient(135deg, #ff6b6b, #ff9e00); }
-
-        header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
+        /* ===== HERO SECTION ===== */
+        .hero {
+            text-align: center;
+            padding: 60px 0 50px;
+            animation: fadeUp 1s var(--transition-smooth) 0.2s both;
         }
-
-        header p {
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 6px 16px;
+            border-radius: var(--radius-full);
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            backdrop-filter: blur(10px);
+        }
+        .hero-badge .dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: dotBlink 2s ease-in-out infinite;
+        }
+        @keyframes dotBlink {
+            0%,100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            letter-spacing: -1.5px;
+            line-height: 1.1;
+            margin-bottom: 16px;
+        }
+        .hero h1 .gradient-text {
+            background: linear-gradient(135deg, var(--primary), var(--accent), var(--primary-light));
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShift 4s ease-in-out infinite;
+        }
+        @keyframes gradientShift {
+            0%,100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        .hero p {
             font-size: 1.1rem;
-            opacity: 0.9;
+            color: var(--text-secondary);
+            max-width: 520px;
+            margin: 0 auto;
         }
 
-        .dashboard {
+        /* ===== STATS RING CARDS ===== */
+        .stats-grid {
             display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 20px;
-            margin-bottom: 2rem;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 36px;
+            animation: fadeUp 1s var(--transition-smooth) 0.4s both;
+        }
+        @media(max-width:900px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media(max-width:500px) { .stats-grid { grid-template-columns: 1fr; } }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            backdrop-filter: blur(16px);
+            transition: all var(--transition-smooth);
+            cursor: default;
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--primary-glow), transparent);
+            opacity: 0;
+            transition: opacity var(--transition-base);
+        }
+        .stat-card:hover::before { opacity: 1; }
+        .stat-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--border-hover);
+            box-shadow: var(--shadow-glow);
+        }
+        .stat-ring-wrap {
+            position: relative;
+            width: 56px;
+            height: 56px;
+            flex-shrink: 0;
+        }
+        .stat-ring-wrap svg {
+            transform: rotate(-90deg);
+        }
+        .stat-ring-bg {
+            fill: none;
+            stroke: var(--bg-elevated);
+            stroke-width: 4;
+        }
+        .stat-ring-fill {
+            fill: none;
+            stroke-width: 4;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 1.5s var(--transition-smooth);
+        }
+        .stat-ring-icon {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        .stat-info { position: relative; z-index: 1; }
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 2px;
+            font-family: var(--font-mono);
+        }
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        @media (max-width: 768px) {
-            .dashboard {
-                grid-template-columns: 1fr;
-            }
-            
-            .theme-selector {
-                position: static;
-                justify-content: center;
-                margin-top: 15px;
-            }
+        /* ===== TOOLBAR ===== */
+        .toolbar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            animation: fadeUp 1s var(--transition-smooth) 0.5s both;
+        }
+        .search-wrap {
+            flex: 1;
+            min-width: 220px;
+            position: relative;
+        }
+        .search-wrap i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            transition: color var(--transition-base);
+        }
+        .search-wrap input {
+            width: 100%;
+            padding: 12px 16px 12px 44px;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-full);
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            font-family: var(--font-display);
+            outline: none;
+            transition: all var(--transition-base);
+            backdrop-filter: blur(10px);
+        }
+        .search-wrap input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-glow);
+        }
+        .search-wrap input:focus + i,
+        .search-wrap input:focus ~ i { color: var(--primary); }
+
+        .view-toggle {
+            display: flex;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-full);
+            padding: 4px;
+            gap: 2px;
+        }
+        .view-btn {
+            padding: 8px 16px;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-family: var(--font-display);
+            font-weight: 500;
+            transition: all var(--transition-base);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .view-btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 2px 12px var(--primary-glow);
+        }
+        .view-btn:hover:not(.active) {
+            color: var(--text-primary);
+            background: var(--glass);
         }
 
-        .card {
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
+        .sort-select {
+            padding: 10px 36px 10px 14px;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-full);
+            color: var(--text-primary);
+            font-size: 0.85rem;
+            font-family: var(--font-display);
+            outline: none;
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%2394a3b8' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            transition: all var(--transition-base);
+            backdrop-filter: blur(10px);
+        }
+        .sort-select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-glow);
         }
 
-        .card h2 {
-            margin-bottom: 1rem;
+        .add-btn {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border: none;
+            border-radius: var(--radius-full);
+            color: white;
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all var(--transition-spring);
+            box-shadow: 0 4px 20px var(--primary-glow);
+            white-space: nowrap;
+        }
+        .add-btn:hover {
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 8px 30px var(--primary-glow);
+        }
+        .add-btn:active { transform: scale(0.97); }
+        .add-btn i { transition: transform var(--transition-spring); }
+        .add-btn:hover i { transform: rotate(90deg); }
+
+        /* ===== MAIN CONTENT GRID ===== */
+        .content-area {
+            display: grid;
+            grid-template-columns: 380px 1fr;
+            gap: 24px;
+            animation: fadeUp 1s var(--transition-smooth) 0.6s both;
+        }
+        @media(max-width:900px) {
+            .content-area { grid-template-columns: 1fr; }
+        }
+
+        /* ===== FORM PANEL ===== */
+        .form-panel {
+            position: sticky;
+            top: 24px;
+            align-self: start;
+        }
+        .form-card {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-xl);
+            padding: 28px;
+            backdrop-filter: blur(20px);
+            overflow: hidden;
+            position: relative;
+        }
+        .form-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent), var(--primary));
+            background-size: 200% 100%;
+            animation: gradientShift 3s ease-in-out infinite;
+        }
+        .form-card.collapsed { display: none; }
+        .form-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+        .form-title {
+            font-size: 1.15rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .form-title i {
             color: var(--primary);
-            border-bottom: 2px solid var(--light);
-            padding-bottom: 0.5rem;
+        }
+        .form-close {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 4px;
+            border-radius: var(--radius-sm);
+            transition: all var(--transition-base);
+        }
+        .form-close:hover {
+            color: var(--warning);
+            background: rgba(239,68,68,0.1);
         }
 
         .form-group {
-            margin-bottom: 1rem;
+            margin-bottom: 18px;
+            position: relative;
         }
-
-        label {
+        .form-group label {
             display: block;
-            margin-bottom: 0.5rem;
+            font-size: 0.8rem;
             font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
-
-        input, textarea, select {
+        .form-input {
             width: 100%;
-            padding: 0.75rem;
-            border: 1px solid var(--gray);
-            border-radius: var(--border-radius);
-            font-size: 1rem;
-            background-color: var(--card-bg);
-            color: var(--text-color);
+            padding: 11px 14px;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            font-family: var(--font-display);
+            outline: none;
+            transition: all var(--transition-base);
         }
-
-        textarea {
-            min-height: 100px;
+        .form-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-glow);
+        }
+        .form-input::placeholder { color: var(--text-muted); }
+        textarea.form-input {
+            min-height: 80px;
             resize: vertical;
         }
-
-        button {
-            background-color: var(--primary);
-            color: white;
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: var(--border-radius);
-            cursor: pointer;
+            border-radius: var(--radius-md);
+            color: white;
+            font-family: var(--font-display);
             font-size: 1rem;
             font-weight: 600;
-            transition: background-color 0.3s, transform 0.2s;
+            cursor: pointer;
+            transition: all var(--transition-spring);
+            position: relative;
+            overflow: hidden;
+            margin-top: 6px;
         }
-
-        button:hover {
-            background-color: var(--secondary);
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent, rgba(255,255,255,0.15), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+        .submit-btn:hover::before { transform: translateX(100%); }
+        .submit-btn:hover {
             transform: translateY(-2px);
+            box-shadow: 0 8px 30px var(--primary-glow);
         }
+        .submit-btn:active { transform: scale(0.98); }
 
-        .btn-warning {
-            background-color: var(--warning);
-        }
-
-        .btn-warning:hover {
-            background-color: #d11a6f;
-        }
-
+        /* ===== HACKATHON LIST ===== */
+        .list-panel { min-width: 0; }
         .hackathon-list {
-            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
         }
 
-        .hackathon-item {
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            box-shadow: var(--box-shadow);
-            border-left: 4px solid var(--primary);
-            transition: transform 0.3s;
+        .hack-card {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            backdrop-filter: blur(16px);
+            transition: all var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+            cursor: default;
+            animation: cardIn 0.5s var(--transition-smooth) both;
+        }
+        @keyframes cardIn {
+            from { opacity: 0; transform: translateY(20px) scale(0.97); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .hack-card.removing {
+            animation: cardOut 0.4s var(--transition-smooth) forwards;
+        }
+        @keyframes cardOut {
+            to { opacity: 0; transform: translateX(60px) scale(0.95); height: 0; padding: 0; margin: 0; border: 0; overflow: hidden; }
+        }
+        .hack-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            border-radius: 0 4px 4px 0;
+            transition: all var(--transition-base);
+        }
+        .hack-card.priority-low::after { background: var(--accent); }
+        .hack-card.priority-medium::after { background: var(--orange); }
+        .hack-card.priority-high::after { background: var(--warning); }
+        .hack-card.priority-overdue::after { background: var(--warning); animation: urgentPulse 1.5s ease-in-out infinite; }
+        @keyframes urgentPulse {
+            0%,100% { opacity: 1; box-shadow: 0 0 8px var(--warning-glow); }
+            50% { opacity: 0.5; box-shadow: 0 0 20px var(--warning-glow); }
         }
 
-        .hackathon-item:hover {
-            transform: translateY(-5px);
+        .hack-card:hover {
+            border-color: var(--border-hover);
+            background: var(--bg-card-hover);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
         }
-
-        .hackathon-item.urgent {
-            border-left-color: var(--warning);
+        .hack-card.completed-card {
+            opacity: 0.55;
         }
+        .hack-card.completed-card:hover { opacity: 0.75; }
 
-        .hackathon-header {
+        .hack-card-top {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 1rem;
+            gap: 16px;
+            margin-bottom: 12px;
         }
-
-        .hackathon-title {
-            font-size: 1.3rem;
+        .hack-card-title {
+            font-size: 1.15rem;
             font-weight: 600;
-            color: var(--text-color);
+            line-height: 1.3;
+            flex: 1;
+        }
+        .completed-card .hack-card-title {
+            text-decoration: line-through;
+            text-decoration-color: var(--text-muted);
+        }
+        .days-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 12px;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 600;
+            font-family: var(--font-mono);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .days-badge.safe { background: rgba(6,214,160,0.12); color: var(--accent); }
+        .days-badge.warning { background: rgba(245,158,11,0.12); color: var(--orange); }
+        .days-badge.danger { background: rgba(239,68,68,0.12); color: var(--warning); }
+        .days-badge.overdue { background: rgba(239,68,68,0.2); color: var(--warning); }
+
+        .hack-card-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 14px;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
-        .hackathon-dates {
+        .hack-card-dates {
             display: flex;
-            gap: 1rem;
-            margin-bottom: 1rem;
+            gap: 16px;
             flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+        .date-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            background: var(--glass);
+            padding: 5px 12px;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--glass-border);
+        }
+        .date-chip i { font-size: 0.7rem; }
+
+        .hack-card-progress {
+            margin-bottom: 16px;
+        }
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+        .progress-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .progress-pct {
+            font-size: 0.75rem;
+            font-family: var(--font-mono);
+            font-weight: 600;
+            color: var(--primary-light);
+        }
+        .progress-track {
+            height: 4px;
+            background: var(--bg-elevated);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            border-radius: var(--radius-full);
+            transition: width 1.2s var(--transition-smooth);
+            position: relative;
+        }
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: inherit;
+            box-shadow: 0 0 10px currentColor;
         }
 
-        .date-item {
+        .hack-card-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .action-btn {
+            padding: 7px 14px;
+            border: 1px solid var(--border);
+            background: var(--glass);
+            color: var(--text-secondary);
+            border-radius: var(--radius-full);
+            font-family: var(--font-display);
+            font-size: 0.78rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition-base);
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 5px;
+        }
+        .action-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: rgba(99,102,241,0.08);
+        }
+        .action-btn.complete-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(6,214,160,0.08);
+        }
+        .action-btn.delete-btn:hover {
+            border-color: var(--warning);
+            color: var(--warning);
+            background: rgba(239,68,68,0.08);
+        }
+        .action-btn.website-btn:hover {
+            border-color: var(--primary-light);
+            color: var(--primary-light);
+            background: rgba(129,140,248,0.08);
         }
 
-        .date-badge {
-            background-color: var(--light);
-            color: var(--dark);
-            padding: 0.25rem 0.5rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
+        /* ===== KANBAN VIEW ===== */
+        .kanban-view {
+            display: none;
+            gap: 20px;
+            overflow-x: auto;
+            padding-bottom: 16px;
         }
+        .kanban-view.active { display: grid; grid-template-columns: repeat(3, 1fr); }
+        @media(max-width:768px) { .kanban-view.active { grid-template-columns: 1fr; } }
 
-        .days-left {
-            background-color: var(--warning);
-            color: white;
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-weight: 600;
+        .kanban-column {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 20px 16px;
+            min-height: 200px;
+            backdrop-filter: blur(16px);
         }
-
-        .hackathon-actions {
+        .kanban-col-header {
             display: flex;
-            gap: 0.5rem;
-            margin-top: 1rem;
-            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--glass-border);
         }
-
-        .priority-indicator {
+        .kanban-col-dot {
+            width: 10px;
             height: 10px;
-            border-radius: 5px;
-            margin-top: 0.5rem;
-            background: linear-gradient(90deg, var(--warning), var(--success));
+            border-radius: 50%;
+        }
+        .kanban-col-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .kanban-col-count {
+            margin-left: auto;
+            font-size: 0.75rem;
+            font-family: var(--font-mono);
+            color: var(--text-muted);
+            background: var(--glass);
+            padding: 2px 10px;
+            border-radius: var(--radius-full);
+        }
+        .kanban-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .kanban-mini-card {
+            background: var(--bg-elevated);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            padding: 14px;
+            transition: all var(--transition-base);
+            cursor: default;
+        }
+        .kanban-mini-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-2px);
+        }
+        .kanban-mini-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .kanban-mini-meta {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
+        /* ===== TIMELINE VIEW ===== */
+        .timeline-view {
+            display: none;
+            position: relative;
+            padding-left: 40px;
+        }
+        .timeline-view.active { display: block; }
+        .timeline-view::before {
+            content: '';
+            position: absolute;
+            left: 18px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--primary), var(--accent), transparent);
+            border-radius: var(--radius-full);
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 28px;
+            animation: cardIn 0.5s var(--transition-smooth) both;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -31px;
+            top: 24px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--primary);
+            border: 3px solid var(--bg-primary);
+            box-shadow: 0 0 12px var(--primary-glow);
+            z-index: 1;
+        }
+        .timeline-item.urgent-tl .timeline-dot {
+            background: var(--warning);
+            box-shadow: 0 0 12px var(--warning-glow);
+            animation: urgentPulse 1.5s ease-in-out infinite;
+        }
+        .timeline-item.completed-tl .timeline-dot {
+            background: var(--accent);
+            box-shadow: 0 0 12px var(--accent-glow);
+        }
+
+        /* ===== EMPTY STATE ===== */
         .empty-state {
             text-align: center;
-            padding: 2rem;
-            color: var(--gray);
+            padding: 60px 20px;
+            animation: fadeUp 0.6s var(--transition-smooth) both;
         }
-
-        .empty-state i {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            opacity: 0.5;
+        .empty-icon {
+            font-size: 4rem;
+            color: var(--text-muted);
+            opacity: 0.3;
+            margin-bottom: 20px;
+            animation: emptyFloat 4s ease-in-out infinite;
         }
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-            margin-bottom: 2rem;
+        @keyframes emptyFloat {
+            0%,100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(5deg); }
         }
-
-        .stat-card {
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
-            padding: 1.5rem;
-            text-align: center;
-            box-shadow: var(--box-shadow);
-        }
-
-        .stat-number {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            font-size: 0.9rem;
-            color: var(--gray);
-        }
-
-        .filter-bar {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-        .filter-select {
-            flex: 1;
-            min-width: 150px;
-        }
-
-        .search-box {
-            flex: 2;
-            min-width: 200px;
-        }
-
-        .completed {
-            opacity: 0.7;
-            text-decoration: line-through;
-        }
-
-        .completed .hackathon-title {
-            text-decoration: line-through;
-        }
-
-        .tabs {
-            display: flex;
-            margin-bottom: 1.5rem;
-            border-bottom: 1px solid var(--gray);
-            flex-wrap: wrap;
-        }
-
-        .tab {
-            padding: 0.75rem 1.5rem;
-            cursor: pointer;
-            border-bottom: 3px solid transparent;
-        }
-
-        .tab.active {
-            border-bottom: 3px solid var(--primary);
+        .empty-title {
+            font-size: 1.2rem;
             font-weight: 600;
-            color: var(--primary);
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+        }
+        .empty-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
         }
 
-        .notification {
+        /* ===== MODAL OVERLAY ===== */
+        .modal-overlay {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: var(--success);
-            color: white;
-            padding: 1rem;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-            transform: translateY(100px);
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(8px);
+            z-index: 5000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
             opacity: 0;
-            transition: transform 0.3s, opacity 0.3s;
-            z-index: 1000;
+            visibility: hidden;
+            transition: all var(--transition-base);
+        }
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-box {
+            background: var(--bg-elevated);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-xl);
+            padding: 32px;
+            max-width: 440px;
+            width: 100%;
+            transform: scale(0.9) translateY(20px);
+            transition: all var(--transition-spring);
+        }
+        .modal-overlay.show .modal-box {
+            transform: scale(1) translateY(0);
+        }
+        .modal-icon {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+        }
+        .modal-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .modal-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+        .modal-btn {
+            padding: 10px 20px;
+            border-radius: var(--radius-full);
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            border: none;
+        }
+        .modal-btn-cancel {
+            background: var(--glass);
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+        }
+        .modal-btn-cancel:hover {
+            background: var(--bg-card);
+            color: var(--text-primary);
+        }
+        .modal-btn-danger {
+            background: var(--warning);
+            color: white;
+        }
+        .modal-btn-danger:hover {
+            background: #dc2626;
+            transform: translateY(-1px);
         }
 
-        .notification.show {
-            transform: translateY(0);
-            opacity: 1;
+        /* ===== TOAST ===== */
+        .toast-container {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            z-index: 9000;
+            display: flex;
+            flex-direction: column-reverse;
+            gap: 10px;
+        }
+        .toast {
+            background: var(--bg-elevated);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 280px;
+            max-width: 380px;
+            box-shadow: var(--shadow-lg);
+            animation: toastIn 0.5s var(--transition-spring) both;
+            backdrop-filter: blur(16px);
+            position: relative;
+            overflow: hidden;
+        }
+        .toast.removing {
+            animation: toastOut 0.4s var(--transition-smooth) forwards;
+        }
+        @keyframes toastIn {
+            from { opacity: 0; transform: translateX(80px) scale(0.9); }
+            to { opacity: 1; transform: translateX(0) scale(1); }
+        }
+        @keyframes toastOut {
+            to { opacity: 0; transform: translateX(80px) scale(0.9); }
+        }
+        .toast-icon {
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+        .toast-icon.success { color: var(--accent); }
+        .toast-icon.error { color: var(--warning); }
+        .toast-icon.info { color: var(--primary-light); }
+        .toast-body { flex: 1; }
+        .toast-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .toast-desc {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+        .toast-progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 2px;
+            border-radius: var(--radius-full);
+            animation: toastProgress 3s linear forwards;
+        }
+        .toast-progress.success { background: var(--accent); }
+        .toast-progress.error { background: var(--warning); }
+        .toast-progress.info { background: var(--primary-light); }
+        @keyframes toastProgress {
+            from { width: 100%; }
+            to { width: 0%; }
+        }
+
+        /* ===== CONFETTI ===== */
+        .confetti-piece {
+            position: fixed;
+            z-index: 9999;
+            pointer-events: none;
+            animation: confettiFall linear forwards;
+        }
+        @keyframes confettiFall {
+            0% { opacity: 1; transform: translateY(0) rotate(0deg) scale(1); }
+            100% { opacity: 0; transform: translateY(100vh) rotate(720deg) scale(0.3); }
+        }
+
+        /* ===== KEYBOARD SHORTCUT HINT BAR ===== */
+        .shortcut-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-card);
+            border-top: 1px solid var(--glass-border);
+            backdrop-filter: blur(20px);
+            padding: 10px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            z-index: 100;
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            transition: opacity var(--transition-base);
+        }
+        .shortcut-bar:hover { opacity: 0.4; }
+        .shortcut-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media(max-width:600px) {
+            .main-wrapper { padding: 14px 14px 70px; }
+            .top-bar { padding: 12px 16px; flex-wrap: wrap; gap: 10px; }
+            .logo-text { font-size: 1.2rem; }
+            .kbd-hint { display: none; }
+            .hero { padding: 30px 0 30px; }
+            .toolbar { gap: 8px; }
+            .form-card { padding: 20px; }
+            .hack-card { padding: 18px; }
+            .shortcut-bar { display: none; }
+        }
+
+        /* ===== REDUCED MOTION ===== */
+        @media(prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
         }
     </style>
 </head>
-<body class="theme-default">
-    <div class="container">
-        <header>
-            <div class="theme-selector">
-                <div class="theme-option theme-default" data-theme="default" title="Default Theme"></div>
-                <div class="theme-option theme-dark" data-theme="dark" title="Dark Theme"></div>
-                <div class="theme-option theme-ocean" data-theme="ocean" title="Ocean Theme"></div>
-                <div class="theme-option theme-forest" data-theme="forest" title="Forest Theme"></div>
-                <div class="theme-option theme-sunset" data-theme="sunset" title="Sunset Theme"></div>
+<body>
+    <!-- Page Loader -->
+    <div class="page-loader" id="pageLoader">
+        <div class="loader-logo">HackTrack</div>
+        <div class="loader-bar-track"><div class="loader-bar-fill"></div></div>
+    </div>
+
+    <!-- Cursor Glow -->
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+    <!-- Particles -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Main Content -->
+    <div class="main-wrapper">
+        <!-- Top Bar -->
+        <nav class="top-bar">
+            <div class="top-bar-left">
+                <div class="logo-icon"><i class="fas fa-bolt"></i></div>
+                <div class="logo-text"><span>Hack</span>Track</div>
             </div>
-            <h1>HackTrack</h1>
-            <p>Your personal hackathon manager to track deadlines and submissions</p>
-        </header>
-        
-        <div class="stats">
+            <div class="top-bar-right">
+                <div class="theme-pill pill-default active-theme" data-theme="default" title="Default"></div>
+                <div class="theme-pill pill-light" data-theme="light" title="Light"></div>
+                <div class="theme-pill pill-ocean" data-theme="ocean" title="Ocean"></div>
+                <div class="theme-pill pill-forest" data-theme="forest" title="Forest"></div>
+                <div class="theme-pill pill-sunset" data-theme="sunset" title="Sunset"></div>
+                <div class="kbd-hint"><kbd class="kbd">T</kbd> Theme</div>
+            </div>
+        </nav>
+
+        <!-- Hero -->
+        <section class="hero">
+            <div class="hero-badge"><div class="dot"></div> Tracking your hackathon journey</div>
+            <h1>Command Center for<br><span class="gradient-text">Hackathon Warriors</span></h1>
+            <p>Never miss a deadline. Track every submission. Dominate every hackathon.</p>
+        </section>
+
+        <!-- Stats -->
+        <section class="stats-grid" aria-label="Statistics">
             <div class="stat-card">
-                <div class="stat-number" id="total-hackathons">0</div>
-                <div class="stat-label">Total Hackathons</div>
+                <div class="stat-ring-wrap">
+                    <svg width="56" height="56" viewBox="0 0 56 56">
+                        <circle class="stat-ring-bg" cx="28" cy="28" r="24"/>
+                        <circle class="stat-ring-fill" cx="28" cy="28" r="24"
+                            stroke="var(--primary)" stroke-dasharray="150.8" stroke-dashoffset="150.8" data-ring="total"/>
+                    </svg>
+                    <div class="stat-ring-icon"><i class="fas fa-trophy"></i></div>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-number" data-count="0" id="statTotal">0</div>
+                    <div class="stat-label">Total</div>
+                </div>
             </div>
             <div class="stat-card">
-                <div class="stat-number" id="active-hackathons">0</div>
-                <div class="stat-label">Active Hackathons</div>
+                <div class="stat-ring-wrap">
+                    <svg width="56" height="56" viewBox="0 0 56 56">
+                        <circle class="stat-ring-bg" cx="28" cy="28" r="24"/>
+                        <circle class="stat-ring-fill" cx="28" cy="28" r="24"
+                            stroke="var(--accent)" stroke-dasharray="150.8" stroke-dashoffset="150.8" data-ring="active"/>
+                    </svg>
+                    <div class="stat-ring-icon"><i class="fas fa-fire"></i></div>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-number" data-count="0" id="statActive">0</div>
+                    <div class="stat-label">Active</div>
+                </div>
             </div>
             <div class="stat-card">
-                <div class="stat-number" id="urgent-hackathons">0</div>
-                <div class="stat-label">Urgent Deadlines</div>
+                <div class="stat-ring-wrap">
+                    <svg width="56" height="56" viewBox="0 0 56 56">
+                        <circle class="stat-ring-bg" cx="28" cy="28" r="24"/>
+                        <circle class="stat-ring-fill" cx="28" cy="28" r="24"
+                            stroke="var(--warning)" stroke-dasharray="150.8" stroke-dashoffset="150.8" data-ring="urgent"/>
+                    </svg>
+                    <div class="stat-ring-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-number" data-count="0" id="statUrgent">0</div>
+                    <div class="stat-label">Urgent</div>
+                </div>
             </div>
-        </div>
-        
-        <div class="tabs">
-            <div class="tab active" data-tab="all">All Hackathons</div>
-            <div class="tab" data-tab="active">Active</div>
-            <div class="tab" data-tab="upcoming">Upcoming</div>
-            <div class="tab" data-tab="completed">Completed</div>
-        </div>
-        
-        <div class="filter-bar">
-            <div class="search-box">
-                <input type="text" id="search-input" placeholder="Search hackathons...">
+            <div class="stat-card">
+                <div class="stat-ring-wrap">
+                    <svg width="56" height="56" viewBox="0 0 56 56">
+                        <circle class="stat-ring-bg" cx="28" cy="28" r="24"/>
+                        <circle class="stat-ring-fill" cx="28" cy="28" r="24"
+                            stroke="var(--orange)" stroke-dasharray="150.8" stroke-dashoffset="150.8" data-ring="completed"/>
+                    </svg>
+                    <div class="stat-ring-icon"><i class="fas fa-check-circle"></i></div>
+                </div>
+                <div class="stat-info">
+                    <div class="stat-number" data-count="0" id="statCompleted">0</div>
+                    <div class="stat-label">Completed</div>
+                </div>
             </div>
-            <div class="filter-select">
-                <select id="sort-select">
-                    <option value="deadline">Sort by Deadline</option>
-                    <option value="name">Sort by Name</option>
-                    <option value="priority">Sort by Priority</option>
-                </select>
+        </section>
+
+        <!-- Toolbar -->
+        <div class="toolbar">
+            <div class="search-wrap">
+                <input type="text" id="searchInput" placeholder="Search hackathons..." aria-label="Search hackathons">
+                <i class="fas fa-search"></i>
             </div>
+            <div class="view-toggle" role="tablist">
+                <button class="view-btn active" data-view="list" role="tab" aria-selected="true"><i class="fas fa-list"></i> List</button>
+                <button class="view-btn" data-view="kanban" role="tab" aria-selected="false"><i class="fas fa-columns"></i> Board</button>
+                <button class="view-btn" data-view="timeline" role="tab" aria-selected="false"><i class="fas fa-stream"></i> Timeline</button>
+            </div>
+            <select class="sort-select" id="sortSelect" aria-label="Sort by">
+                <option value="deadline">Deadline</option>
+                <option value="name">Name</option>
+                <option value="priority">Priority</option>
+            </select>
+            <button class="add-btn" id="openFormBtn" aria-label="Add new hackathon"><i class="fas fa-plus"></i> New</button>
         </div>
-        
-        <div class="dashboard">
-            <div>
-                <div class="card">
-                    <h2>Add New Hackathon</h2>
-                    <form id="hackathon-form">
+
+        <!-- Content -->
+        <div class="content-area">
+            <!-- Form Panel -->
+            <aside class="form-panel">
+                <div class="form-card" id="formCard">
+                    <div class="form-header">
+                        <div class="form-title"><i class="fas fa-plus-circle"></i> New Hackathon</div>
+                        <button class="form-close" id="closeFormBtn" aria-label="Close form"><i class="fas fa-times"></i></button>
+                    </div>
+                    <form id="hackathonForm" novalidate>
                         <div class="form-group">
-                            <label for="name">Hackathon Name</label>
-                            <input type="text" id="name" required>
+                            <label for="hackName">Name</label>
+                            <input class="form-input" type="text" id="hackName" placeholder="e.g. MLH Hackathon 2025" required>
                         </div>
                         <div class="form-group">
-                            <label for="description">Description</label>
-                            <textarea id="description"></textarea>
+                            <label for="hackDesc">Description</label>
+                            <textarea class="form-input" id="hackDesc" placeholder="Brief description of the hackathon..."></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="hackStart">Start Date</label>
+                                <input class="form-input" type="date" id="hackStart" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="hackEnd">End Date</label>
+                                <input class="form-input" type="date" id="hackEnd" required>
+                            </div>
                         </div>
                         <div class="form-group">
-                            <label for="start-date">Start Date</label>
-                            <input type="date" id="start-date" required>
+                            <label for="hackPPT">PPT Deadline</label>
+                            <input class="form-input" type="date" id="hackPPT" required>
                         </div>
                         <div class="form-group">
-                            <label for="end-date">End Date</label>
-                            <input type="date" id="end-date" required>
+                            <label for="hackURL">Website (optional)</label>
+                            <input class="form-input" type="url" id="hackURL" placeholder="https://...">
                         </div>
-                        <div class="form-group">
-                            <label for="ppt-deadline">PPT Submission Deadline</label>
-                            <input type="date" id="ppt-deadline" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="website">Website URL (Optional)</label>
-                            <input type="url" id="website">
-                        </div>
-                        <button type="submit">Add Hackathon</button>
+                        <button type="submit" class="submit-btn"><i class="fas fa-rocket"></i> Launch Hackathon</button>
                     </form>
                 </div>
-            </div>
-            
-            <div>
-                <div class="card">
-                    <h2>Your Hackathons</h2>
-                    <ul class="hackathon-list" id="hackathon-list">
-                        <!-- Hackathon items will be added here dynamically -->
-                    </ul>
-                    <div class="empty-state" id="empty-state" style="display: none;">
-                        <i class="fas fa-clipboard-list"></i>
-                        <h3>No hackathons added yet</h3>
-                        <p>Add your first hackathon using the form on the left</p>
+            </aside>
+
+            <!-- List Panel -->
+            <main class="list-panel">
+                <!-- List View -->
+                <div class="hackathon-list" id="listView"></div>
+                <!-- Kanban View -->
+                <div class="kanban-view" id="kanbanView">
+                    <div class="kanban-column" id="kanbanUpcoming">
+                        <div class="kanban-col-header">
+                            <div class="kanban-col-dot" style="background:var(--primary-light)"></div>
+                            <div class="kanban-col-title">Upcoming</div>
+                            <div class="kanban-col-count" id="kanbanUpcomingCount">0</div>
+                        </div>
+                        <div class="kanban-cards" id="kanbanUpcomingCards"></div>
+                    </div>
+                    <div class="kanban-column" id="kanbanActive">
+                        <div class="kanban-col-header">
+                            <div class="kanban-col-dot" style="background:var(--accent)"></div>
+                            <div class="kanban-col-title">Active</div>
+                            <div class="kanban-col-count" id="kanbanActiveCount">0</div>
+                        </div>
+                        <div class="kanban-cards" id="kanbanActiveCards"></div>
+                    </div>
+                    <div class="kanban-column" id="kanbanDone">
+                        <div class="kanban-col-header">
+                            <div class="kanban-col-dot" style="background:var(--text-muted)"></div>
+                            <div class="kanban-col-title">Done</div>
+                            <div class="kanban-col-count" id="kanbanDoneCount">0</div>
+                        </div>
+                        <div class="kanban-cards" id="kanbanDoneCards"></div>
                     </div>
                 </div>
+                <!-- Timeline View -->
+                <div class="timeline-view" id="timelineView"></div>
+                <!-- Empty State -->
+                <div class="empty-state" id="emptyState" style="display:none;">
+                    <div class="empty-icon"><i class="fas fa-rocket"></i></div>
+                    <div class="empty-title">No hackathons yet</div>
+                    <div class="empty-desc">Click "New" to add your first hackathon and start tracking</div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Delete Modal -->
+    <div class="modal-overlay" id="deleteModal" role="dialog" aria-modal="true">
+        <div class="modal-box">
+            <div class="modal-icon" style="color:var(--warning)"><i class="fas fa-trash-alt"></i></div>
+            <div class="modal-title">Delete Hackathon?</div>
+            <div class="modal-desc">This action cannot be undone. The hackathon and all its data will be permanently removed.</div>
+            <div class="modal-actions">
+                <button class="modal-btn modal-btn-cancel" id="cancelDelete">Cancel</button>
+                <button class="modal-btn modal-btn-danger" id="confirmDelete">Delete</button>
             </div>
         </div>
     </div>
 
-    <div class="notification" id="notification">
-        Theme changed successfully!
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Shortcut Bar -->
+    <div class="shortcut-bar">
+        <div class="shortcut-item"><kbd class="kbd">N</kbd> New</div>
+        <div class="shortcut-item"><kbd class="kbd">T</kbd> Theme</div>
+        <div class="shortcut-item"><kbd class="kbd">/</kbd> Search</div>
+        <div class="shortcut-item"><kbd class="kbd">1</kbd><kbd class="kbd">2</kbd><kbd class="kbd">3</kbd> Views</div>
+        <div class="shortcut-item"><kbd class="kbd">Esc</kbd> Close</div>
     </div>
 
     <script>
-        // Hackathon data structure
+    (function() {
+        'use strict';
+
+        // ===== DATA =====
         let hackathons = [];
-        
-        // DOM elements
-        const hackathonForm = document.getElementById('hackathon-form');
-        const hackathonList = document.getElementById('hackathon-list');
-        const emptyState = document.getElementById('empty-state');
-        const searchInput = document.getElementById('search-input');
-        const sortSelect = document.getElementById('sort-select');
-        const tabs = document.querySelectorAll('.tab');
-        const themeOptions = document.querySelectorAll('.theme-option');
-        const notification = document.getElementById('notification');
-        
-        // Stats elements
-        const totalHackathonsEl = document.getElementById('total-hackathons');
-        const activeHackathonsEl = document.getElementById('active-hackathons');
-        const urgentHackathonsEl = document.getElementById('urgent-hackathons');
-        
-        // Load hackathons and theme from localStorage on page load
-        document.addEventListener('DOMContentLoaded', () => {
-            loadHackathons();
-            loadTheme();
-            renderHackathons();
-            updateStats();
-            
-            // Set minimum date to today for date inputs
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('start-date').min = today;
-            document.getElementById('end-date').min = today;
-            document.getElementById('ppt-deadline').min = today;
+        let currentView = 'list';
+        let deleteTargetId = null;
+
+        // ===== DOM REFS =====
+        const $ = (s) => document.querySelector(s);
+        const $$ = (s) => document.querySelectorAll(s);
+        const listView = $('#listView');
+        const kanbanView = $('#kanbanView');
+        const timelineView = $('#timelineView');
+        const emptyState = $('#emptyState');
+        const formCard = $('#formCard');
+        const hackForm = $('#hackathonForm');
+        const searchInput = $('#searchInput');
+        const sortSelect = $('#sortSelect');
+        const deleteModal = $('#deleteModal');
+        const toastContainer = $('#toastContainer');
+        const cursorGlow = $('#cursorGlow');
+        const canvas = $('#particles-canvas');
+        const ctx = canvas.getContext('2d');
+
+        // ===== PAGE LOADER =====
+        window.addEventListener('load', () => {
+            setTimeout(() => $('#pageLoader').classList.add('hidden'), 2000);
         });
-        
-        // Form submission handler
-        hackathonForm.addEventListener('submit', (e) => {
+
+        // ===== PARTICLES =====
+        let particles = [];
+        let mouseX = 0, mouseY = 0;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        class Particle {
+            constructor() { this.reset(); }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.4;
+                this.speedY = (Math.random() - 0.5) * 0.4;
+                this.opacity = Math.random() * 0.4 + 0.1;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                const dx = mouseX - this.x;
+                const dy = mouseY - this.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 150) {
+                    this.x -= dx * 0.01;
+                    this.y -= dy * 0.01;
+                }
+                if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+                    this.reset();
+                }
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(99,102,241,${this.opacity})`;
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 60; i++) particles.push(new Particle());
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            // Draw connections
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 120) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = `rgba(99,102,241,${0.06 * (1 - dist / 120)})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        // ===== CURSOR GLOW =====
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            cursorGlow.style.left = e.clientX + 'px';
+            cursorGlow.style.top = e.clientY + 'px';
+        });
+
+        // ===== LOCAL STORAGE =====
+        function save() { localStorage.setItem('ht_hackathons', JSON.stringify(hackathons)); }
+        function load() {
+            try { hackathons = JSON.parse(localStorage.getItem('ht_hackathons')) || []; }
+            catch { hackathons = []; }
+        }
+
+        // ===== THEME =====
+        function setTheme(name) {
+            document.body.className = name === 'default' ? '' : 'theme-' + name;
+            $$('.theme-pill').forEach(p => p.classList.toggle('active-theme', p.dataset.theme === name));
+            localStorage.setItem('ht_theme', name);
+        }
+        $$('.theme-pill').forEach(p => p.addEventListener('click', () => {
+            setTheme(p.dataset.theme);
+            showToast('info', 'Theme Changed', `Switched to ${p.dataset.theme} theme`);
+        }));
+        const savedTheme = localStorage.getItem('ht_theme');
+        if (savedTheme) setTheme(savedTheme);
+
+        // ===== VIEW TOGGLE =====
+        $$('.view-btn').forEach(btn => btn.addEventListener('click', () => {
+            $$('.view-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); });
+            btn.classList.add('active');
+            btn.setAttribute('aria-selected', 'true');
+            currentView = btn.dataset.view;
+            listView.style.display = currentView === 'list' ? '' : 'none';
+            kanbanView.classList.toggle('active', currentView === 'kanban');
+            timelineView.classList.toggle('active', currentView === 'timeline');
+            render();
+        }));
+
+        // ===== FORM TOGGLE =====
+        $('#openFormBtn').addEventListener('click', () => {
+            formCard.classList.remove('collapsed');
+            formCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            $('#hackName').focus();
+        });
+        $('#closeFormBtn').addEventListener('click', () => formCard.classList.add('collapsed'));
+
+        // ===== SEARCH & SORT =====
+        searchInput.addEventListener('input', render);
+        sortSelect.addEventListener('change', render);
+
+        // ===== FORM SUBMIT =====
+        hackForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            
-            const name = document.getElementById('name').value;
-            const description = document.getElementById('description').value;
-            const startDate = document.getElementById('start-date').value;
-            const endDate = document.getElementById('end-date').value;
-            const pptDeadline = document.getElementById('ppt-deadline').value;
-            const website = document.getElementById('website').value;
-            
-            // Validate dates
-            if (new Date(pptDeadline) < new Date()) {
-                alert('PPT deadline cannot be in the past');
+            const name = $('#hackName').value.trim();
+            const desc = $('#hackDesc').value.trim();
+            const start = $('#hackStart').value;
+            const end = $('#hackEnd').value;
+            const ppt = $('#hackPPT').value;
+            const url = $('#hackURL').value.trim();
+
+            if (!name || !start || !end || !ppt) {
+                showToast('error', 'Missing Fields', 'Please fill in all required fields');
                 return;
             }
-            
-            if (new Date(startDate) > new Date(endDate)) {
-                alert('End date must be after start date');
+            if (new Date(end) < new Date(start)) {
+                showToast('error', 'Invalid Dates', 'End date must be after start date');
                 return;
             }
-            
-            // Create hackathon object
-            const hackathon = {
-                id: Date.now(), // Simple ID generation
-                name,
-                description,
-                startDate,
-                endDate,
-                pptDeadline,
-                website,
+
+            hackathons.push({
+                id: Date.now(),
+                name, description: desc,
+                startDate: start, endDate: end,
+                pptDeadline: ppt, website: url,
                 completed: false,
                 createdAt: new Date().toISOString()
-            };
-            
-            // Add to array and save
-            hackathons.push(hackathon);
-            saveHackathons();
-            renderHackathons();
-            updateStats();
-            
-            // Reset form
-            hackathonForm.reset();
-        });
-        
-        // Search functionality
-        searchInput.addEventListener('input', renderHackathons);
-        
-        // Sort functionality
-        sortSelect.addEventListener('change', renderHackathons);
-        
-        // Tab functionality
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                tabs.forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-                renderHackathons();
             });
+            save();
+            hackForm.reset();
+            render();
+            showToast('success', 'Hackathon Added', `"${name}" is now being tracked`);
         });
-        
-        // Theme switching functionality
-        themeOptions.forEach(option => {
-            option.addEventListener('click', () => {
-                const theme = option.getAttribute('data-theme');
-                setTheme(theme);
-                showNotification('Theme changed to ' + theme + ' mode');
-            });
-        });
-        
-        // Save hackathons to localStorage
-        function saveHackathons() {
-            localStorage.setItem('hackathons', JSON.stringify(hackathons));
+
+        // ===== HELPERS =====
+        function daysLeft(deadline) {
+            return Math.ceil((new Date(deadline) - new Date()) / 86400000);
         }
-        
-        // Load hackathons from localStorage
-        function loadHackathons() {
-            const saved = localStorage.getItem('hackathons');
-            if (saved) {
-                hackathons = JSON.parse(saved);
-            }
-        }
-        
-        // Save theme to localStorage
-        function saveTheme(theme) {
-            localStorage.setItem('hackathonTrackerTheme', theme);
-        }
-        
-        // Load theme from localStorage
-        function loadTheme() {
-            const savedTheme = localStorage.getItem('hackathonTrackerTheme');
-            if (savedTheme) {
-                setTheme(savedTheme);
-            }
-        }
-        
-        // Set the active theme
-        function setTheme(theme) {
-            // Remove all theme classes
-            document.body.classList.remove('theme-default', 'theme-dark', 'theme-ocean', 'theme-forest', 'theme-sunset');
-            
-            // Add the selected theme class
-            document.body.classList.add('theme-' + theme);
-            
-            // Save the theme preference
-            saveTheme(theme);
-        }
-        
-        // Show notification
-        function showNotification(message) {
-            notification.textContent = message;
-            notification.classList.add('show');
-            
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 3000);
-        }
-        
-        // Calculate days left until PPT deadline
-        function getDaysLeft(deadline) {
-            const today = new Date();
-            const deadlineDate = new Date(deadline);
-            const diffTime = deadlineDate - today;
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            return diffDays;
-        }
-        
-        // Get priority level based on days left
-        function getPriority(daysLeft) {
-            if (daysLeft <= 0) return 'overdue';
-            if (daysLeft <= 3) return 'high';
-            if (daysLeft <= 7) return 'medium';
+        function priority(d) {
+            if (d <= 0) return 'overdue';
+            if (d <= 3) return 'high';
+            if (d <= 7) return 'medium';
             return 'low';
         }
-        
-        // Render hackathons to the list
-        function renderHackathons() {
-            // Clear current list
-            hackathonList.innerHTML = '';
-            
-            // Get current tab
-            const activeTab = document.querySelector('.tab.active').dataset.tab;
-            
-            // Filter hackathons based on search and active tab
-            let filteredHackathons = hackathons.filter(hackathon => {
-                // Search filter
-                const searchTerm = searchInput.value.toLowerCase();
-                const matchesSearch = hackathon.name.toLowerCase().includes(searchTerm) || 
-                                     hackathon.description.toLowerCase().includes(searchTerm);
-                
-                // Tab filter
-                let matchesTab = true;
-                const daysLeft = getDaysLeft(hackathon.pptDeadline);
-                
-                switch(activeTab) {
-                    case 'active':
-                        matchesTab = daysLeft > 0 && !hackathon.completed;
-                        break;
-                    case 'upcoming':
-                        matchesTab = new Date(hackathon.startDate) > new Date() && !hackathon.completed;
-                        break;
-                    case 'completed':
-                        matchesTab = hackathon.completed;
-                        break;
-                    default:
-                        matchesTab = true;
-                }
-                
-                return matchesSearch && matchesTab;
+        function priorityOrder(p) { return { overdue: 0, high: 1, medium: 2, low: 3 }[p] || 4; }
+        function fmtDate(s) {
+            return new Date(s).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+        }
+        function progressPct(h) {
+            const start = new Date(h.startDate).getTime();
+            const end = new Date(h.endDate).getTime();
+            const now = Date.now();
+            if (now <= start) return 0;
+            if (now >= end) return 100;
+            return Math.round(((now - start) / (end - start)) * 100);
+        }
+        function progressColor(pct) {
+            if (pct < 40) return 'var(--accent)';
+            if (pct < 75) return 'var(--orange)';
+            return 'var(--warning)';
+        }
+
+        // ===== FILTERING & SORTING =====
+        function getFiltered() {
+            const q = searchInput.value.toLowerCase();
+            let list = hackathons.filter(h =>
+                h.name.toLowerCase().includes(q) || (h.description || '').toLowerCase().includes(q)
+            );
+            const sort = sortSelect.value;
+            list.sort((a, b) => {
+                if (sort === 'name') return a.name.localeCompare(b.name);
+                if (sort === 'priority') return priorityOrder(priority(daysLeft(a.pptDeadline))) - priorityOrder(priority(daysLeft(b.pptDeadline)));
+                return new Date(a.pptDeadline) - new Date(b.pptDeadline);
             });
-            
-            // Sort hackathons
-            const sortBy = sortSelect.value;
-            filteredHackathons.sort((a, b) => {
-                switch(sortBy) {
-                    case 'name':
-                        return a.name.localeCompare(b.name);
-                    case 'priority':
-                        const aPriority = getPriority(getDaysLeft(a.pptDeadline));
-                        const bPriority = getPriority(getDaysLeft(b.pptDeadline));
-                        const priorityOrder = { overdue: 0, high: 1, medium: 2, low: 3 };
-                        return priorityOrder[aPriority] - priorityOrder[bPriority];
-                    case 'deadline':
-                    default:
-                        return new Date(a.pptDeadline) - new Date(b.pptDeadline);
-                }
-            });
-            
-            // Show empty state if no hackathons
-            if (filteredHackathons.length === 0) {
-                emptyState.style.display = 'block';
-            } else {
-                emptyState.style.display = 'none';
-                
-                // Create hackathon items
-                filteredHackathons.forEach(hackathon => {
-                    const daysLeft = getDaysLeft(hackathon.pptDeadline);
-                    const priority = getPriority(daysLeft);
-                    
-                    const hackathonItem = document.createElement('li');
-                    hackathonItem.className = `hackathon-item ${priority === 'high' || priority === 'overdue' ? 'urgent' : ''} ${hackathon.completed ? 'completed' : ''}`;
-                    
-                    hackathonItem.innerHTML = `
-                        <div class="hackathon-header">
-                            <div class="hackathon-title">${hackathon.name}</div>
-                            <div class="days-left">${daysLeft < 0 ? 'Overdue' : `${daysLeft} days left`}</div>
+            return list;
+        }
+
+        // ===== RENDER =====
+        function render() {
+            const list = getFiltered();
+            const hasItems = list.length > 0;
+            emptyState.style.display = hasItems ? 'none' : '';
+            updateStats();
+
+            // List View
+            if (currentView === 'list') {
+                listView.innerHTML = list.map((h, i) => {
+                    const d = daysLeft(h.pptDeadline);
+                    const p = priority(d);
+                    const pct = progressPct(h);
+                    const pColor = progressColor(pct);
+                    const badgeCls = d <= 0 ? 'overdue' : d <= 3 ? 'danger' : d <= 7 ? 'warning' : 'safe';
+                    const badgeText = d <= 0 ? `${Math.abs(d)}d overdue` : `${d}d left`;
+                    return `
+                    <article class="hack-card priority-${p} ${h.completed ? 'completed-card' : ''}" style="animation-delay:${i * 0.06}s" data-id="${h.id}">
+                        <div class="hack-card-top">
+                            <div class="hack-card-title">${escHTML(h.name)}</div>
+                            <span class="days-badge ${badgeCls}"><i class="fas fa-clock"></i> ${badgeText}</span>
                         </div>
-                        <div class="hackathon-dates">
-                            <div class="date-item">
-                                <span>📅 Start:</span>
-                                <span class="date-badge">${formatDate(hackathon.startDate)}</span>
+                        ${h.description ? `<div class="hack-card-desc">${escHTML(h.description)}</div>` : ''}
+                        <div class="hack-card-dates">
+                            <span class="date-chip"><i class="fas fa-calendar-alt"></i> ${fmtDate(h.startDate)}</span>
+                            <span class="date-chip"><i class="fas fa-flag-checkered"></i> ${fmtDate(h.endDate)}</span>
+                            <span class="date-chip"><i class="fas fa-file-powerpoint"></i> ${fmtDate(h.pptDeadline)}</span>
+                        </div>
+                        <div class="hack-card-progress">
+                            <div class="progress-header">
+                                <span class="progress-label">Progress</span>
+                                <span class="progress-pct" style="color:${pColor}">${pct}%</span>
                             </div>
-                            <div class="date-item">
-                                <span>🏁 End:</span>
-                                <span class="date-badge">${formatDate(hackathon.endDate)}</span>
-                            </div>
-                            <div class="date-item">
-                                <span>📊 PPT Due:</span>
-                                <span class="date-badge">${formatDate(hackathon.pptDeadline)}</span>
+                            <div class="progress-track">
+                                <div class="progress-fill" style="width:${pct}%;background:${pColor};color:${pColor}"></div>
                             </div>
                         </div>
-                        ${hackathon.description ? `<p>${hackathon.description}</p>` : ''}
-                        <div class="priority-indicator" style="width: ${getPriorityWidth(priority)}%"></div>
-                        <div class="hackathon-actions">
-                            <button class="toggle-complete" data-id="${hackathon.id}">
-                                ${hackathon.completed ? 'Mark as Active' : 'Mark as Completed'}
+                        <div class="hack-card-actions">
+                            <button class="action-btn complete-btn" onclick="HT.toggle(${h.id})">
+                                <i class="fas fa-${h.completed ? 'undo' : 'check'}"></i> ${h.completed ? 'Reactivate' : 'Complete'}
                             </button>
-                            <button class="btn-warning delete" data-id="${hackathon.id}">Delete</button>
-                            ${hackathon.website ? `<a href="${hackathon.website}" target="_blank"><button>Visit Website</button></a>` : ''}
+                            ${h.website ? `<a href="${escHTML(h.website)}" target="_blank" rel="noopener" class="action-btn website-btn"><i class="fas fa-external-link-alt"></i> Site</a>` : ''}
+                            <button class="action-btn delete-btn" onclick="HT.askDelete(${h.id})">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
                         </div>
-                    `;
-                    
-                    hackathonList.appendChild(hackathonItem);
-                });
+                    </article>`;
+                }).join('');
             }
-            
-            // Add event listeners to action buttons
-            document.querySelectorAll('.toggle-complete').forEach(button => {
-                button.addEventListener('click', (e) => {
-                    const id = parseInt(e.target.dataset.id);
-                    toggleComplete(id);
-                });
-            });
-            
-            document.querySelectorAll('.delete').forEach(button => {
-                button.addEventListener('click', (e) => {
-                    const id = parseInt(e.target.dataset.id);
-                    deleteHackathon(id);
-                });
-            });
-        }
-        
-        // Format date for display
-        function formatDate(dateString) {
-            const options = { year: 'numeric', month: 'short', day: 'numeric' };
-            return new Date(dateString).toLocaleDateString(undefined, options);
-        }
-        
-        // Get width for priority indicator
-        function getPriorityWidth(priority) {
-            switch(priority) {
-                case 'overdue': return 100;
-                case 'high': return 80;
-                case 'medium': return 50;
-                case 'low': return 20;
-                default: return 0;
+
+            // Kanban View
+            if (currentView === 'kanban') {
+                const upcoming = list.filter(h => new Date(h.startDate) > new Date() && !h.completed);
+                const active = list.filter(h => { const d = daysLeft(h.pptDeadline); return d > 0 && new Date(h.startDate) <= new Date() && !h.completed; });
+                const done = list.filter(h => h.completed);
+                $('#kanbanUpcomingCards').innerHTML = upcoming.map(miniCard).join('');
+                $('#kanbanActiveCards').innerHTML = active.map(miniCard).join('');
+                $('#kanbanDoneCards').innerHTML = done.map(miniCard).join('');
+                $('#kanbanUpcomingCount').textContent = upcoming.length;
+                $('#kanbanActiveCount').textContent = active.length;
+                $('#kanbanDoneCount').textContent = done.length;
             }
-        }
-        
-        // Toggle hackathon completion status
-        function toggleComplete(id) {
-            const hackathon = hackathons.find(h => h.id === id);
-            if (hackathon) {
-                hackathon.completed = !hackathon.completed;
-                saveHackathons();
-                renderHackathons();
-                updateStats();
+
+            // Timeline View
+            if (currentView === 'timeline') {
+                timelineView.innerHTML = list.map((h, i) => {
+                    const d = daysLeft(h.pptDeadline);
+                    const p = priority(d);
+                    return `
+                    <div class="timeline-item ${p === 'high' || p === 'overdue' ? 'urgent-tl' : ''} ${h.completed ? 'completed-tl' : ''}" style="animation-delay:${i * 0.08}s">
+                        <div class="timeline-dot"></div>
+                        <div class="hack-card priority-${p} ${h.completed ? 'completed-card' : ''}">
+                            <div class="hack-card-top">
+                                <div class="hack-card-title">${escHTML(h.name)}</div>
+                                <span class="days-badge ${d <= 0 ? 'overdue' : d <= 3 ? 'danger' : d <= 7 ? 'warning' : 'safe'}">${d <= 0 ? `${Math.abs(d)}d overdue` : `${d}d left`}</span>
+                            </div>
+                            <div class="hack-card-dates">
+                                <span class="date-chip"><i class="fas fa-calendar-alt"></i> ${fmtDate(h.startDate)}</span>
+                                <span class="date-chip"><i class="fas fa-flag-checkered"></i> ${fmtDate(h.endDate)}</span>
+                                <span class="date-chip"><i class="fas fa-file-powerpoint"></i> ${fmtDate(h.pptDeadline)}</span>
+                            </div>
+                            <div class="hack-card-actions">
+                                <button class="action-btn complete-btn" onclick="HT.toggle(${h.id})"><i class="fas fa-${h.completed ? 'undo' : 'check'}"></i> ${h.completed ? 'Reactivate' : 'Complete'}</button>
+                                ${h.website ? `<a href="${escHTML(h.website)}" target="_blank" rel="noopener" class="action-btn website-btn"><i class="fas fa-external-link-alt"></i> Site</a>` : ''}
+                                <button class="action-btn delete-btn" onclick="HT.askDelete(${h.id})"><i class="fas fa-trash"></i> Delete</button>
+                            </div>
+                        </div>
+                    </div>`;
+                }).join('');
             }
         }
-        
-        // Delete a hackathon
-        function deleteHackathon(id) {
-            if (confirm('Are you sure you want to delete this hackathon?')) {
-                hackathons = hackathons.filter(h => h.id !== id);
-                saveHackathons();
-                renderHackathons();
-                updateStats();
-            }
+
+        function miniCard(h) {
+            const d = daysLeft(h.pptDeadline);
+            return `
+            <div class="kanban-mini-card" data-id="${h.id}">
+                <div class="kanban-mini-title">${escHTML(h.name)}</div>
+                <div class="kanban-mini-meta"><i class="fas fa-clock"></i> ${d <= 0 ? `${Math.abs(d)}d overdue` : `${d}d left`}</div>
+                <div class="kanban-mini-meta" style="margin-top:4px"><i class="fas fa-file-powerpoint"></i> ${fmtDate(h.pptDeadline)}</div>
+                <div class="hack-card-actions" style="margin-top:10px">
+                    <button class="action-btn complete-btn" onclick="HT.toggle(${h.id})"><i class="fas fa-${h.completed ? 'undo' : 'check'}"></i></button>
+                    <button class="action-btn delete-btn" onclick="HT.askDelete(${h.id})"><i class="fas fa-trash"></i></button>
+                </div>
+            </div>`;
         }
-        
-        // Update statistics
+
+        function escHTML(s) {
+            const d = document.createElement('div');
+            d.textContent = s;
+            return d.innerHTML;
+        }
+
+        // ===== STATS =====
         function updateStats() {
-            totalHackathonsEl.textContent = hackathons.length;
-            
-            const activeCount = hackathons.filter(h => {
-                const daysLeft = getDaysLeft(h.pptDeadline);
-                return daysLeft > 0 && !h.completed;
-            }).length;
-            
-            activeHackathonsEl.textContent = activeCount;
-            
-            const urgentCount = hackathons.filter(h => {
-                const daysLeft = getDaysLeft(h.pptDeadline);
-                return (daysLeft <= 3 && daysLeft > 0) && !h.completed;
-            }).length;
-            
-            urgentHackathonsEl.textContent = urgentCount;
+            const total = hackathons.length;
+            const active = hackathons.filter(h => { const d = daysLeft(h.pptDeadline); return d > 0 && !h.completed; }).length;
+            const urgent = hackathons.filter(h => { const d = daysLeft(h.pptDeadline); return d > 0 && d <= 3 && !h.completed; }).length;
+            const completed = hackathons.filter(h => h.completed).length;
+            const maxRef = 10;
+
+            animateCount($('#statTotal'), total);
+            animateCount($('#statActive'), active);
+            animateCount($('#statUrgent'), urgent);
+            animateCount($('#statCompleted'), completed);
+
+            const circ = 150.8;
+            $$('[data-ring]').forEach(ring => {
+                const key = ring.dataset.ring;
+                const val = key === 'total' ? total : key === 'active' ? active : key === 'urgent' ? urgent : completed;
+                const pct = Math.min(val / maxRef, 1);
+                ring.style.strokeDashoffset = circ - (circ * pct);
+            });
         }
+
+        function animateCount(el, target) {
+            const current = parseInt(el.textContent) || 0;
+            if (current === target) return;
+            const duration = 600;
+            const start = performance.now();
+            function tick(now) {
+                const t = Math.min((now - start) / duration, 1);
+                const ease = 1 - Math.pow(1 - t, 3);
+                el.textContent = Math.round(current + (target - current) * ease);
+                if (t < 1) requestAnimationFrame(tick);
+            }
+            requestAnimationFrame(tick);
+        }
+
+        // ===== TOGGLE COMPLETE =====
+        function toggleComplete(id) {
+            const h = hackathons.find(x => x.id === id);
+            if (!h) return;
+            h.completed = !h.completed;
+            save();
+            render();
+            if (h.completed) {
+                showToast('success', 'Completed', `"${h.name}" marked as done`);
+                fireConfetti();
+            } else {
+                showToast('info', 'Reactivated', `"${h.name}" is back on track`);
+            }
+        }
+
+        // ===== DELETE =====
+        function askDelete(id) {
+            deleteTargetId = id;
+            deleteModal.classList.add('show');
+        }
+        $('#cancelDelete').addEventListener('click', () => {
+            deleteModal.classList.remove('show');
+            deleteTargetId = null;
+        });
+        deleteModal.addEventListener('click', (e) => {
+            if (e.target === deleteModal) { deleteModal.classList.remove('show'); deleteTargetId = null; }
+        });
+        $('#confirmDelete').addEventListener('click', () => {
+            if (deleteTargetId === null) return;
+            const h = hackathons.find(x => x.id === deleteTargetId);
+            const name = h ? h.name : '';
+            // Animate out
+            const card = document.querySelector(`[data-id="${deleteTargetId}"]`);
+            if (card) card.classList.add('removing');
+            setTimeout(() => {
+                hackathons = hackathons.filter(x => x.id !== deleteTargetId);
+                save();
+                render();
+                deleteTargetId = null;
+            }, 400);
+            deleteModal.classList.remove('show');
+            showToast('error', 'Deleted', `"${name}" has been removed`);
+        });
+
+        // ===== TOAST =====
+        function showToast(type, title, desc) {
+            const icons = { success: 'fa-check-circle', error: 'fa-times-circle', info: 'fa-info-circle' };
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerHTML = `
+                <div class="toast-icon ${type}"><i class="fas ${icons[type]}"></i></div>
+                <div class="toast-body">
+                    <div class="toast-title">${escHTML(title)}</div>
+                    <div class="toast-desc">${escHTML(desc)}</div>
+                </div>
+                <div class="toast-progress ${type}"></div>`;
+            toastContainer.appendChild(toast);
+            setTimeout(() => {
+                toast.classList.add('removing');
+                setTimeout(() => toast.remove(), 400);
+            }, 3000);
+        }
+
+        // ===== CONFETTI =====
+        function fireConfetti() {
+            const colors = ['#6366f1','#06d6a0','#f59e0b','#ef4444','#818cf8','#22d3ee'];
+            for (let i = 0; i < 50; i++) {
+                const piece = document.createElement('div');
+                piece.className = 'confetti-piece';
+                const size = Math.random() * 8 + 4;
+                piece.style.width = size + 'px';
+                piece.style.height = size + 'px';
+                piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+                piece.style.left = Math.random() * 100 + 'vw';
+                piece.style.top = '-10px';
+                piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+                piece.style.animationDuration = (Math.random() * 2 + 1.5) + 's';
+                piece.style.animationDelay = (Math.random() * 0.5) + 's';
+                document.body.appendChild(piece);
+                setTimeout(() => piece.remove(), 4000);
+            }
+        }
+
+        // ===== KEYBOARD SHORTCUTS =====
+        document.addEventListener('keydown', (e) => {
+            // Don't trigger when typing in inputs
+            if (['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName)) {
+                if (e.key === 'Escape') e.target.blur();
+                return;
+            }
+            if (e.key === 'n' || e.key === 'N') {
+                e.preventDefault();
+                formCard.classList.remove('collapsed');
+                $('#hackName').focus();
+            }
+            if (e.key === 't' || e.key === 'T') {
+                e.preventDefault();
+                const themes = ['default','light','ocean','forest','sunset'];
+                const current = document.body.className.replace('theme-','') || 'default';
+                const next = themes[(themes.indexOf(current) + 1) % themes.length];
+                setTheme(next);
+                showToast('info', 'Theme Changed', `Switched to ${next} theme`);
+            }
+            if (e.key === '/') {
+                e.preventDefault();
+                searchInput.focus();
+            }
+            if (e.key === '1') { $$('.view-btn')[0]?.click(); }
+            if (e.key === '2') { $$('.view-btn')[1]?.click(); }
+            if (e.key === '3') { $$('.view-btn')[2]?.click(); }
+            if (e.key === 'Escape') {
+                deleteModal.classList.remove('show');
+                deleteTargetId = null;
+                formCard.classList.add('collapsed');
+            }
+        });
+
+        // ===== EXPOSE GLOBAL FUNCTIONS =====
+        window.HT = {
+            toggle: toggleComplete,
+            askDelete: askDelete
+        };
+
+        // ===== INIT =====
+        load();
+        render();
+
+        // Set date min
+        const today = new Date().toISOString().split('T')[0];
+        $('#hackStart').min = today;
+        $('#hackEnd').min = today;
+        $('#hackPPT').min = today;
+
+    })();
     </script>
 </body>
 </html>
