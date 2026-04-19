@@ -6,1635 +6,1719 @@
   <title>HackTrack — Premium Command Center</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     :root{
-      --bg:#070b14;
-      --bg2:#0b1120;
-      --surface:rgba(16, 22, 38, .78);
-      --surface2:rgba(22, 31, 54, .88);
-      --surface3:#10192d;
-      --border:rgba(255,255,255,.08);
-      --border2:rgba(120, 136, 255, .22);
-      --text:#ecf2ff;
-      --muted:#93a4c3;
-      --muted2:#6f7f9e;
-      --primary:#7c8cff;
-      --primary2:#5ce0d4;
-      --success:#23d18b;
-      --warning:#ffb454;
-      --danger:#ff6b8b;
-      --shadow:0 20px 50px rgba(0,0,0,.38);
-      --shadow2:0 16px 32px rgba(0,0,0,.25);
-      --radius:24px;
-      --radius2:18px;
-      --radius3:14px;
+      --bg0:#070A12;
+      --bg1:#0C1020;
+      --bg2:#10172B;
+      --card: rgba(16, 23, 43, .72);
+      --card2: rgba(20, 28, 52, .88);
+      --stroke: rgba(255,255,255,.08);
+      --stroke2: rgba(132, 180, 255, .18);
+      --text:#ECF3FF;
+      --muted:#93A4C7;
+      --muted2:#667496;
+      --primary:#7C8CFF;
+      --primary2:#69D2FF;
+      --accent:#2EE6A6;
+      --warn:#FFB257;
+      --danger:#FF6B8B;
+      --shadow: 0 20px 60px rgba(0,0,0,.44);
+      --shadow2: 0 10px 24px rgba(0,0,0,.22);
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --radius-sm: 12px;
+      --blur: 24px;
       --mono:"JetBrains Mono", monospace;
-      --display:"Space Grotesk", Inter, system-ui, sans-serif;
-      --body:"Inter", system-ui, sans-serif;
-      --motion: 1;
-      --cardPad: 18px;
-      --gap: 18px;
+      --sans:"Inter", system-ui, -apple-system, Segoe UI, sans-serif;
     }
-    body.light{
-      --bg:#edf2fb;
-      --bg2:#f7faff;
-      --surface:rgba(255,255,255,.82);
-      --surface2:rgba(255,255,255,.93);
-      --surface3:#ffffff;
-      --border:rgba(23,35,69,.08);
-      --border2:rgba(124,140,255,.18);
-      --text:#0f172a;
-      --muted:#52607d;
-      --muted2:#77839d;
-      --shadow:0 18px 40px rgba(15, 23, 42, .10);
-      --shadow2:0 12px 24px rgba(15, 23, 42, .08);
+    [data-theme="light"]{
+      --bg0:#F6F8FC; --bg1:#EEF3FA; --bg2:#FFFFFF;
+      --card: rgba(255,255,255,.78);
+      --card2: rgba(255,255,255,.92);
+      --stroke: rgba(15,23,42,.08);
+      --stroke2: rgba(99,102,241,.16);
+      --text:#0E172B; --muted:#4A5A7B; --muted2:#8795B3;
+      --shadow: 0 20px 50px rgba(15,23,42,.08);
+      --shadow2: 0 10px 24px rgba(15,23,42,.08);
     }
-    body.ocean{
-      --primary:#35b9ff;
-      --primary2:#47f0c4;
-    }
-    body.rose{
-      --primary:#ff6fa9;
-      --primary2:#ffb36b;
-    }
-    body.forest{
-      --primary:#36d399;
-      --primary2:#b9f45b;
-    }
+    [data-theme="ocean"]{ --primary:#32A7FF; --primary2:#5DE1FF; --accent:#2CE6D5; }
+    [data-theme="forest"]{ --primary:#2FCB8B; --primary2:#C4F25E; --accent:#18D1A0; }
+    [data-theme="sunset"]{ --primary:#FF5D7A; --primary2:#FFB45E; --accent:#FF8E57; }
+
     *{box-sizing:border-box}
     html,body{height:100%}
+    html{scroll-behavior:smooth}
     body{
       margin:0;
-      font-family:var(--body);
+      font-family:var(--sans);
       color:var(--text);
       background:
-        radial-gradient(1200px 800px at 20% -10%, rgba(124,140,255,.22), transparent 60%),
-        radial-gradient(900px 700px at 100% 0%, rgba(92,224,212,.14), transparent 58%),
-        radial-gradient(900px 700px at 60% 120%, rgba(255,107,139,.12), transparent 58%),
-        linear-gradient(180deg, var(--bg), var(--bg2));
+        radial-gradient(1000px 600px at 10% 0%, rgba(124,140,255,.16), transparent 55%),
+        radial-gradient(800px 520px at 100% 10%, rgba(105,210,255,.12), transparent 60%),
+        radial-gradient(700px 500px at 50% 110%, rgba(46,230,166,.10), transparent 55%),
+        linear-gradient(180deg,var(--bg0),var(--bg1));
       overflow-x:hidden;
     }
     body::before{
       content:"";
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      opacity:.18;
+      position:fixed; inset:0;
       background-image:
         linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
-      background-size: 72px 72px;
-      mask-image: linear-gradient(to bottom, rgba(0,0,0,.65), transparent 90%);
-    }
-    .orb{
-      position:fixed;
-      width:520px;height:520px;border-radius:50%;
-      filter: blur(42px);
+      background-size: 44px 44px;
+      mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+      opacity:.18;
       pointer-events:none;
-      opacity:.28;
       z-index:0;
-      animation: drift 18s ease-in-out infinite alternate;
     }
-    .orb.one{left:-120px;top:-140px;background:rgba(124,140,255,.24)}
-    .orb.two{right:-140px;top:70px;background:rgba(92,224,212,.17);animation-duration:22s}
-    .orb.three{left:30%;bottom:-220px;background:rgba(255,107,139,.13);animation-duration:24s}
-    @keyframes drift{
-      from{transform:translate3d(0,0,0) scale(1)}
-      to{transform:translate3d(40px,-30px,0) scale(1.08)}
-    }
+    ::selection{background:rgba(124,140,255,.35)}
+    *::-webkit-scrollbar{width:10px;height:10px}
+    *::-webkit-scrollbar-thumb{background:linear-gradient(var(--primary),var(--primary2));border-radius:999px;border:2px solid transparent;background-clip:padding-box}
+    *::-webkit-scrollbar-track{background:transparent}
+
     .app{
       position:relative;
       z-index:1;
-      max-width:1540px;
-      margin:0 auto;
-      padding:18px 18px 94px;
-    }
-
-    .topbar{
-      position:sticky; top:14px; z-index:30;
-      display:flex; align-items:center; gap:14px;
-      padding:14px;
-      border:1px solid var(--border);
-      background:rgba(5,10,20,.42);
-      backdrop-filter: blur(24px);
-      border-radius:28px;
-      box-shadow: var(--shadow);
-      margin-bottom:18px;
-    }
-    body.light .topbar{background:rgba(255,255,255,.72)}
-    .brand{
-      display:flex; align-items:center; gap:12px; min-width:220px;
-      padding:6px 8px;
-    }
-    .brand-badge{
-      width:42px;height:42px;border-radius:14px;
-      display:grid;place-items:center;
-      background:linear-gradient(135deg, var(--primary), var(--primary2));
-      color:white; box-shadow:0 10px 26px rgba(124,140,255,.28);
-      transform: translateZ(0);
-    }
-    .brand h1{
-      margin:0; font-family:var(--display); font-size:1.08rem; line-height:1.1;
-      letter-spacing:-.03em;
-    }
-    .brand small{display:block; color:var(--muted); font-size:.74rem; margin-top:2px}
-    .top-actions{
-      display:flex; align-items:center; gap:10px; flex:1; min-width:0;
-    }
-    .search{
-      flex:1; min-width:180px; position:relative;
-    }
-    .search input, .select, .chipbtn, .iconbtn, .primarybtn, .ghostbtn, .tab{
-      border:1px solid var(--border);
-      background:var(--surface);
-      color:var(--text);
-      outline:none;
-      transition: transform .25s cubic-bezier(.2,.8,.2,1), border-color .25s, background .25s, box-shadow .25s, opacity .25s;
-      backdrop-filter: blur(18px);
-    }
-    .search input{
-      width:100%; height:48px; border-radius:999px; padding:0 44px 0 46px;
-      font-size:.96rem;
-    }
-    .search i{
-      position:absolute; left:18px; top:50%; transform:translateY(-50%);
-      color:var(--muted);
-      pointer-events:none;
-    }
-    .search input:focus, .select:focus, .tab.active, .chipbtn.active, .iconbtn:hover, .ghostbtn:hover, .primarybtn:hover{
-      border-color:var(--border2);
-      box-shadow:0 0 0 4px rgba(124,140,255,.12);
-    }
-    .search input::placeholder{color:var(--muted2)}
-    .select{
-      height:48px; border-radius:999px; padding:0 40px 0 16px;
-      appearance:none; cursor:pointer; font-size:.92rem;
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 20 20' fill='none'%3E%3Cpath d='M5 7l5 6 5-6' stroke='%2393a4c3' stroke-width='1.7' stroke-linecap='round'/%3E%3C/svg%3E");
-      background-repeat:no-repeat; background-position:right 14px center;
-    }
-    .iconbtn, .primarybtn, .ghostbtn, .chipbtn, .tab{
-      height:44px; border-radius:999px; padding:0 14px;
-      display:inline-flex; align-items:center; gap:8px;
-      cursor:pointer; white-space:nowrap;
-    }
-    .iconbtn{width:44px; justify-content:center; padding:0}
-    .primarybtn{
-      background:linear-gradient(135deg, var(--primary), var(--primary2));
-      border-color:transparent; color:white; font-weight:700; box-shadow:0 16px 24px rgba(124,140,255,.18)
-    }
-    .ghostbtn{
-      background:var(--surface); color:var(--text)
-    }
-
-    .layout{
       display:grid;
-      grid-template-columns: 290px 1fr;
-      gap:18px;
-      align-items:start;
-    }
-    .sidebar, .panel{
-      border:1px solid var(--border);
-      background:var(--surface);
-      backdrop-filter: blur(20px);
-      border-radius:28px;
-      box-shadow: var(--shadow2);
+      grid-template-columns: 290px minmax(0,1fr);
+      min-height:100vh;
     }
     .sidebar{
-      position:sticky; top:88px;
-      padding:16px;
+      position:sticky; top:0; height:100vh;
+      padding:18px;
     }
-    .side-section{padding:8px 0 16px}
-    .side-title{
-      font-size:.72rem; color:var(--muted); text-transform:uppercase; letter-spacing:.14em;
-      margin:0 0 10px 8px;
+    .side-shell{
+      height:100%;
+      border:1px solid var(--stroke);
+      background:linear-gradient(180deg, var(--card), rgba(255,255,255,.02));
+      backdrop-filter: blur(var(--blur));
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+      padding:18px;
+      display:flex; flex-direction:column; gap:16px;
+      overflow:hidden;
     }
-    .nav{
-      display:grid; gap:8px;
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      padding:10px 12px;
+      border-radius:18px;
+      background:linear-gradient(135deg, rgba(124,140,255,.14), rgba(105,210,255,.08));
+      border:1px solid var(--stroke);
     }
-    .nav button{
-      display:flex; align-items:center; justify-content:space-between;
+    .brand-mark{
+      width:44px;height:44px;border-radius:14px;
+      background:linear-gradient(135deg,var(--primary),var(--primary2));
+      display:grid;place-items:center;
+      box-shadow:0 10px 25px rgba(124,140,255,.28);
+      font-size:1.1rem;
+    }
+    .brand h1{margin:0;font-size:1.1rem;line-height:1.1}
+    .brand p{margin:3px 0 0;color:var(--muted);font-size:.78rem}
+
+    .quick-actions{
+      display:grid; grid-template-columns: repeat(2,1fr); gap:10px;
+    }
+    .qa{
+      border:1px solid var(--stroke);
+      background:rgba(255,255,255,.03);
+      color:var(--text);
+      border-radius:16px;
+      padding:12px;
+      cursor:pointer;
+      text-align:left;
+      transition:.25s transform,.25s background,.25s border-color;
+      box-shadow:var(--shadow2);
+    }
+    .qa:hover{transform:translateY(-2px);border-color:var(--stroke2);background:rgba(124,140,255,.08)}
+    .qa i{display:block;font-size:1rem;margin-bottom:8px;color:var(--primary2)}
+    .qa span{font-size:.8rem;color:var(--muted)}
+
+    .side-nav{display:flex;flex-direction:column;gap:8px}
+    .nav-btn{
       width:100%;
+      border:1px solid transparent;
+      background:transparent;
+      color:var(--muted);
+      text-align:left;
       padding:13px 14px;
       border-radius:18px;
-      background:transparent;
-      border:1px solid transparent;
-      color:var(--text);
       cursor:pointer;
+      display:flex; align-items:center; gap:12px;
       transition:.25s;
       font-weight:600;
     }
-    .nav button span{display:flex; align-items:center; gap:10px}
-    .nav button.active, .nav button:hover{
-      background:rgba(124,140,255,.12);
-      border-color:var(--border2);
-      transform: translateX(2px);
-    }
-    .metric-mini{
-      display:grid;
-      gap:12px;
-      margin-top:8px;
-    }
-    .mini-card{
-      padding:14px; border-radius:20px;
-      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-      border:1px solid var(--border);
-    }
-    .mini-card b{display:block; font-size:1.25rem; font-family:var(--mono)}
-    .mini-card small{color:var(--muted); font-size:.8rem}
-    .workspace{
-      display:grid;
-      gap:18px;
-      min-width:0;
-    }
-
-    .hero{
-      padding:20px 20px 8px;
-      display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap:16px;
-      align-items:stretch;
-    }
-    .hero-card, .glass-card, .analytics-card, .view-card, .drawer{
-      border:1px solid var(--border);
-      background:var(--surface2);
-      border-radius:28px;
-      box-shadow: var(--shadow2);
-      backdrop-filter: blur(20px);
-    }
-    .hero-card{
-      padding:24px;
-      position:relative;
-      overflow:hidden;
-    }
-    .hero-card::after{
-      content:"";
-      position:absolute; inset:-2px;
-      background: radial-gradient(circle at 80% 0%, rgba(92,224,212,.16), transparent 34%),
-                  radial-gradient(circle at 20% 0%, rgba(124,140,255,.18), transparent 32%);
-      pointer-events:none;
-    }
-    .hero-top{display:flex; gap:10px; flex-wrap:wrap; align-items:center; position:relative; z-index:1}
-    .badge{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:8px 12px; border-radius:999px;
-      border:1px solid var(--border);
-      background:rgba(255,255,255,.03);
-      color:var(--muted); font-size:.78rem;
-    }
-    .hero h2{
-      position:relative; z-index:1;
-      margin:16px 0 10px;
-      font-size: clamp(2rem, 3vw, 3.5rem);
-      line-height:1.02;
-      font-family:var(--display);
-      letter-spacing:-.05em;
-    }
-    .hero h2 span{
-      background:linear-gradient(135deg, var(--primary), var(--primary2));
-      -webkit-background-clip:text;
-      background-clip:text;
-      color:transparent;
-    }
-    .hero p{
-      position:relative; z-index:1;
-      margin:0; color:var(--muted); max-width:64ch; line-height:1.7;
-    }
-    .hero-quick{
-      display:grid; gap:14px;
-      grid-template-columns: repeat(2, 1fr);
-    }
-    .qcard{
-      padding:18px;
-      border-radius:24px;
-      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-      border:1px solid var(--border);
-      display:flex; flex-direction:column; justify-content:space-between; min-height:150px;
-    }
-    .qcard i{font-size:1.2rem; opacity:.9}
-    .qcard b{font-size:1.85rem; font-family:var(--mono)}
-    .qcard small{color:var(--muted)}
-
-    .controls{
-      display:flex; flex-wrap:wrap; gap:10px;
-      align-items:center; justify-content:space-between;
-      padding:0 20px;
-    }
-    .tabs{display:flex; flex-wrap:wrap; gap:8px}
-    .tab{
-      border-radius:999px; padding:0 16px; font-weight:700;
-      color:var(--muted);
-    }
-    .tab.active{
-      background:linear-gradient(135deg, rgba(124,140,255,.16), rgba(92,224,212,.14));
+    .nav-btn i{width:18px;text-align:center}
+    .nav-btn.active,.nav-btn:hover{
       color:var(--text);
+      background:linear-gradient(135deg, rgba(124,140,255,.14), rgba(105,210,255,.08));
+      border-color:var(--stroke);
+      transform:translateX(2px);
     }
-    .settings{
-      display:flex; gap:8px; align-items:center; flex-wrap:wrap;
+    .side-meta{
+      margin-top:auto;
+      border-top:1px solid var(--stroke);
+      padding-top:14px;
+      display:grid; gap:10px;
+    }
+    .meta-row{
+      display:flex;justify-content:space-between;align-items:center;
+      font-size:.82rem;color:var(--muted);
+    }
+    .kbd{
+      font-family:var(--mono); font-size:.72rem;
+      padding:3px 8px;border-radius:8px;
+      border:1px solid var(--stroke); color:var(--text);
+      background:rgba(255,255,255,.04);
     }
 
     .main{
-      padding:0 20px;
-      display:grid;
-      gap:18px;
-    }
-    .section-grid{
-      display:grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap:18px;
-      align-items:start;
+      padding:18px 18px 90px 0;
       min-width:0;
     }
-    .panel{padding:18px; min-width:0}
-    .panel-head{
-      display:flex; align-items:center; justify-content:space-between; gap:12px;
-      margin-bottom:14px;
+    .topbar{
+      position:sticky; top:12px; z-index:30;
+      margin-bottom:18px;
+      padding:14px 16px;
+      border:1px solid var(--stroke);
+      background:linear-gradient(180deg, var(--card), rgba(255,255,255,.02));
+      backdrop-filter: blur(var(--blur));
+      border-radius: 24px;
+      box-shadow: var(--shadow2);
+      display:flex; align-items:center; gap:12px; flex-wrap:wrap;
     }
-    .panel-title{
-      margin:0;
-      font-family:var(--display);
-      letter-spacing:-.04em;
-      font-size:1.05rem;
+    .top-left{display:flex;align-items:center;gap:12px;min-width:0}
+    .badge{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:8px 12px;border-radius:999px;
+      border:1px solid var(--stroke);
+      background:rgba(255,255,255,.04);
+      color:var(--muted);font-size:.8rem;
+      white-space:nowrap;
     }
-    .panel-sub{
-      color:var(--muted); font-size:.84rem; margin-top:4px
+    .search{
+      flex:1; min-width:250px; position:relative;
     }
-    .panel-head .meta{
-      display:flex; gap:8px; align-items:center; flex-wrap:wrap;
+    .search input,.input,.select,textarea{
+      width:100%;
+      border:1px solid var(--stroke);
+      background:rgba(255,255,255,.05);
+      color:var(--text);
+      outline:none;
+      border-radius:16px;
+      padding:12px 14px;
+      font:inherit;
+      transition:.25s;
+    }
+    .search input{padding-left:42px}
+    .search i{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--muted)}
+    .search input:focus,.input:focus,.select:focus,textarea:focus{
+      border-color:var(--stroke2);
+      box-shadow:0 0 0 4px rgba(124,140,255,.12);
+      background:rgba(255,255,255,.08);
+    }
+    .toolbar{
+      display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+    }
+    .btn{
+      border:none;
+      border-radius:16px;
+      padding:12px 14px;
+      cursor:pointer;
+      font:inherit;
+      color:var(--text);
+      transition:.25s transform,.25s box-shadow,.25s opacity,.25s background;
+      display:inline-flex;align-items:center;gap:10px;
+      font-weight:700;
+    }
+    .btn:hover{transform:translateY(-2px)}
+    .btn-primary{
+      background:linear-gradient(135deg,var(--primary),var(--primary2));
+      box-shadow:0 14px 30px rgba(124,140,255,.22);
+    }
+    .btn-ghost{
+      border:1px solid var(--stroke);
+      background:rgba(255,255,255,.04);
     }
 
-    .stats{
+    .hero{
+      padding:16px 6px 20px 6px;
       display:grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap:14px;
+      grid-template-columns: 1.4fr .9fr;
+      gap:16px;
+      align-items:stretch;
+    }
+    .panel{
+      border:1px solid var(--stroke);
+      background:linear-gradient(180deg, var(--card), rgba(255,255,255,.03));
+      backdrop-filter: blur(var(--blur));
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+    }
+    .hero-main{
+      padding:22px;
+      overflow:hidden;
+      position:relative;
+    }
+    .hero-main::after{
+      content:"";
+      position:absolute; inset:auto -60px -80px auto;
+      width:260px; height:260px; border-radius:50%;
+      background:radial-gradient(circle, rgba(124,140,255,.22), transparent 60%);
+      filter:blur(8px);
+      pointer-events:none;
+    }
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:8px;
+      color:var(--muted);font-size:.82rem;
+      border:1px solid var(--stroke);
+      background:rgba(255,255,255,.04);
+      padding:8px 12px;border-radius:999px;
+    }
+    .hero h2{
+      margin:16px 0 10px;
+      font-size:clamp(2.1rem, 5vw, 4.4rem);
+      line-height:1.03;
+      letter-spacing:-.05em;
+    }
+    .hero h2 span{
+      background:linear-gradient(135deg,var(--primary),var(--primary2),var(--accent));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      background-size:200% 200%;
+      animation: sheen 7s ease infinite;
+    }
+    @keyframes sheen{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+    .hero p{color:var(--muted);max-width:66ch;font-size:1rem;line-height:1.7;margin:0}
+
+    .hero-side{
+      display:grid; gap:12px;
+      grid-template-columns: repeat(2,1fr);
+      align-content:stretch;
     }
     .stat{
       padding:18px;
-      border-radius:24px;
-      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.025));
-      border:1px solid var(--border);
       position:relative;
       overflow:hidden;
-      min-height:120px;
+      min-height:132px;
     }
     .stat::before{
-      content:"";
-      position:absolute; inset:auto -30px -50px auto;
-      width:120px; height:120px; border-radius:50%;
-      background:radial-gradient(circle, rgba(124,140,255,.20), transparent 68%);
+      content:""; position:absolute; inset:0;
+      background:linear-gradient(135deg, rgba(124,140,255,.10), transparent 65%);
+      opacity:.9; pointer-events:none;
     }
-    .stat .label{color:var(--muted); font-size:.8rem; text-transform:uppercase; letter-spacing:.12em}
-    .stat .value{margin-top:10px; font-family:var(--mono); font-size:2rem}
-    .stat .trend{margin-top:10px; color:var(--muted); font-size:.83rem}
+    .stat .label{color:var(--muted);font-size:.78rem;text-transform:uppercase;letter-spacing:.12em}
+    .stat .value{font-size:2rem;font-weight:800;margin:18px 0 8px; letter-spacing:-.05em}
+    .stat .foot{color:var(--muted2);font-size:.8rem}
     .ring{
-      width:54px; height:54px; border-radius:50%;
-      display:grid; place-items:center;
-      position:absolute; right:16px; top:16px;
-      background:
-        conic-gradient(var(--primary) calc(var(--p)*1%), rgba(255,255,255,.08) 0);
-      -webkit-mask: radial-gradient(circle, transparent 55%, #000 56%);
-      mask: radial-gradient(circle, transparent 55%, #000 56%);
-      opacity:.9;
+      position:absolute; right:12px; bottom:12px;
+      width:78px;height:78px;
+    }
+    .ring svg{transform:rotate(-90deg)}
+    .ring circle{fill:none;stroke-width:8}
+    .ring .track{stroke:rgba(255,255,255,.08)}
+    .ring .fill{stroke-linecap:round; stroke-dasharray:251; stroke-dashoffset:251; transition:stroke-dashoffset 1s ease}
+    .ring .center{
+      position:absolute; inset:0; display:grid; place-items:center;
+      font-family:var(--mono); font-size:.86rem; font-weight:700;
     }
 
-    .charts{
+    .content{
       display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:14px;
+      grid-template-columns: 360px minmax(0,1fr);
+      gap:16px;
+      align-items:start;
+      padding: 0 6px;
     }
-    .chart-card{
-      padding:16px;
-      border-radius:24px;
-      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.025));
-      border:1px solid var(--border);
+    .form-shell,.workspace-shell{padding:18px}
+    .section-head{
+      display:flex;justify-content:space-between;align-items:center;
+      margin-bottom:14px; gap:12px;
     }
-    .chart-card h4{
-      margin:0 0 12px;
-      font-size:.92rem;
-      color:var(--text);
-    }
-    .chart-wrap{width:100%; overflow:hidden}
-    .line-svg,.donut-svg{width:100%; height:auto; display:block}
-    .sparkline path, .sparkline polyline{
-      fill:none; stroke:var(--primary2); stroke-width:3;
-      stroke-linecap:round; stroke-linejoin:round;
-    }
-    .donut-text{font-family:var(--mono); font-size:18px; fill:var(--text)}
-    .bars{display:grid; gap:10px}
-    .bar-row{display:grid; grid-template-columns: 86px 1fr 34px; gap:10px; align-items:center}
-    .bar-row span{font-size:.8rem; color:var(--muted)}
-    .bar-track{
-      height:10px; border-radius:999px;
-      background:rgba(255,255,255,.07);
-      overflow:hidden;
-    }
-    .bar-fill{
-      height:100%;
-      border-radius:inherit;
-      background:linear-gradient(90deg, var(--primary), var(--primary2));
-      width:0;
-      transition: width .9s cubic-bezier(.2,.85,.2,1);
-    }
-    .heatmap{
-      display:grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap:8px;
-      align-items:center;
-    }
-    .heat{
-      aspect-ratio:1;
-      border-radius:10px;
-      border:1px solid var(--border);
-      background:rgba(255,255,255,.04);
-    }
-    .heat[data-v="1"]{background:rgba(124,140,255,.10)}
-    .heat[data-v="2"]{background:rgba(124,140,255,.18)}
-    .heat[data-v="3"]{background:rgba(124,140,255,.28)}
-    .heat[data-v="4"]{background:rgba(92,224,212,.30)}
-    .heat[data-v="5"]{background:rgba(35,209,139,.35)}
-
-    .view-card{padding:18px}
-    .group{
-      display:flex; align-items:center; justify-content:space-between; gap:12px;
-      margin-bottom:14px;
-    }
-    .group h3{margin:0; font-family:var(--display); letter-spacing:-.04em}
-    .group small{color:var(--muted)}
-    .list{display:grid; gap:14px}
-    .item{
-      display:grid;
-      grid-template-columns: 1fr auto;
-      gap:14px;
-      padding:18px;
-      border-radius:24px;
-      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.025));
-      border:1px solid var(--border);
-      position:relative;
-      overflow:hidden;
-      transform: translateZ(0);
-    }
-    .item:hover, .stat:hover, .chart-card:hover, .mini-card:hover, .qcard:hover, .board-col:hover{
-      transform: translateY(-3px);
-      box-shadow:0 14px 28px rgba(0,0,0,.18);
-      border-color:var(--border2);
-    }
-    .item::before{
-      content:"";
-      position:absolute; left:0; top:0; bottom:0; width:5px;
-      background:linear-gradient(180deg, var(--primary), var(--primary2));
-      border-top-left-radius:24px;border-bottom-left-radius:24px;
-    }
-    .item.completed{opacity:.68}
-    .item.completed .title{text-decoration:line-through; text-decoration-thickness:2px; text-decoration-color:rgba(255,255,255,.28)}
-    .title-row{display:flex; align-items:flex-start; gap:10px; justify-content:space-between}
-    .title{
-      font-weight:800; letter-spacing:-.03em; font-size:1.02rem; line-height:1.25;
-    }
-    .desc{margin:8px 0 12px; color:var(--muted); line-height:1.65; font-size:.92rem}
-    .chips{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:10px}
+    .section-head h3{margin:0;font-size:1rem;letter-spacing:-.03em}
+    .section-head small{color:var(--muted)}
+    .pill-row{display:flex;flex-wrap:wrap;gap:8px}
     .pill{
-      display:inline-flex; align-items:center; gap:6px;
-      height:32px; padding:0 12px;
-      border-radius:999px;
+      border:1px solid var(--stroke);
       background:rgba(255,255,255,.04);
-      border:1px solid var(--border);
       color:var(--muted);
-      font-size:.8rem;
+      padding:8px 10px;
+      border-radius:999px;
+      font-size:.78rem;
+      cursor:pointer;
+      transition:.2s;
+      user-select:none;
     }
-    .pill strong{color:var(--text); font-weight:700}
-    .prio.low{color:var(--success)}
-    .prio.mid{color:var(--warning)}
-    .prio.high{color:var(--danger)}
-    .progress-row{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px}
+    .pill.active,.pill:hover{color:var(--text);background:rgba(124,140,255,.12);border-color:var(--stroke2)}
+
+    .form-grid{display:grid; gap:12px}
+    .grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    label{display:block;font-size:.78rem;color:var(--muted);margin:0 0 7px 2px;text-transform:uppercase;letter-spacing:.1em}
+    textarea{min-height:90px;resize:vertical}
+
+    .workspace-shell{min-width:0}
+    .workspace-top{
+      display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-bottom:14px
+    }
+    .views{display:flex;gap:8px;flex-wrap:wrap}
+    .view-btn{
+      padding:10px 12px;border-radius:14px;border:1px solid var(--stroke);
+      background:rgba(255,255,255,.04);color:var(--muted);
+      cursor:pointer;font-weight:700;
+    }
+    .view-btn.active{background:linear-gradient(135deg, rgba(124,140,255,.18), rgba(105,210,255,.10));color:var(--text);border-color:var(--stroke2)}
+    .controls{display:flex;gap:10px;flex-wrap:wrap}
+    .controls .select{width:auto;min-width:150px}
+
+    .panels{display:block}
+    .panel-view{display:none}
+    .panel-view.active{display:block;animation: rise .35s ease both}
+    @keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+    .cards{display:grid;gap:12px}
+    .card{
+      border:1px solid var(--stroke);
+      background:linear-gradient(180deg, var(--card2), rgba(255,255,255,.03));
+      backdrop-filter: blur(var(--blur));
+      border-radius: 24px;
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+      position:relative;
+      transition:.25s transform,.25s border-color,.25s box-shadow;
+    }
+    .card:hover{transform:translateY(-3px);border-color:var(--stroke2);box-shadow:var(--shadow)}
+    .card-inner{padding:18px}
+    .card.compact .card-inner{padding:14px}
+    .card::before{
+      content:"";position:absolute;inset:0 0 auto 0;height:3px;
+      background:linear-gradient(90deg,var(--primary),var(--primary2),var(--accent));
+      opacity:.8;
+    }
+    .card-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+    .title{font-size:1.06rem;font-weight:800;letter-spacing:-.03em;margin:0 0 8px}
+    .desc{color:var(--muted);margin:0 0 14px;line-height:1.6;font-size:.92rem}
+    .meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+    .chip{
+      padding:7px 10px;border-radius:999px;border:1px solid var(--stroke);
+      background:rgba(255,255,255,.04);font-size:.78rem;color:var(--muted);
+      display:inline-flex;align-items:center;gap:7px;
+    }
+    .chip strong{color:var(--text);font-weight:700}
+    .priority-high{border-left:5px solid var(--danger)}
+    .priority-medium{border-left:5px solid var(--warn)}
+    .priority-low{border-left:5px solid var(--accent)}
+    .priority-overdue{border-left:5px solid #FF3D71; animation:pulseBorder 1.4s ease-in-out infinite}
+    @keyframes pulseBorder{50%{box-shadow:0 0 0 4px rgba(255,61,113,.08)}}
+    .done{opacity:.72}
+    .done .title{text-decoration:line-through;text-decoration-color:var(--muted2)}
+
     .progress{
-      height:10px; border-radius:999px; overflow:hidden;
-      background:rgba(255,255,255,.07);
-      border:1px solid var(--border);
+      height:12px; border-radius:999px; overflow:hidden;
+      background:rgba(255,255,255,.07); margin:12px 0 10px;
+      position:relative;
     }
-    .progress > div{
-      height:100%; width:0%;
-      border-radius:inherit;
-      background:linear-gradient(90deg, var(--primary), var(--primary2));
-      transition:width 1s cubic-bezier(.2,.85,.2,1);
+    .progress > span{
+      display:block;height:100%;border-radius:999px;
+      background:linear-gradient(90deg,var(--primary),var(--primary2),var(--accent));
+      width:0%;
+      transition:width 1s cubic-bezier(.22,1,.36,1);
+      position:relative;
     }
-    .actions{
-      display:flex; flex-wrap:wrap; gap:8px; justify-content:flex-end; align-items:flex-start;
+    .progress > span::after{
+      content:"";position:absolute;right:0;top:50%;transform:translate(50%,-50%);
+      width:14px;height:14px;border-radius:50%;
+      background:inherit; box-shadow:0 0 12px rgba(255,255,255,.4);
     }
-    .actions .chipbtn{
-      background:var(--surface); color:var(--text); font-weight:700;
+    .actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+    .mini{
+      padding:9px 11px;border-radius:14px;border:1px solid var(--stroke);
+      background:rgba(255,255,255,.04);color:var(--text);cursor:pointer;
+      font-weight:700;font-size:.82rem;
     }
-    .actions .chipbtn.danger{color:var(--danger)}
-    .actions .chipbtn.success{color:var(--success)}
+    .mini:hover{border-color:var(--stroke2);background:rgba(124,140,255,.1)}
+    .mini.danger:hover{border-color:rgba(255,107,139,.4);background:rgba(255,107,139,.1)}
+    .mini.good:hover{border-color:rgba(46,230,166,.4);background:rgba(46,230,166,.1)}
 
     .board{
-      display:none;
-      grid-template-columns: repeat(3, minmax(240px, 1fr));
-      gap:14px;
+      display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;
     }
-    .board.active{display:grid}
-    .board-col{
-      padding:16px;
+    .col{
+      border:1px solid var(--stroke);
+      background:rgba(255,255,255,.03);
       border-radius:24px;
-      border:1px solid var(--border);
-      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.025));
-      min-height:260px;
-    }
-    .col-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:12px}
-    .col-head h4{margin:0; font-size:.92rem}
-    .count{font-family:var(--mono); color:var(--muted); font-size:.82rem}
-    .mini{
       padding:14px;
+      min-height:300px;
+    }
+    .col h4{margin:0 0 12px;font-size:.9rem;display:flex;justify-content:space-between;align-items:center}
+    .dropzone{min-height:240px;display:grid;gap:10px}
+    .mini-card{
+      border:1px solid var(--stroke);
+      background:rgba(255,255,255,.05);
       border-radius:18px;
-      border:1px solid var(--border);
-      background:rgba(255,255,255,.04);
-      margin-bottom:10px;
+      padding:12px;
+      cursor:grab;
     }
-    .mini b{display:block; margin-bottom:6px}
-    .mini small{color:var(--muted)}
+    .mini-card:active{cursor:grabbing}
+    .mini-card .t{font-weight:800;font-size:.92rem;margin:0 0 6px}
+    .mini-card .m{color:var(--muted);font-size:.78rem}
+    .drag-over{outline:2px dashed var(--stroke2); outline-offset:4px; background:rgba(124,140,255,.08)}
+
     .timeline{
-      display:none;
       position:relative;
-      padding-left:30px;
+      padding-left:24px;
+      display:grid;gap:12px;
     }
-    .timeline.active{display:block}
     .timeline::before{
-      content:"";
-      position:absolute; left:10px; top:0; bottom:0; width:2px;
-      background:linear-gradient(180deg, var(--primary), var(--primary2), transparent);
+      content:"";position:absolute;left:8px;top:8px;bottom:8px;width:2px;
+      background:linear-gradient(to bottom,var(--primary),var(--primary2),transparent);
       border-radius:999px;
     }
-    .titem{
-      position:relative; margin:0 0 16px;
-      padding-left:18px;
+    .tl-item{position:relative}
+    .tl-item::before{
+      content:"";position:absolute;left:-20px;top:18px;width:12px;height:12px;border-radius:50%;
+      background:var(--primary);box-shadow:0 0 0 6px rgba(124,140,255,.12);
     }
-    .titem::before{
-      content:"";
-      position:absolute; left:-2px; top:14px; width:14px; height:14px; border-radius:50%;
-      background:var(--primary);
-      box-shadow:0 0 0 5px rgba(124,140,255,.14);
-    }
-    .titem.done::before{background:var(--success); box-shadow:0 0 0 5px rgba(35,209,139,.14)}
-    .titem.urgent::before{background:var(--danger); box-shadow:0 0 0 5px rgba(255,107,139,.14)}
-    .tbox{
-      padding:16px;
-      border-radius:22px;
-      border:1px solid var(--border);
-      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.025));
-    }
-    .tbox b{display:block; margin-bottom:6px}
-    .tbox p{margin:0; color:var(--muted); font-size:.92rem; line-height:1.6}
+    .tl-item.high::before{background:var(--danger)}
+    .tl-item.medium::before{background:var(--warn)}
+    .tl-item.low::before{background:var(--accent)}
+    .tl-card{padding:16px 18px}
 
-    .drawer{
-      position:fixed; top:16px; right:16px; bottom:16px;
-      width:min(420px, calc(100vw - 32px));
-      transform: translateX(110%);
-      transition:transform .38s cubic-bezier(.2,.85,.2,1);
-      z-index:60;
-      overflow:auto;
-      padding:18px;
+    .calendar{
+      display:grid;
+      grid-template-columns: repeat(7,minmax(0,1fr));
+      gap:10px;
     }
-    .drawer.open{transform:translateX(0)}
-    .drawer-head{
-      display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:16px;
+    .cal-head{
+      text-align:center;
+      color:var(--muted);font-size:.75rem;text-transform:uppercase;letter-spacing:.12em;
+      padding:4px 0 2px
     }
-    .drawer h3{margin:0;font-family:var(--display)}
-    .form{
-      display:grid; gap:12px;
-    }
-    .field{display:grid; gap:8px}
-    .field label{font-size:.78rem; color:var(--muted); text-transform:uppercase; letter-spacing:.12em}
-    .field input, .field textarea, .field select{
-      width:100%; border-radius:18px; padding:12px 14px;
-      border:1px solid var(--border);
-      background:rgba(255,255,255,.04);
-      color:var(--text); outline:none;
-      font:inherit;
-    }
-    .field textarea{min-height:90px; resize:vertical}
-    .field input:focus, .field textarea:focus, .field select:focus{border-color:var(--border2); box-shadow:0 0 0 4px rgba(124,140,255,.10)}
-
-    .overlay{
-      position:fixed; inset:0; background:rgba(2,5,12,.48);
-      backdrop-filter: blur(10px);
-      opacity:0; pointer-events:none;
-      transition:.25s;
-      z-index:55;
-    }
-    .overlay.show{opacity:1; pointer-events:auto}
-
-    .palette{
-      position:fixed; left:50%; top:11%;
-      transform:translateX(-50%) scale(.94);
-      width:min(720px, calc(100vw - 24px));
-      background:var(--surface2);
-      border:1px solid var(--border);
-      border-radius:28px;
-      box-shadow: var(--shadow);
-      z-index:70;
-      opacity:0; pointer-events:none;
-      transition:.24s cubic-bezier(.2,.85,.2,1);
+    .day{
+      min-height:110px;
+      border:1px solid var(--stroke);
+      background:rgba(255,255,255,.03);
+      border-radius:20px;
+      padding:10px;
+      position:relative;
       overflow:hidden;
     }
-    .palette.show{opacity:1; pointer-events:auto; transform:translateX(-50%) scale(1)}
-    .palette input{
-      width:100%; padding:18px 20px;
-      border:none; background:transparent; color:var(--text);
-      outline:none; font:inherit; font-size:1.02rem;
-      border-bottom:1px solid var(--border);
-    }
-    .palette-list{max-height:340px; overflow:auto; padding:10px}
-    .palette-item{
-      display:flex; align-items:center; justify-content:space-between; gap:12px;
-      padding:14px 14px; border-radius:18px; cursor:pointer;
-      color:var(--text);
-    }
-    .palette-item:hover{background:rgba(124,140,255,.10)}
-    .palette-item small{color:var(--muted)}
-    .kbd{
-      font-family:var(--mono);
-      padding:4px 8px; border-radius:8px;
-      border:1px solid var(--border);
-      color:var(--muted); font-size:.78rem;
+    .day.muted{opacity:.42}
+    .day-num{font-weight:800;font-size:.9rem;color:var(--muted)}
+    .event-dot{
+      display:block;margin-top:8px;
+      padding:7px 8px;border-radius:12px;
+      background:rgba(124,140,255,.11);border:1px solid var(--stroke);
+      font-size:.72rem;color:var(--text);margin-bottom:6px;
     }
 
+    .analytics{
+      display:grid;gap:12px;
+      grid-template-columns: 1.2fr .8fr;
+    }
+    .chart-card{padding:18px}
+    .chart-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+    .chart-title h4{margin:0;font-size:.98rem}
+    .chart-title span{color:var(--muted);font-size:.8rem}
+    .bars{display:grid;gap:10px}
+    .bar-row{display:grid;grid-template-columns:90px 1fr 44px;gap:10px;align-items:center;font-size:.82rem;color:var(--muted)}
+    .bar{
+      height:10px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden;
+    }
+    .bar > i{display:block;height:100%;width:0%;border-radius:inherit;background:linear-gradient(90deg,var(--primary),var(--primary2));transition:width 1s cubic-bezier(.22,1,.36,1)}
+    .heatmap{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+    .heat{
+      aspect-ratio:1;
+      border-radius:12px;
+      background:rgba(255,255,255,.05);
+      border:1px solid var(--stroke);
+      transition:.2s transform;
+    }
+    .heat:hover{transform:scale(1.04)}
+    .heat.l1{background:rgba(124,140,255,.10)}
+    .heat.l2{background:rgba(124,140,255,.18)}
+    .heat.l3{background:rgba(124,140,255,.28)}
+    .heat.l4{background:rgba(124,140,255,.38)}
+    .donut-wrap{display:grid;place-items:center;min-height:260px}
+    .donut{
+      width:180px;height:180px;border-radius:50%;
+      background:
+        conic-gradient(var(--primary) 0 40%, var(--primary2) 40% 72%, var(--accent) 72% 100%);
+      position:relative;
+      filter: drop-shadow(0 20px 40px rgba(0,0,0,.18));
+    }
+    .donut::after{
+      content:"";position:absolute;inset:28px;border-radius:50%;
+      background:var(--bg1);border:1px solid var(--stroke);
+    }
+    .donut-center{
+      position:absolute; inset:0; display:grid;place-items:center;text-align:center;
+      z-index:1;
+    }
+    .donut-center strong{display:block;font-size:2rem;letter-spacing:-.05em}
+    .donut-center span{color:var(--muted);font-size:.8rem}
+
+    .empty{
+      text-align:center;
+      padding:42px 20px;
+      color:var(--muted);
+    }
+    .empty i{font-size:2.2rem;margin-bottom:10px;color:var(--primary2)}
+    .empty h4{margin:0 0 8px;color:var(--text)}
+    .empty p{margin:0 0 14px;line-height:1.6}
+
+    .overlay{
+      position:fixed;inset:0;background:rgba(2,6,23,.56);backdrop-filter: blur(18px);
+      opacity:0;visibility:hidden;transition:.25s;z-index:60;
+    }
+    .overlay.show{opacity:1;visibility:visible}
+    .modal{
+      position:fixed;inset:50% auto auto 50%;transform:translate(-50%,-44%) scale(.96);
+      width:min(560px, calc(100vw - 24px));
+      z-index:70;
+      opacity:0;visibility:hidden;
+      transition:.25s;
+      border:1px solid var(--stroke);
+      background:linear-gradient(180deg, var(--card2), rgba(255,255,255,.04));
+      border-radius:28px;
+      box-shadow:var(--shadow);
+      padding:18px;
+    }
+    .modal.show{opacity:1;visibility:visible;transform:translate(-50%,-50%) scale(1)}
+    .modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+    .modal-head h3{margin:0}
+    .modal-body{display:grid;gap:12px}
+    .modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:8px}
+
     .toast-wrap{
-      position:fixed; right:18px; bottom:18px; z-index:80;
-      display:grid; gap:10px;
+      position:fixed;right:16px;bottom:16px;z-index:80;
+      display:grid;gap:10px;
     }
     .toast{
       min-width:280px; max-width:360px;
-      padding:14px 16px;
-      border-radius:20px;
-      background:var(--surface2);
-      border:1px solid var(--border);
-      box-shadow: var(--shadow);
-      display:flex; gap:12px; align-items:flex-start;
-      animation:toastIn .28s ease-out both;
+      border:1px solid var(--stroke);
+      background:linear-gradient(180deg, var(--card2), rgba(255,255,255,.05));
+      box-shadow:var(--shadow2);
+      border-radius:18px;
+      padding:12px 14px;
+      display:flex;gap:12px;align-items:flex-start;
+      animation: toastIn .35s ease both;
     }
-    @keyframes toastIn{from{opacity:0; transform:translateX(22px) scale(.96)}to{opacity:1;transform:none}}
-    .toast i{margin-top:2px}
-    .toast .t{font-weight:700}
-    .toast .s{color:var(--muted); font-size:.88rem; margin-top:4px; line-height:1.5}
-    .toast.success i{color:var(--success)}
-    .toast.info i{color:var(--primary2)}
-    .toast.warn i{color:var(--warning)}
-    .toast.danger i{color:var(--danger)}
+    @keyframes toastIn{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:none}}
+    .toast i{font-size:1.1rem;margin-top:1px}
+    .toast .t{font-weight:800;margin:0 0 3px}
+    .toast .m{margin:0;color:var(--muted);font-size:.82rem;line-height:1.45}
 
-    .empty{
-      padding:34px 18px;
-      display:grid; place-items:center; text-align:center;
-      color:var(--muted);
+    .palette{
+      position:fixed; inset:0; display:grid; place-items:start center; padding-top:10vh;
+      z-index:90; opacity:0; visibility:hidden; transition:.22s;
     }
-    .empty i{font-size:2rem; margin-bottom:10px; opacity:.7}
-    .empty b{color:var(--text); display:block; margin-bottom:6px}
+    .palette.show{opacity:1;visibility:visible}
+    .palette-box{
+      width:min(760px, calc(100vw - 24px));
+      border:1px solid var(--stroke);
+      background:linear-gradient(180deg, var(--card2), rgba(255,255,255,.04));
+      border-radius:28px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .palette-top{padding:14px;border-bottom:1px solid var(--stroke)}
+    .palette-list{max-height:360px;overflow:auto}
+    .palette-item{
+      padding:14px 16px;border-bottom:1px solid var(--stroke);
+      display:flex;justify-content:space-between;align-items:center;cursor:pointer;
+    }
+    .palette-item:hover{background:rgba(124,140,255,.08)}
+    .palette-item strong{display:block}
+    .palette-item span{color:var(--muted);font-size:.82rem}
+    .palette-item kbd{font-family:var(--mono);font-size:.72rem;border:1px solid var(--stroke);padding:4px 8px;border-radius:8px;color:var(--text);background:rgba(255,255,255,.04)}
 
-    .footerbar{
-      position:fixed; left:0; right:0; bottom:0; z-index:20;
-      display:flex; justify-content:center;
-      padding:12px;
-      pointer-events:none;
+    .settings{
+      position:fixed; top:0; right:-420px; width:min(410px, 100vw);
+      height:100vh; z-index:65;
+      transition:.32s cubic-bezier(.22,1,.36,1);
+      padding:14px;
     }
-    .footer{
-      pointer-events:auto;
-      display:flex; gap:14px; flex-wrap:wrap; justify-content:center; align-items:center;
-      padding:10px 14px;
-      border-radius:999px;
-      background:rgba(255,255,255,.05);
-      backdrop-filter: blur(18px);
-      border:1px solid var(--border);
-      box-shadow: var(--shadow2);
-      color:var(--muted);
-      font-size:.82rem;
+    .settings.show{right:0}
+    .settings-box{
+      height:100%;
+      border:1px solid var(--stroke);
+      background:linear-gradient(180deg, var(--card2), rgba(255,255,255,.04));
+      backdrop-filter: blur(var(--blur));
+      border-radius:28px 0 0 28px;
+      box-shadow:var(--shadow);
+      padding:18px;
+      overflow:auto;
     }
-
-    .hidden{display:none !important}
+    .setting-row{display:grid;gap:8px;margin-bottom:14px}
+    .setting-row .label{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
     .muted{color:var(--muted)}
-    .sep{width:1px;height:18px;background:var(--border); display:inline-block}
-    .mono{font-family:var(--mono)}
+    .footer-note{font-size:.8rem;color:var(--muted);line-height:1.6}
 
-    @media (max-width: 1220px){
-      .layout{grid-template-columns:1fr}
-      .sidebar{position:relative; top:0}
-      .hero{grid-template-columns:1fr}
-      .section-grid{grid-template-columns:1fr}
+    .loader{
+      position:fixed; inset:0; z-index:100;
+      display:grid;place-items:center;
+      background:
+        radial-gradient(600px 300px at 50% 30%, rgba(124,140,255,.2), transparent 60%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      transition:.45s ease;
     }
-    @media (max-width: 900px){
-      .stats{grid-template-columns: repeat(2, 1fr)}
-      .charts{grid-template-columns:1fr}
-      .board{grid-template-columns:1fr}
-      .brand{min-width:auto}
-      .topbar{flex-wrap:wrap}
-      .top-actions{order:3; width:100%}
+    .loader.hide{opacity:0;visibility:hidden}
+    .loader-box{
+      text-align:center;
+      padding:24px;
     }
-    @media (max-width: 640px){
-      .app{padding:12px 12px 88px}
-      .controls,.main,.hero,.sidebar,.panel{padding-left:14px;padding-right:14px}
-      .stats{grid-template-columns:1fr}
-      .hero-quick{grid-template-columns:1fr}
-      .item{grid-template-columns:1fr}
-      .actions{justify-content:flex-start}
-      .topbar{top:8px; border-radius:22px}
-      .footer{border-radius:22px}
+    .loader-box .logo{
+      width:80px;height:80px;border-radius:24px;margin:0 auto 16px;
+      background:linear-gradient(135deg,var(--primary),var(--primary2));
+      display:grid;place-items:center;font-size:2rem;
+      box-shadow:0 20px 50px rgba(124,140,255,.25);
+      animation: floaty 2.8s ease-in-out infinite;
+    }
+    @keyframes floaty{50%{transform:translateY(-8px)}}
+    .loader-bar{
+      width:240px;height:4px;border-radius:999px;background:rgba(255,255,255,.08);
+      overflow:hidden;margin:18px auto 0;
+    }
+    .loader-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--primary),var(--primary2),var(--accent));animation: fill 1.5s ease forwards}
+    @keyframes fill{to{width:100%}}
+
+
+    body[data-motion="soft"] *{animation-duration:1.2s !important}
+    body[data-motion="minimal"] *{animation-duration:.01ms !important;transition-duration:.01ms !important}
+    body[data-density="compact"] .card-inner{padding:14px}
+    body[data-density="compact"] .stat{min-height:118px}
+
+    @media (max-width: 1180px){
+      .app{grid-template-columns:1fr}
+      .sidebar{position:relative;height:auto;padding-bottom:0}
+      .side-shell{border-radius:28px}
+      .main{padding:0 18px 90px}
+      .hero,.content{grid-template-columns:1fr}
+      .content{padding:0}
+    }
+    @media (max-width: 820px){
+      .board,.analytics,.calendar{grid-template-columns:1fr}
+      .calendar{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .hero-side{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .grid-2{grid-template-columns:1fr}
+      .topbar{position:relative;top:0}
+      .controls .select{min-width:100%}
+      .search{min-width:100%}
     }
     @media (prefers-reduced-motion: reduce){
-      *, *::before, *::after{animation:none !important; transition:none !important; scroll-behavior:auto !important}
+      *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important;scroll-behavior:auto !important}
     }
   </style>
 </head>
-<body class="dark">
-  <div class="orb one"></div><div class="orb two"></div><div class="orb three"></div>
+<body data-theme="dark">
+  <div class="loader" id="loader">
+    <div class="loader-box">
+      <div class="logo"><i class="fa-solid fa-bolt"></i></div>
+      <h1 style="margin:0 0 8px">HackTrack</h1>
+      <p class="muted" style="margin:0">Initializing premium workspace…</p>
+      <div class="loader-bar"><i></i></div>
+    </div>
+  </div>
 
   <div class="overlay" id="overlay"></div>
 
   <div class="palette" id="palette" aria-hidden="true">
-    <input id="paletteInput" type="text" placeholder="Search commands, views, items..." />
-    <div class="palette-list" id="paletteList"></div>
+    <div class="palette-box">
+      <div class="palette-top">
+        <input class="input" id="paletteInput" placeholder="Type a command or search…" />
+      </div>
+      <div class="palette-list" id="paletteList"></div>
+    </div>
   </div>
 
-  <aside class="drawer" id="drawer">
-    <div class="drawer-head">
-      <div>
-        <h3>New hackathon</h3>
-        <div class="muted" style="font-size:.85rem;margin-top:4px">Capture it once. Track it everywhere.</div>
-      </div>
-      <button class="iconbtn" id="closeDrawer"><i class="fa-solid fa-xmark"></i></button>
+  <div class="modal" id="modal" role="dialog" aria-modal="true">
+    <div class="modal-head">
+      <h3 id="modalTitle">Confirm</h3>
+      <button class="btn btn-ghost" id="modalClose"><i class="fa-solid fa-xmark"></i></button>
     </div>
-    <form class="form" id="form">
-      <div class="field"><label>Name</label><input id="name" required placeholder="MLH Hackathon 2026"></div>
-      <div class="field"><label>Description</label><textarea id="desc" placeholder="Goals, context, notes..."></textarea></div>
-      <div class="field"><label>Start</label><input id="start" type="date" required></div>
-      <div class="field"><label>End</label><input id="end" type="date" required></div>
-      <div class="field"><label>PPT deadline</label><input id="ppt" type="date" required></div>
-      <div class="field"><label>Priority</label>
-        <select id="priority">
-          <option value="low">Low</option><option value="mid" selected>Medium</option><option value="high">High</option>
-        </select>
+    <div class="modal-body">
+      <p class="muted" id="modalBody" style="margin:0;line-height:1.6"></p>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" id="modalCancel">Cancel</button>
+        <button class="btn btn-primary" id="modalOk">Confirm</button>
       </div>
-      <div class="field"><label>Website</label><input id="url" type="url" placeholder="https://..."></div>
-      <button class="primarybtn" type="submit"><i class="fa-solid fa-sparkles"></i> Create hackathon</button>
-      <button class="ghostbtn" type="button" id="seedDemo"><i class="fa-solid fa-wand-magic-sparkles"></i> Load sample data</button>
-    </form>
+    </div>
+  </div>
+
+  <aside class="settings" id="settings">
+    <div class="settings-box">
+      <div class="section-head">
+        <div>
+          <h3>Settings</h3>
+          <small>Workspace preferences</small>
+        </div>
+        <button class="btn btn-ghost" id="closeSettings"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="setting-row">
+        <div class="label">Theme</div>
+        <div class="pill-row" id="themePills"></div>
+      </div>
+
+      <div class="setting-row">
+        <div class="label">Density</div>
+        <div class="pill-row" id="densityPills"></div>
+      </div>
+
+      <div class="setting-row">
+        <div class="label">Motion</div>
+        <div class="pill-row" id="motionPills"></div>
+      </div>
+
+      <div class="setting-row">
+        <div class="label">Import / Export</div>
+        <div class="pill-row">
+          <button class="pill" id="exportBtn"><i class="fa-solid fa-download"></i> Export JSON</button>
+          <button class="pill" id="importBtn"><i class="fa-solid fa-upload"></i> Import JSON</button>
+          <input type="file" id="importFile" accept="application/json" hidden>
+        </div>
+      </div>
+
+      <p class="footer-note">
+        Keyboard: <span class="kbd">Ctrl</span> + <span class="kbd">K</span> command palette,
+        <span class="kbd">N</span> new item,
+        <span class="kbd">/</span> focus search,
+        <span class="kbd">S</span> settings.
+      </p>
+    </div>
   </aside>
 
   <div class="toast-wrap" id="toasts"></div>
 
   <div class="app">
-    <div class="topbar">
-      <div class="brand">
-        <div class="brand-badge"><i class="fa-solid fa-bolt"></i></div>
-        <div>
-          <h1>HackTrack</h1>
-          <small>premium command center</small>
+    <aside class="sidebar">
+      <div class="side-shell">
+        <div class="brand">
+          <div class="brand-mark"><i class="fa-solid fa-rocket"></i></div>
+          <div>
+            <h1>HackTrack</h1>
+            <p>Command center</p>
+          </div>
+        </div>
+
+        <div class="quick-actions">
+          <button class="qa" id="qaNew"><i class="fa-solid fa-plus"></i><span>New item</span></button>
+          <button class="qa" id="qaPalette"><i class="fa-solid fa-terminal"></i><span>Command</span></button>
+          <button class="qa" id="qaTheme"><i class="fa-solid fa-wand-magic-sparkles"></i><span>Theme</span></button>
+          <button class="qa" id="qaSettings"><i class="fa-solid fa-sliders"></i><span>Settings</span></button>
+        </div>
+
+        <div class="side-nav">
+          <button class="nav-btn active" data-nav="all"><i class="fa-solid fa-layer-group"></i> All projects</button>
+          <button class="nav-btn" data-nav="today"><i class="fa-solid fa-sun"></i> Today</button>
+          <button class="nav-btn" data-nav="upcoming"><i class="fa-solid fa-calendar-days"></i> Upcoming</button>
+          <button class="nav-btn" data-nav="overdue"><i class="fa-solid fa-triangle-exclamation"></i> Overdue</button>
+          <button class="nav-btn" data-nav="pinned"><i class="fa-solid fa-thumbtack"></i> Pinned</button>
+          <button class="nav-btn" data-nav="archived"><i class="fa-solid fa-archive"></i> Archived</button>
+        </div>
+
+        <div class="side-meta">
+          <div class="meta-row"><span>Total</span><strong id="mTotal">0</strong></div>
+          <div class="meta-row"><span>Active</span><strong id="mActive">0</strong></div>
+          <div class="meta-row"><span>Urgent</span><strong id="mUrgent">0</strong></div>
+          <div class="meta-row"><span>Done</span><strong id="mDone">0</strong></div>
         </div>
       </div>
+    </aside>
 
-      <div class="top-actions">
+    <main class="main">
+      <div class="topbar panel">
+        <div class="top-left">
+          <div class="badge"><i class="fa-solid fa-circle-dot" style="color:var(--accent)"></i> live workspace</div>
+          <div class="badge"><i class="fa-solid fa-keyboard"></i> quick shortcuts</div>
+        </div>
         <div class="search">
-          <i class="fa-solid fa-magnifying-glass"></i>
-          <input id="search" placeholder="Search everything…  /" />
+          <i class="fa-solid fa-search"></i>
+          <input id="search" placeholder="Search hackathons, notes, dates, tags…" />
         </div>
-        <select class="select" id="sort">
-          <option value="deadline">Sort by deadline</option>
-          <option value="name">Sort by name</option>
-          <option value="priority">Sort by priority</option>
-        </select>
-        <button class="iconbtn" id="themeBtn" title="Theme"><i class="fa-solid fa-circle-half-stroke"></i></button>
-        <button class="iconbtn" id="settingsBtn" title="Settings"><i class="fa-solid fa-sliders"></i></button>
-        <button class="primarybtn" id="newBtn"><i class="fa-solid fa-plus"></i> New</button>
+        <div class="toolbar">
+          <button class="btn btn-ghost" id="settingsBtn"><i class="fa-solid fa-sliders"></i> Settings</button>
+          <button class="btn btn-primary" id="newBtn"><i class="fa-solid fa-plus"></i> New</button>
+        </div>
       </div>
-    </div>
 
-    <div class="layout">
-      <aside class="sidebar">
-        <div class="side-section">
-          <div class="side-title">Workspace</div>
-          <div class="nav" id="nav">
-            <button class="active" data-view="overview"><span><i class="fa-solid fa-grid-2"></i> Overview</span><small>⌘1</small></button>
-            <button data-view="list"><span><i class="fa-solid fa-list"></i> List</span><small>⌘2</small></button>
-            <button data-view="board"><span><i class="fa-solid fa-columns"></i> Board</span><small>⌘3</small></button>
-            <button data-view="timeline"><span><i class="fa-solid fa-timeline"></i> Timeline</span><small>⌘4</small></button>
-            <button data-view="analytics"><span><i class="fa-solid fa-chart-line"></i> Analytics</span><small>⌘5</small></button>
+      <section class="hero">
+        <div class="panel hero-main">
+          <div class="eyebrow"><i class="fa-solid fa-sparkles"></i> premium productivity dashboard</div>
+          <h2>Build a workspace that feels <span>powerful</span>, cinematic, and effortless.</h2>
+          <p>
+            A dense, elegant command center for hackathon planning: rich cards, analytics, timeline, board, calendar,
+            settings, hotkeys, and polished transitions — all kept in one single file.
+          </p>
+        </div>
+
+        <div class="hero-side">
+          <div class="panel stat">
+            <div class="label">Progress</div>
+            <div class="value" id="statProgress">0%</div>
+            <div class="foot">Overall completion</div>
+            <div class="ring">
+              <svg width="78" height="78" viewBox="0 0 78 78"><circle class="track" cx="39" cy="39" r="31"/><circle class="fill" id="ringProgress" cx="39" cy="39" r="31" stroke="url(#g1)"/></svg>
+              <div class="center" id="ringText">0%</div>
+            </div>
+          </div>
+          <div class="panel stat">
+            <div class="label">Focus</div>
+            <div class="value" id="statFocus">0</div>
+            <div class="foot">Projects in motion</div>
+            <div class="ring">
+              <svg width="78" height="78" viewBox="0 0 78 78"><circle class="track" cx="39" cy="39" r="31"/><circle class="fill" id="ringFocus" cx="39" cy="39" r="31" stroke="url(#g2)"/></svg>
+              <div class="center" id="ringText2">0</div>
+            </div>
+          </div>
+          <div class="panel stat">
+            <div class="label">Urgent</div>
+            <div class="value" id="statUrgent2">0</div>
+            <div class="foot">Needs attention</div>
+            <div class="ring">
+              <svg width="78" height="78" viewBox="0 0 78 78"><circle class="track" cx="39" cy="39" r="31"/><circle class="fill" id="ringUrgent" cx="39" cy="39" r="31" stroke="url(#g3)"/></svg>
+              <div class="center" id="ringText3">0</div>
+            </div>
+          </div>
+          <div class="panel stat">
+            <div class="label">Done</div>
+            <div class="value" id="statDone">0</div>
+            <div class="foot">Completed items</div>
+            <div class="ring">
+              <svg width="78" height="78" viewBox="0 0 78 78"><circle class="track" cx="39" cy="39" r="31"/><circle class="fill" id="ringDone" cx="39" cy="39" r="31" stroke="url(#g4)"/></svg>
+              <div class="center" id="ringText4">0</div>
+            </div>
           </div>
         </div>
-        <div class="side-section">
-          <div class="side-title">Quick stats</div>
-          <div class="metric-mini">
-            <div class="mini-card"><b id="miniTotal">0</b><small>Total hackathons</small></div>
-            <div class="mini-card"><b id="miniLive">0</b><small>Active right now</small></div>
-            <div class="mini-card"><b id="miniUrgent">0</b><small>Urgent deadlines</small></div>
-          </div>
-        </div>
-      </aside>
+      </section>
 
-      <main class="workspace">
-        <section class="hero">
-          <div class="hero-card">
-            <div class="hero-top">
-              <span class="badge"><i class="fa-solid fa-circle" style="color:var(--primary2)"></i> high-density productivity UI</span>
-              <span class="badge"><i class="fa-solid fa-wand-magic-sparkles"></i> cinematic transitions</span>
-              <span class="badge"><i class="fa-solid fa-keyboard"></i> / command palette</span>
+      <section class="content">
+        <aside class="panel form-shell">
+          <div class="section-head">
+            <div>
+              <h3>Create / Edit</h3>
+              <small>Fast capture with rich fields</small>
             </div>
-            <h2>Build a <span>beautiful command center</span> for every hackathon.</h2>
-            <p>
-              Dense information, thick surfaces, premium motion, analytics, and powerful workflow tools—without losing clarity.
-              Every interaction is tuned to feel expensive, modern, and effortless.
-            </p>
+            <button class="pill" id="resetForm"><i class="fa-solid fa-eraser"></i> Reset</button>
           </div>
-          <div class="hero-quick">
-            <div class="qcard">
-              <div><i class="fa-solid fa-clock" style="color:var(--warning)"></i></div>
+
+          <form id="form" class="form-grid">
+            <input type="hidden" id="id">
+            <div>
+              <label>Name</label>
+              <input class="input" id="name" placeholder="e.g. MLH Hackathon 2026" required>
+            </div>
+            <div>
+              <label>Description</label>
+              <textarea id="desc" placeholder="Project, submission, goals, notes..."></textarea>
+            </div>
+            <div class="grid-2">
               <div>
-                <b id="upcomingCount">0</b>
-                <small>upcoming deadlines</small>
+                <label>Start</label>
+                <input class="input" type="date" id="start" required>
+              </div>
+              <div>
+                <label>End</label>
+                <input class="input" type="date" id="end" required>
               </div>
             </div>
-            <div class="qcard">
-              <div><i class="fa-solid fa-circle-check" style="color:var(--success)"></i></div>
+            <div class="grid-2">
               <div>
-                <b id="completedCount">0</b>
-                <small>completed items</small>
+                <label>PPT deadline</label>
+                <input class="input" type="date" id="ppt" required>
+              </div>
+              <div>
+                <label>Priority</label>
+                <select class="select" id="priority">
+                  <option value="low">Low</option>
+                  <option value="medium">Medium</option>
+                  <option value="high">High</option>
+                </select>
               </div>
             </div>
-            <div class="qcard">
-              <div><i class="fa-solid fa-triangle-exclamation" style="color:var(--danger)"></i></div>
-              <div>
-                <b id="overdueCount">0</b>
-                <small>overdue items</small>
-              </div>
+            <div>
+              <label>Tags</label>
+              <input class="input" id="tags" placeholder="AI, IoT, Web, Placement">
             </div>
-            <div class="qcard">
-              <div><i class="fa-solid fa-arrow-trend-up" style="color:var(--primary2)"></i></div>
-              <div>
-                <b id="progressPct">0%</b>
-                <small>overall completion</small>
-              </div>
+            <div>
+              <label>Website</label>
+              <input class="input" id="website" placeholder="https://...">
             </div>
+            <div>
+              <label>Notes</label>
+              <textarea id="notes" placeholder="Nested notes, checklists, references..."></textarea>
+            </div>
+            <div class="grid-2">
+              <button type="button" class="btn btn-ghost" id="pinBtn"><i class="fa-solid fa-thumbtack"></i> Pin</button>
+              <button type="submit" class="btn btn-primary"><i class="fa-solid fa-rocket"></i> Save</button>
+            </div>
+          </form>
+        </aside>
+
+        <section class="panel workspace-shell">
+          <div class="workspace-top">
+            <div class="views">
+              <button class="view-btn active" data-view="list"><i class="fa-solid fa-list"></i> List</button>
+              <button class="view-btn" data-view="board"><i class="fa-solid fa-columns"></i> Board</button>
+              <button class="view-btn" data-view="timeline"><i class="fa-solid fa-stream"></i> Timeline</button>
+              <button class="view-btn" data-view="calendar"><i class="fa-solid fa-calendar"></i> Calendar</button>
+              <button class="view-btn" data-view="analytics"><i class="fa-solid fa-chart-line"></i> Analytics</button>
+            </div>
+
+            <div class="controls">
+              <select class="select" id="sort">
+                <option value="deadline">Sort by deadline</option>
+                <option value="name">Sort by name</option>
+                <option value="priority">Sort by priority</option>
+                <option value="created">Sort by created</option>
+              </select>
+              <button class="btn btn-ghost" id="toggleComplete"><i class="fa-solid fa-check"></i> Show completed</button>
+            </div>
+          </div>
+
+          <div class="panels">
+            <div id="listView" class="panel-view active"></div>
+            <div id="boardView" class="panel-view"></div>
+            <div id="timelineView" class="panel-view"></div>
+            <div id="calendarView" class="panel-view"></div>
+            <div id="analyticsView" class="panel-view"></div>
           </div>
         </section>
-
-        <section class="controls">
-          <div class="tabs">
-            <button class="tab active" data-tab="all">All</button>
-            <button class="tab" data-tab="today">Today</button>
-            <button class="tab" data-tab="week">This week</button>
-            <button class="tab" data-tab="pinned">Pinned</button>
-            <button class="tab" data-tab="archived">Archived</button>
-          </div>
-          <div class="settings">
-            <button class="chipbtn" id="bulkComplete"><i class="fa-solid fa-check"></i> Bulk complete</button>
-            <button class="chipbtn" id="bulkPin"><i class="fa-solid fa-thumbtack"></i> Bulk pin</button>
-            <select class="select" id="density">
-              <option value="comfortable">Comfortable</option>
-              <option value="compact" selected>Compact</option>
-            </select>
-            <button class="ghostbtn" id="exportBtn"><i class="fa-solid fa-file-arrow-down"></i> Export</button>
-          </div>
-        </section>
-
-        <section class="main">
-          <div class="section-grid">
-            <div class="panel">
-              <div class="panel-head">
-                <div>
-                  <h3 class="panel-title">Dashboard</h3>
-                  <div class="panel-sub">Signal, momentum, risk, and progress at a glance.</div>
-                </div>
-                <div class="meta">
-                  <span class="pill"><i class="fa-solid fa-bolt"></i> <strong>Live</strong></span>
-                  <span class="pill"><i class="fa-solid fa-lock"></i> <strong>Local</strong> storage</span>
-                </div>
-              </div>
-              <div class="stats">
-                <div class="stat" style="--p:72"><div class="ring"></div><div class="label">Total</div><div class="value" id="statTotal">0</div><div class="trend"><i class="fa-solid fa-layer-group"></i> all tracked items</div></div>
-                <div class="stat" style="--p:58"><div class="ring"></div><div class="label">Active</div><div class="value" id="statActive">0</div><div class="trend"><i class="fa-solid fa-fire"></i> in progress right now</div></div>
-                <div class="stat" style="--p:31"><div class="ring"></div><div class="label">Urgent</div><div class="value" id="statUrgent">0</div><div class="trend"><i class="fa-solid fa-triangle-exclamation"></i> attention required</div></div>
-                <div class="stat" style="--p:84"><div class="ring"></div><div class="label">Completed</div><div class="value" id="statDone">0</div><div class="trend"><i class="fa-solid fa-circle-check"></i> delivered successfully</div></div>
-              </div>
-            </div>
-
-            <div class="panel">
-              <div class="panel-head">
-                <div>
-                  <h3 class="panel-title">Analytics</h3>
-                  <div class="panel-sub">Tiny charts, big clarity.</div>
-                </div>
-              </div>
-              <div class="charts">
-                <div class="chart-card">
-                  <h4>Completion trend</h4>
-                  <svg class="line-svg sparkline" viewBox="0 0 320 120" preserveAspectRatio="none">
-                    <defs>
-                      <linearGradient id="lineGrad" x1="0" x2="1">
-                        <stop offset="0%" stop-color="var(--primary)"/>
-                        <stop offset="100%" stop-color="var(--primary2)"/>
-                      </linearGradient>
-                    </defs>
-                    <path id="linePath" d=""/>
-                    <path id="lineFill" d="" opacity=".18" fill="url(#lineGrad)" stroke="none"/>
-                  </svg>
-                </div>
-                <div class="chart-card">
-                  <h4>Priority breakdown</h4>
-                  <svg class="donut-svg" viewBox="0 0 220 150">
-                    <circle cx="85" cy="75" r="42" fill="none" stroke="rgba(255,255,255,.09)" stroke-width="18"/>
-                    <circle id="donut" cx="85" cy="75" r="42" fill="none" stroke="url(#lineGrad)" stroke-width="18" stroke-linecap="round"
-                            stroke-dasharray="264" stroke-dashoffset="264" transform="rotate(-90 85 75)"/>
-                    <text x="85" y="78" text-anchor="middle" class="donut-text" id="donutText">0%</text>
-                    <text x="138" y="58" fill="var(--muted)" font-size="12">High</text>
-                    <text x="138" y="80" fill="var(--muted)" font-size="12">Medium</text>
-                    <text x="138" y="102" fill="var(--muted)" font-size="12">Low</text>
-                    <rect x="126" y="48" width="10" height="10" rx="3" fill="var(--danger)"/>
-                    <rect x="126" y="70" width="10" height="10" rx="3" fill="var(--warning)"/>
-                    <rect x="126" y="92" width="10" height="10" rx="3" fill="var(--success)"/>
-                  </svg>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="section-grid">
-            <div class="panel">
-              <div class="panel-head">
-                <div>
-                  <h3 class="panel-title">View canvas</h3>
-                  <div class="panel-sub">Switch between dense cards, boards, and timeline views.</div>
-                </div>
-                <div class="meta">
-                  <span class="pill"><i class="fa-solid fa-mouse-pointer"></i> hover depth</span>
-                  <span class="pill"><i class="fa-solid fa-layer-group"></i> grouped sections</span>
-                </div>
-              </div>
-
-              <div id="overviewView" class="view-card">
-                <div class="group">
-                  <div>
-                    <h3>Today / Upcoming / Overdue</h3>
-                    <small>Filtered snapshot of what matters now</small>
-                  </div>
-                </div>
-                <div class="list" id="overviewList"></div>
-                <div class="empty hidden" id="emptyOverview">
-                  <i class="fa-solid fa-rocket"></i>
-                  <b>No items yet</b>
-                  <span>Press <span class="kbd">N</span> to create your first item.</span>
-                </div>
-              </div>
-
-              <div id="listView" class="view-card hidden">
-                <div class="group">
-                  <div>
-                    <h3>Thick list cards</h3>
-                    <small>Dense, modular, and highly actionable.</small>
-                  </div>
-                </div>
-                <div class="list" id="list"></div>
-              </div>
-
-              <div id="boardView" class="view-card board">
-                <div class="board-col" data-col="upcoming">
-                  <div class="col-head"><h4>Upcoming</h4><span class="count" id="cUpcoming">0</span></div>
-                  <div id="boardUpcoming"></div>
-                </div>
-                <div class="board-col" data-col="active">
-                  <div class="col-head"><h4>Active</h4><span class="count" id="cActive">0</span></div>
-                  <div id="boardActive"></div>
-                </div>
-                <div class="board-col" data-col="done">
-                  <div class="col-head"><h4>Done</h4><span class="count" id="cDone">0</span></div>
-                  <div id="boardDone"></div>
-                </div>
-              </div>
-
-              <div id="timelineView" class="view-card timeline">
-                <div class="group">
-                  <div>
-                    <h3>Timeline</h3>
-                    <small>Chronological execution line</small>
-                  </div>
-                </div>
-                <div id="timeline"></div>
-              </div>
-
-              <div id="analyticsView" class="view-card hidden">
-                <div class="group">
-                  <div>
-                    <h3>Analytics deep dive</h3>
-                    <small>Charts and progress at a glance.</small>
-                  </div>
-                </div>
-                <div class="charts" style="grid-template-columns:1fr">
-                  <div class="chart-card">
-                    <h4>Weekly activity sparkline</h4>
-                    <svg class="line-svg sparkline" viewBox="0 0 320 120" preserveAspectRatio="none">
-                      <path id="spark" d=""/>
-                    </svg>
-                  </div>
-                  <div class="chart-card">
-                    <h4>Productivity heatmap</h4>
-                    <div class="heatmap" id="heatmap"></div>
-                  </div>
-                  <div class="chart-card">
-                    <h4>Deadline distribution</h4>
-                    <div class="bars" id="bars"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="panel">
-              <div class="panel-head">
-                <div>
-                  <h3 class="panel-title">Action center</h3>
-                  <div class="panel-sub">Quick actions, filters, and system controls.</div>
-                </div>
-              </div>
-              <div class="charts" style="grid-template-columns:1fr">
-                <div class="chart-card">
-                  <h4>Theme presets</h4>
-                  <div class="tabs" style="margin-bottom:10px">
-                    <button class="tab theme active" data-theme="dark">Dark</button>
-                    <button class="tab theme" data-theme="light">Light</button>
-                    <button class="tab theme" data-theme="ocean">Ocean</button>
-                    <button class="tab theme" data-theme="rose">Rose</button>
-                    <button class="tab theme" data-theme="forest">Forest</button>
-                  </div>
-                </div>
-                <div class="chart-card">
-                  <h4>Motion density</h4>
-                  <div class="settings">
-                    <button class="chipbtn density active" data-density="compact">Compact</button>
-                    <button class="chipbtn density" data-density="comfortable">Comfortable</button>
-                  </div>
-                </div>
-                <div class="chart-card">
-                  <h4>Keyboard shortcuts</h4>
-                  <div class="bars">
-                    <div class="bar-row"><span>New</span><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><small class="kbd">N</small></div>
-                    <div class="bar-row"><span>Search</span><div class="bar-track"><div class="bar-fill" style="width:80%"></div></div><small class="kbd">/</small></div>
-                    <div class="bar-row"><span>Palette</span><div class="bar-track"><div class="bar-fill" style="width:95%"></div></div><small class="kbd">K</small></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </main>
-    </div>
+      </section>
+    </main>
   </div>
 
-  <div class="footerbar">
-    <div class="footer">
-      <span><span class="kbd">N</span> new</span>
-      <span><span class="kbd">/</span> search</span>
-      <span><span class="kbd">K</span> palette</span>
-      <span><span class="kbd">1-5</span> views</span>
-      <span><span class="kbd">Esc</span> close</span>
-    </div>
-  </div>
+  <svg width="0" height="0" style="position:absolute">
+    <defs>
+      <linearGradient id="g1" x1="0" x2="1">
+        <stop offset="0%" stop-color="var(--primary)"/>
+        <stop offset="100%" stop-color="var(--primary2)"/>
+      </linearGradient>
+      <linearGradient id="g2" x1="0" x2="1">
+        <stop offset="0%" stop-color="var(--accent)"/>
+        <stop offset="100%" stop-color="var(--primary2)"/>
+      </linearGradient>
+      <linearGradient id="g3" x1="0" x2="1">
+        <stop offset="0%" stop-color="var(--danger)"/>
+        <stop offset="100%" stop-color="var(--warn)"/>
+      </linearGradient>
+      <linearGradient id="g4" x1="0" x2="1">
+        <stop offset="0%" stop-color="var(--accent)"/>
+        <stop offset="100%" stop-color="var(--primary)"/>
+      </linearGradient>
+    </defs>
+  </svg>
 
   <script>
-    const LS_KEY = 'hacktrack-premium-v1';
-    const DEFAULTS = {
-      theme: 'dark',
-      density: 'compact',
-      tab: 'all',
-      view: 'overview',
-      items: [
-        { id: 1, name: 'MLH Global Hackathon', description: 'Finalizing design, validation, and submission pipeline.', start: '2026-04-19', end: '2026-04-25', ppt: '2026-04-23', priority: 'high', pinned: true, archived: false, completed: false, url: 'https://mlh.io' },
-        { id: 2, name: 'Smart India Hardware Sprint', description: 'Prototype review, demo polish, and team sync.', start: '2026-04-18', end: '2026-04-24', ppt: '2026-04-22', priority: 'mid', pinned: false, archived: false, completed: false, url: '' },
-        { id: 3, name: 'AI Vision Weekend', description: 'Presentation deck and feature freeze.', start: '2026-04-12', end: '2026-04-20', ppt: '2026-04-17', priority: 'low', pinned: false, archived: false, completed: true, url: '' },
-        { id: 4, name: 'Campus Innovate Summit', description: 'Archive complete, waiting for results.', start: '2026-03-28', end: '2026-04-03', ppt: '2026-04-01', priority: 'high', pinned: false, archived: true, completed: true, url: '' },
-      ]
-    };
+    (() => {
+      const STORAGE_KEY = "hacktrack.ultra.v1";
+      const SETTINGS_KEY = "hacktrack.settings.v1";
+      const today = new Date();
+      const $ = s => document.querySelector(s);
+      const $$ = s => [...document.querySelectorAll(s)];
 
-    const $ = s => document.querySelector(s);
-    const $$ = s => document.querySelectorAll(s);
-    const state = loadState();
-    const els = {
-      overlay: $('#overlay'),
-      drawer: $('#drawer'),
-      palette: $('#palette'),
-      paletteInput: $('#paletteInput'),
-      paletteList: $('#paletteList'),
-      toasts: $('#toasts'),
-      search: $('#search'),
-      sort: $('#sort'),
-      nav: $('#nav'),
-      overviewView: $('#overviewView'),
-      listView: $('#listView'),
-      boardView: $('#boardView'),
-      timelineView: $('#timelineView'),
-      analyticsView: $('#analyticsView'),
-      overviewList: $('#overviewList'),
-      emptyOverview: $('#emptyOverview'),
-      list: $('#list'),
-      timeline: $('#timeline'),
-      boardUpcoming: $('#boardUpcoming'),
-      boardActive: $('#boardActive'),
-      boardDone: $('#boardDone'),
-      heatmap: $('#heatmap'),
-      bars: $('#bars'),
-      linePath: $('#linePath'),
-      lineFill: $('#lineFill'),
-      spark: $('#spark'),
-      donut: $('#donut'),
-      donutText: $('#donutText'),
-      statTotal: $('#statTotal'),
-      statActive: $('#statActive'),
-      statUrgent: $('#statUrgent'),
-      statDone: $('#statDone'),
-      miniTotal: $('#miniTotal'),
-      miniLive: $('#miniLive'),
-      miniUrgent: $('#miniUrgent'),
-      upcomingCount: $('#upcomingCount'),
-      completedCount: $('#completedCount'),
-      overdueCount: $('#overdueCount'),
-      progressPct: $('#progressPct'),
-      cUpcoming: $('#cUpcoming'),
-      cActive: $('#cActive'),
-      cDone: $('#cDone'),
-      themeBtn: $('#themeBtn'),
-      settingsBtn: $('#settingsBtn'),
-      newBtn: $('#newBtn'),
-      closeDrawer: $('#closeDrawer'),
-      form: $('#form'),
-      name: $('#name'),
-      desc: $('#desc'),
-      start: $('#start'),
-      end: $('#end'),
-      ppt: $('#ppt'),
-      priority: $('#priority'),
-      url: $('#url'),
-      seedDemo: $('#seedDemo'),
-      bulkComplete: $('#bulkComplete'),
-      bulkPin: $('#bulkPin'),
-      exportBtn: $('#exportBtn'),
-      density: $('#density'),
-    };
-
-    function loadState(){
-      try{
-        const data = JSON.parse(localStorage.getItem(LS_KEY));
-        return data ? { ...DEFAULTS, ...data } : structuredClone(DEFAULTS);
-      }catch(e){
-        return structuredClone(DEFAULTS);
-      }
-    }
-    function saveState(){
-      localStorage.setItem(LS_KEY, JSON.stringify({
-        theme: state.theme,
-        density: state.density,
-        tab: state.tab,
-        view: state.view,
-        items: state.items
-      }));
-    }
-    function uid(){ return Date.now() + Math.floor(Math.random()*999); }
-    function toast(type, title, subtitle){
-      const el = document.createElement('div');
-      el.className = `toast ${type}`;
-      el.innerHTML = `<i class="fa-solid ${type==='success'?'fa-circle-check':type==='danger'?'fa-triangle-exclamation':type==='warn'?'fa-circle-exclamation':'fa-circle-info'}"></i>
-        <div><div class="t">${title}</div><div class="s">${subtitle}</div></div>`;
-      els.toasts.appendChild(el);
-      setTimeout(() => { el.style.opacity = '0'; el.style.transform = 'translateX(22px) scale(.96)'; }, 2600);
-      setTimeout(() => el.remove(), 3000);
-    }
-    function setTheme(theme){
-      document.body.className = theme === 'dark' ? 'dark' : theme;
-      state.theme = theme;
-      $$('.theme').forEach(b => b.classList.toggle('active', b.dataset.theme === theme));
-      saveState();
-      toast('info', 'Theme updated', `Switched to ${theme} theme.`);
-    }
-    function setDensity(density){
-      state.density = density;
-      document.documentElement.style.setProperty('--cardPad', density === 'compact' ? '18px' : '24px');
-      document.documentElement.style.setProperty('--gap', density === 'compact' ? '18px' : '24px');
-      $$('.density').forEach(b => b.classList.toggle('active', b.dataset.density === density));
-      saveState();
-      toast('info', 'Density updated', `${density} mode applied.`);
-    }
-    function openDrawer(){ els.overlay.classList.add('show'); els.drawer.classList.add('open'); }
-    function closeDrawer(){ els.overlay.classList.remove('show'); els.drawer.classList.remove('open'); }
-    function openPalette(){
-      els.overlay.classList.add('show');
-      els.palette.classList.add('show');
-      els.palette.setAttribute('aria-hidden', 'false');
-      els.paletteInput.value = '';
-      renderPalette();
-      setTimeout(()=>els.paletteInput.focus(), 20);
-    }
-    function closePalette(){
-      els.overlay.classList.remove('show');
-      els.palette.classList.remove('show');
-      els.palette.setAttribute('aria-hidden', 'true');
-    }
-
-    function daysLeft(dateStr){
-      const now = new Date(); now.setHours(0,0,0,0);
-      const d = new Date(dateStr); d.setHours(0,0,0,0);
-      return Math.round((d - now) / 86400000);
-    }
-    function weekIndex(dateStr){
-      const d = new Date(dateStr);
-      return Math.max(0, Math.min(6, d.getDay()));
-    }
-    function fmt(dateStr){
-      return new Date(dateStr + 'T00:00:00').toLocaleDateString(undefined, {month:'short', day:'numeric', year:'numeric'});
-    }
-    function progress(item){
-      const s = new Date(item.start), e = new Date(item.end), n = new Date();
-      if (n <= s) return 0;
-      if (n >= e) return 100;
-      return Math.round(((n - s) / (e - s)) * 100);
-    }
-    function priorityScore(p){ return p === 'high' ? 0 : p === 'mid' ? 1 : 2; }
-    function urgency(item){ const d = daysLeft(item.ppt); return d < 0 ? 'overdue' : d <= 3 ? 'urgent' : d <= 7 ? 'soon' : 'ok'; }
-    function filteredItems(){
-      const q = els.search.value.trim().toLowerCase();
-      let items = state.items.filter(it => {
-        const matchesTab =
-          state.tab === 'all' ||
-          (state.tab === 'today' && (daysLeft(it.ppt) === 0 || daysLeft(it.end) === 0)) ||
-          (state.tab === 'week' && daysLeft(it.ppt) <= 7 && daysLeft(it.ppt) >= 0) ||
-          (state.tab === 'pinned' && it.pinned) ||
-          (state.tab === 'archived' && it.archived);
-        const text = [it.name, it.description, it.priority, it.url].join(' ').toLowerCase();
-        return matchesTab && text.includes(q);
-      });
-
-      const sort = els.sort.value;
-      items.sort((a,b) => {
-        if (sort === 'name') return a.name.localeCompare(b.name);
-        if (sort === 'priority') return priorityScore(a.priority) - priorityScore(b.priority);
-        return new Date(a.ppt) - new Date(b.ppt);
-      });
-      return items;
-    }
-    function visibleItems(){
-      return filteredItems().filter(it => !it.archived);
-    }
-
-    function iconFor(item){
-      const u = urgency(item);
-      return u === 'overdue' ? 'fa-triangle-exclamation' : u === 'soon' ? 'fa-clock' : item.completed ? 'fa-circle-check' : 'fa-bolt';
-    }
-    function prioClass(p){ return p === 'high' ? 'high' : p === 'mid' ? 'mid' : 'low'; }
-
-    function card(item){
-      const d = daysLeft(item.ppt);
-      const p = progress(item);
-      const u = urgency(item);
-      return `
-        <article class="item ${item.completed ? 'completed' : ''}" data-id="${item.id}">
-          <div>
-            <div class="title-row">
-              <div class="title">${escapeHTML(item.name)}</div>
-              <div class="pill"><i class="fa-solid ${iconFor(item)}"></i> <strong class="prio ${prioClass(item.priority)}">${item.priority}</strong></div>
-            </div>
-            ${item.description ? `<div class="desc">${escapeHTML(item.description)}</div>` : ''}
-            <div class="chips">
-              <span class="pill"><i class="fa-solid fa-calendar"></i> ${fmt(item.start)}</span>
-              <span class="pill"><i class="fa-solid fa-flag-checkered"></i> ${fmt(item.end)}</span>
-              <span class="pill"><i class="fa-solid fa-file-powerpoint"></i> ${fmt(item.ppt)}</span>
-              <span class="pill"><i class="fa-solid ${item.pinned ? 'fa-thumbtack' : 'fa-circle'}"></i> ${item.pinned ? 'Pinned' : 'Unpinned'}</span>
-              <span class="pill"><i class="fa-solid fa-signal"></i> ${d < 0 ? `${Math.abs(d)}d overdue` : `${d}d left`}</span>
-            </div>
-            <div class="progress-row">
-              <small class="muted">Progress</small>
-              <small class="mono">${p}%</small>
-            </div>
-            <div class="progress"><div style="width:${p}%"></div></div>
-          </div>
-          <div class="actions">
-            <button class="chipbtn success" data-act="complete" data-id="${item.id}"><i class="fa-solid fa-check"></i> ${item.completed ? 'Undo' : 'Complete'}</button>
-            <button class="chipbtn" data-act="pin" data-id="${item.id}"><i class="fa-solid fa-thumbtack"></i> ${item.pinned ? 'Unpin' : 'Pin'}</button>
-            <button class="chipbtn" data-act="dup" data-id="${item.id}"><i class="fa-solid fa-clone"></i> Duplicate</button>
-            ${item.url ? `<a class="chipbtn" href="${escapeAttr(item.url)}" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> Site</a>` : ''}
-            <button class="chipbtn danger" data-act="archive" data-id="${item.id}"><i class="fa-solid fa-box-archive"></i> ${item.archived ? 'Restore' : 'Archive'}</button>
-          </div>
-        </article>`;
-    }
-    function miniCard(item){
-      const d = daysLeft(item.ppt);
-      return `<div class="mini">
-        <b>${escapeHTML(item.name)}</b>
-        <small>${d < 0 ? `${Math.abs(d)}d overdue` : `${d}d left`} · ${item.completed ? 'done' : 'open'}</small>
-      </div>`;
-    }
-
-    function buildOverview(items){
-      const important = items.filter(i => !i.archived).slice(0, 4);
-      els.overviewList.innerHTML = important.map(card).join('');
-      els.emptyOverview.classList.toggle('hidden', important.length > 0);
-    }
-    function buildList(items){
-      els.list.innerHTML = items.filter(i => !i.archived).map(card).join('');
-    }
-    function buildBoard(items){
-      const upcoming = items.filter(i => !i.archived && !i.completed && daysLeft(i.ppt) > 7);
-      const active = items.filter(i => !i.archived && !i.completed && daysLeft(i.ppt) <= 7 && daysLeft(i.ppt) >= 0);
-      const done = items.filter(i => !i.archived && i.completed);
-      els.boardUpcoming.innerHTML = upcoming.map(miniCard).join('') || emptyMini('No upcoming items');
-      els.boardActive.innerHTML = active.map(miniCard).join('') || emptyMini('No active items');
-      els.boardDone.innerHTML = done.map(miniCard).join('') || emptyMini('No completed items');
-      els.cUpcoming.textContent = upcoming.length;
-      els.cActive.textContent = active.length;
-      els.cDone.textContent = done.length;
-    }
-    function buildTimeline(items){
-      const sorted = [...items].filter(i => !i.archived).sort((a,b) => new Date(a.ppt) - new Date(b.ppt));
-      els.timeline.innerHTML = sorted.map(item => {
-        const u = urgency(item);
-        return `<div class="titem ${item.completed ? 'done' : ''} ${u === 'overdue' ? 'urgent' : ''}">
-          <div class="tbox">
-            <b>${escapeHTML(item.name)} <span class="pill" style="margin-left:8px">${u === 'overdue' ? 'overdue' : `${Math.max(0, daysLeft(item.ppt))}d left`}</span></b>
-            <p>${escapeHTML(item.description || 'No description yet.')}</p>
-          </div>
-        </div>`;
-      }).join('') || emptyMini('Timeline is empty');
-    }
-    function emptyMini(msg){ return `<div class="empty" style="padding:22px 10px"><i class="fa-regular fa-folder-open"></i><b>${msg}</b></div>`; }
-
-    function buildAnalytics(items){
-      const all = items.filter(i => !i.archived);
-      const total = all.length || 1;
-      const complete = all.filter(i => i.completed).length;
-      const high = all.filter(i => i.priority === 'high').length;
-      const mid = all.filter(i => i.priority === 'mid').length;
-      const low = all.filter(i => i.priority === 'low').length;
-      const pct = Math.round((complete / total) * 100);
-      els.donutText.textContent = `${pct}%`;
-      const circumference = 2 * Math.PI * 42;
-      const offset = circumference - (circumference * pct / 100);
-      els.donut.style.strokeDasharray = circumference.toFixed(0);
-      els.donut.style.strokeDashoffset = offset.toFixed(0);
-
-      const trend = Array.from({length: 8}, (_, i) => Math.round((all.filter(x => weekIndex(x.ppt) <= i).length / total) * 100));
-      const path = linePath(trend, 320, 120, 24);
-      els.linePath.setAttribute('d', path.stroke);
-      els.lineFill.setAttribute('d', path.fill);
-      els.spark.setAttribute('d', path.stroke);
-
-      const bars = [
-        ['High', high, Math.max(1, total)],
-        ['Medium', mid, Math.max(1, total)],
-        ['Low', low, Math.max(1, total)]
-      ];
-      els.bars.innerHTML = bars.map(([label, val, max]) => `
-        <div class="bar-row">
-          <span>${label}</span>
-          <div class="bar-track"><div class="bar-fill" style="width:${Math.round((val/max)*100)}%"></div></div>
-          <small class="mono">${val}</small>
-        </div>
-      `).join('');
-
-      const heat = Array.from({length: 21}, (_, i) => {
-        const v = (all.length + i) % 5 + 1;
-        return `<div class="heat" data-v="${v}"></div>`;
-      }).join('');
-      els.heatmap.innerHTML = heat;
-    }
-
-    function linePath(arr, w, h, pad){
-      const max = Math.max(...arr, 1);
-      const step = (w - pad*2) / (arr.length - 1);
-      const points = arr.map((v, i) => {
-        const x = pad + i * step;
-        const y = h - pad - ((v / max) * (h - pad*2));
-        return [x, y];
-      });
-      const stroke = points.map((p,i) => `${i===0?'M':'L'}${p[0].toFixed(1)} ${p[1].toFixed(1)}`).join(' ');
-      const fill = `${stroke} L ${w-pad} ${h-pad} L ${pad} ${h-pad} Z`;
-      return { stroke, fill };
-    }
-
-    function render(){
-      const items = filteredItems();
-      const visible = items.filter(i => !i.archived);
-      const activeCount = visible.filter(i => !i.completed && daysLeft(i.ppt) >= 0).length;
-      const urgentCount = visible.filter(i => daysLeft(i.ppt) <= 3).length;
-      const doneCount = visible.filter(i => i.completed).length;
-      const overdueCount = visible.filter(i => daysLeft(i.ppt) < 0).length;
-      const total = visible.length;
-      const totalProgress = total ? Math.round(visible.reduce((a,b)=>a+progress(b),0)/total) : 0;
-
-      els.statTotal.textContent = total;
-      els.statActive.textContent = activeCount;
-      els.statUrgent.textContent = urgentCount;
-      els.statDone.textContent = doneCount;
-      els.miniTotal.textContent = total;
-      els.miniLive.textContent = activeCount;
-      els.miniUrgent.textContent = urgentCount;
-      els.upcomingCount.textContent = visible.filter(i => !i.completed && daysLeft(i.ppt) > 0 && daysLeft(i.ppt) <= 7).length;
-      els.completedCount.textContent = doneCount;
-      els.overdueCount.textContent = overdueCount;
-      els.progressPct.textContent = `${totalProgress}%`;
-
-      buildOverview(items);
-      buildList(items);
-      buildBoard(items);
-      buildTimeline(items);
-      buildAnalytics(items);
-
-      const stateView = state.view;
-      $('#overviewView').classList.toggle('hidden', stateView !== 'overview');
-      $('#listView').classList.toggle('hidden', stateView !== 'list');
-      $('#boardView').classList.toggle('active', stateView === 'board');
-      $('#timelineView').classList.toggle('active', stateView === 'timeline');
-      $('#analyticsView').classList.toggle('hidden', stateView !== 'analytics');
-
-      $$('#nav button').forEach(btn => btn.classList.toggle('active', btn.dataset.view === stateView));
-
-      saveState();
-      renderPalette();
-      animateBars();
-    }
-
-    function animateBars(){
-      $$('.bar-fill').forEach(el => {
-        const width = el.style.width;
-        el.style.width = '0%';
-        requestAnimationFrame(() => requestAnimationFrame(() => el.style.width = width));
-      });
-    }
-
-    function renderPalette(){
-      const items = filteredItems().slice(0, 8);
-      const commands = [
-        {t:'New hackathon', s:'Create a new entry', a:'openDrawer'},
-        {t:'Search', s:'Focus search', a:'focusSearch'},
-        {t:'Toggle theme', s:'Switch theme preset', a:'theme'},
-        {t:'Overview', s:'Go to dashboard', a:'view:overview'},
-        {t:'List', s:'Go to list view', a:'view:list'},
-        {t:'Board', s:'Go to board view', a:'view:board'},
-        {t:'Timeline', s:'Go to timeline', a:'view:timeline'},
-        {t:'Analytics', s:'Go to analytics', a:'view:analytics'},
-      ];
-      const query = els.paletteInput.value.trim().toLowerCase();
-      const matches = commands.filter(c => !query || `${c.t} ${c.s}`.toLowerCase().includes(query))
-        .concat(items.map(i => ({t:i.name, s:i.completed ? 'Mark as active' : 'Complete item', a:`item:${i.id}`})).filter(c => !query || `${c.t} ${c.s}`.toLowerCase().includes(query)));
-      els.paletteList.innerHTML = matches.map((c,i) => `
-        <div class="palette-item" data-act="${c.a}">
-          <div><b>${escapeHTML(c.t)}</b><div><small>${escapeHTML(c.s)}</small></div></div>
-          <span class="kbd">${i < 9 ? (i+1) : '↵'}</span>
-        </div>
-      `).join('') || `<div class="empty" style="padding:18px"><b>No matches</b><span>Try another search</span></div>`;
-    }
-
-    function setView(view){
-      state.view = view;
-      render();
-    }
-    function setTab(tab){
-      state.tab = tab;
-      $$('.tab').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
-      render();
-    }
-
-    function modifyItem(id, fn){
-      const idx = state.items.findIndex(i => i.id === id);
-      if (idx < 0) return;
-      state.items[idx] = fn(state.items[idx]);
-      saveState();
-      render();
-    }
-    function addItem(data){
-      state.items.unshift({ id: uid(), pinned:false, archived:false, completed:false, ...data });
-      saveState();
-      render();
-    }
-
-    function escapeHTML(str=''){
-      return String(str)
-        .replaceAll('&','&amp;').replaceAll('<','&lt;')
-        .replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'","&#39;");
-    }
-    function escapeAttr(str=''){ return escapeHTML(str); }
-
-    // events
-    $('#newBtn').addEventListener('click', openDrawer);
-    $('#settingsBtn').addEventListener('click', () => { state.view = 'analytics'; render(); toast('info', 'Settings', 'Analytics view opened as a control center.'); });
-    $('#closeDrawer').addEventListener('click', closeDrawer);
-    $('#themeBtn').addEventListener('click', () => {
-      const seq = ['dark', 'light', 'ocean', 'rose', 'forest'];
-      setTheme(seq[(seq.indexOf(state.theme) + 1) % seq.length]);
-    });
-    $('#seedDemo').addEventListener('click', () => {
-      state.items = structuredClone(DEFAULTS.items);
-      saveState(); render();
-      toast('success', 'Sample data loaded', 'Premium demo workspace created.');
-    });
-    $('#bulkComplete').addEventListener('click', () => {
-      const ids = filteredItems().filter(i => !i.completed && !i.archived).map(i => i.id);
-      ids.forEach(id => modifyItem(id, i => ({...i, completed:true})));
-      toast('success', 'Bulk complete', 'All visible items marked complete.');
-    });
-    $('#bulkPin').addEventListener('click', () => {
-      const ids = filteredItems().filter(i => !i.archived).map(i => i.id);
-      ids.forEach(id => modifyItem(id, i => ({...i, pinned: !i.pinned})));
-      toast('info', 'Bulk pin toggled', 'Visible items updated.');
-    });
-    $('#exportBtn').addEventListener('click', () => {
-      const blob = new Blob([JSON.stringify(state.items, null, 2)], {type:'application/json'});
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = 'hacktrack-export.json';
-      a.click();
-      URL.revokeObjectURL(a.href);
-      toast('success', 'Exported', 'Your workspace JSON has been downloaded.');
-    });
-
-    els.sort.addEventListener('change', render);
-    els.search.addEventListener('input', render);
-    els.density.addEventListener('change', e => setDensity(e.target.value));
-    els.form.addEventListener('submit', e => {
-      e.preventDefault();
-      const data = {
-        name: els.name.value.trim(),
-        description: els.desc.value.trim(),
-        start: els.start.value,
-        end: els.end.value,
-        ppt: els.ppt.value,
-        priority: els.priority.value,
-        url: els.url.value.trim(),
-        pinned:false,
-        archived:false,
-        completed:false
+      const state = {
+        nav: "all",
+        view: "list",
+        showCompleted: true,
+        search: "",
+        sort: "deadline",
+        items: [],
+        settings: {
+          theme: "dark",
+          density: "comfortable",
+          motion: "full"
+        },
+        pinMode: false,
+        editId: null,
+        pendingDelete: null
       };
-      if (!data.name || !data.start || !data.end || !data.ppt) return toast('danger', 'Missing fields', 'Please fill the required inputs.');
-      addItem(data);
-      els.form.reset();
-      closeDrawer();
-      toast('success', 'Created', `"${data.name}" added to your workspace.`);
-    });
 
-    $$('#nav button').forEach(btn => btn.addEventListener('click', () => setView(btn.dataset.view)));
-    $$('.tab').forEach(btn => btn.addEventListener('click', () => setTab(btn.dataset.tab)));
-    $$('.theme').forEach(btn => btn.addEventListener('click', () => setTheme(btn.dataset.theme)));
-    $$('.density').forEach(btn => btn.addEventListener('click', () => setDensity(btn.dataset.density)));
+      const sample = [
+        { id: crypto.randomUUID(), name: "AI Pitch Deck Sprint", desc: "Finish slides, demo script, and review flow.", start: iso(-2), end: iso(3), ppt: iso(2), priority:"high", tags:"AI, Deck", website:"", notes:"Outline: problem, solution, traction.", completed:false, pinned:true, archived:false, createdAt: Date.now()-90000000 },
+        { id: crypto.randomUUID(), name: "IoT Smart Watch Build", desc: "ESP32 + OLED smart watch concept with phone notifications.", start: iso(-1), end: iso(5), ppt: iso(4), priority:"medium", tags:"ESP32, IoT", website:"", notes:"Add watch face, call alerts, animations.", completed:false, pinned:false, archived:false, createdAt: Date.now()-75000000 },
+        { id: crypto.randomUUID(), name: "Portfolio Redesign", desc: "Premium 3D website, scrolling transitions, and motion system.", start: iso(-5), end: iso(9), ppt: iso(7), priority:"low", tags:"Web, UI", website:"", notes:"Hero, sections, charts, effects.", completed:true, pinned:false, archived:false, createdAt: Date.now()-250000000 },
+        { id: crypto.randomUUID(), name: "Placement Prep Dashboard", desc: "DSA, cloud roadmap, and weekly progress tracking.", start: iso(-3), end: iso(12), ppt: iso(10), priority:"medium", tags:"Placement, DSA", website:"", notes:"Add checklists and milestones.", completed:false, pinned:true, archived:false, createdAt: Date.now()-180000000 }
+      ];
 
-    els.overlay.addEventListener('click', () => { closeDrawer(); closePalette(); });
-    document.addEventListener('keydown', (e) => {
-      const key = e.key.toLowerCase();
-      if (e.key === 'Escape') { closeDrawer(); closePalette(); }
-      if (key === 'n' && !e.metaKey && !e.ctrlKey) { e.preventDefault(); openDrawer(); }
-      if (key === '/' && !e.metaKey && !e.ctrlKey) { e.preventDefault(); els.search.focus(); }
-      if (key === 'k' && (e.metaKey || e.ctrlKey)) { e.preventDefault(); openPalette(); }
-      if (key === '1') setView('overview');
-      if (key === '2') setView('list');
-      if (key === '3') setView('board');
-      if (key === '4') setView('timeline');
-      if (key === '5') setView('analytics');
-    });
-    els.paletteInput.addEventListener('input', renderPalette);
-    els.paletteList.addEventListener('click', e => {
-      const item = e.target.closest('.palette-item');
-      if (!item) return;
-      const act = item.dataset.act;
-      if (act === 'openDrawer') openDrawer();
-      else if (act === 'focusSearch') els.search.focus();
-      else if (act === 'theme') setTheme(['dark', 'light', 'ocean', 'rose', 'forest'][(['dark', 'light', 'ocean', 'rose', 'forest'].indexOf(state.theme) + 1) % 5]);
-      else if (act.startsWith('view:')) setView(act.split(':')[1]);
-      else if (act.startsWith('item:')) {
-        const id = Number(act.split(':')[1]);
-        modifyItem(id, i => ({...i, completed: !i.completed}));
-        toast('info', 'Item toggled', 'Completion state updated.');
+      function iso(offsetDays){
+        const d = new Date();
+        d.setDate(d.getDate()+offsetDays);
+        return d.toISOString().slice(0,10);
       }
-      closePalette();
-    });
-
-    document.body.addEventListener('click', (e) => {
-      const btn = e.target.closest('[data-act]');
-      if (!btn) return;
-      const id = Number(btn.dataset.id);
-      const act = btn.dataset.act;
-      if (act === 'complete') modifyItem(id, i => ({...i, completed: !i.completed}));
-      if (act === 'pin') modifyItem(id, i => ({...i, pinned: !i.pinned}));
-      if (act === 'archive') modifyItem(id, i => ({...i, archived: !i.archived}));
-      if (act === 'dup') {
-        const src = state.items.find(i => i.id === id);
-        if (!src) return;
-        addItem({ ...src, name: src.name + ' copy', completed:false, archived:false, pinned:false });
-        toast('success', 'Duplicated', 'A new copy was created.');
+      function load(){
+        try{
+          state.items = JSON.parse(localStorage.getItem(STORAGE_KEY)) ?? sample;
+        }catch{
+          state.items = sample;
+        }
+        try{
+          const settings = JSON.parse(localStorage.getItem(SETTINGS_KEY));
+          if(settings) state.settings = {...state.settings, ...settings};
+        }catch{}
       }
-    });
+      function save(){
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state.items));
+        localStorage.setItem(SETTINGS_KEY, JSON.stringify(state.settings));
+      }
 
-    els.themeBtn.addEventListener('click', () => {
-      const seq = ['dark', 'light', 'ocean', 'rose', 'forest'];
-      setTheme(seq[(seq.indexOf(state.theme) + 1) % seq.length]);
-    });
+      function fmt(dateStr){
+        const d = new Date(dateStr + "T00:00:00");
+        return d.toLocaleDateString(undefined, { month:"short", day:"numeric" });
+      }
+      function daysLeft(dateStr){
+        const d = new Date(dateStr + "T00:00:00");
+        const diff = Math.ceil((d - new Date(today.toDateString())) / 86400000);
+        return diff;
+      }
+      function progress(item){
+        const s = new Date(item.start + "T00:00:00").getTime();
+        const e = new Date(item.end + "T00:00:00").getTime();
+        const n = Date.now();
+        if(n<=s) return 0;
+        if(n>=e) return 100;
+        return Math.max(0, Math.min(100, Math.round(((n-s)/(e-s))*100)));
+      }
+      function urgency(item){
+        const left = daysLeft(item.ppt);
+        if(item.completed) return "done";
+        if(left <= 0) return "overdue";
+        if(left <= 3) return "high";
+        if(left <= 7) return "medium";
+        return "low";
+      }
+      function filterItems(list){
+        let items = [...list];
+        if(state.nav === "today"){
+          items = items.filter(i => i.start === todayISO() || i.end === todayISO() || i.ppt === todayISO());
+        }else if(state.nav === "upcoming"){
+          items = items.filter(i => daysLeft(i.ppt) > 0 && !i.completed && !i.archived);
+        }else if(state.nav === "overdue"){
+          items = items.filter(i => daysLeft(i.ppt) <= 0 && !i.completed && !i.archived);
+        }else if(state.nav === "pinned"){
+          items = items.filter(i => i.pinned && !i.archived);
+        }else if(state.nav === "archived"){
+          items = items.filter(i => i.archived);
+        }else{
+          items = items.filter(i => !i.archived);
+        }
+        if(!state.showCompleted) items = items.filter(i => !i.completed);
+        const q = state.search.trim().toLowerCase();
+        if(q){
+          items = items.filter(i =>
+            [i.name,i.desc,i.tags,i.notes,i.website].join(" ").toLowerCase().includes(q)
+          );
+        }
+        items.sort((a,b) => {
+          if(state.sort === "name") return a.name.localeCompare(b.name);
+          if(state.sort === "priority") return orderUrgency(urgency(a)) - orderUrgency(urgency(b));
+          if(state.sort === "created") return b.createdAt - a.createdAt;
+          return new Date(a.ppt) - new Date(b.ppt);
+        });
+        return items;
+      }
+      function orderUrgency(u){ return {overdue:0, high:1, medium:2, low:3, done:4}[u] ?? 9; }
+      function todayISO(){ return new Date().toISOString().slice(0,10); }
 
-    // init
-    document.documentElement.style.setProperty('--cardPad', state.density === 'compact' ? '18px' : '24px');
-    document.documentElement.style.setProperty('--gap', state.density === 'compact' ? '18px' : '24px');
-    els.density.value = state.density;
-    els.sort.value = 'deadline';
-    setTheme(state.theme || 'dark');
-    setDensity(state.density || 'compact');
-    render();
-    toast('success', 'HackTrack upgraded', 'Premium interface loaded successfully.');
+      function toast(title, message, icon="fa-circle-info"){
+        const el = document.createElement("div");
+        el.className = "toast";
+        el.innerHTML = `<i class="fa-solid ${icon}" style="color:var(--primary2)"></i>
+          <div><p class="t">${escapeHtml(title)}</p><p class="m">${escapeHtml(message)}</p></div>`;
+        $("#toasts").appendChild(el);
+        setTimeout(() => el.remove(), 3000);
+      }
+
+      function escapeHtml(s=""){
+        return String(s).replace(/[&<>"']/g, m => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[m]));
+      }
+
+      function ring(circle, value){
+        const offset = 251 - (251 * value / 100);
+        circle.style.strokeDashoffset = offset;
+      }
+
+      function renderMeta(){
+        const items = filterItems(state.items);
+        const total = state.items.filter(i => !i.archived).length;
+        const active = items.filter(i => !i.completed && !i.archived).length;
+        const urgent = items.filter(i => urgency(i) === "overdue" || urgency(i) === "high").length;
+        const done = state.items.filter(i => i.completed && !i.archived).length;
+        $("#mTotal").textContent = total;
+        $("#mActive").textContent = active;
+        $("#mUrgent").textContent = urgent;
+        $("#mDone").textContent = done;
+        const progressPct = total ? Math.round((done / total) * 100) : 0;
+        $("#statProgress").textContent = progressPct + "%";
+        $("#statFocus").textContent = active;
+        $("#statUrgent2").textContent = urgent;
+        $("#statDone").textContent = done;
+        $("#ringText").textContent = progressPct + "%";
+        $("#ringText2").textContent = active;
+        $("#ringText3").textContent = urgent;
+        $("#ringText4").textContent = done;
+        ring($("#ringProgress"), progressPct);
+        ring($("#ringFocus"), Math.min(100, active * 12));
+        ring($("#ringUrgent"), Math.min(100, urgent * 18));
+        ring($("#ringDone"), Math.min(100, done * 14));
+      }
+
+      function cardActions(item){
+        return `
+          <div class="actions">
+            <button class="mini good" data-act="toggle" data-id="${item.id}"><i class="fa-solid fa-check"></i> ${item.completed ? "Reopen" : "Complete"}</button>
+            <button class="mini" data-act="edit" data-id="${item.id}"><i class="fa-solid fa-pen"></i> Edit</button>
+            <button class="mini" data-act="pin" data-id="${item.id}"><i class="fa-solid fa-thumbtack"></i> ${item.pinned ? "Unpin" : "Pin"}</button>
+            <button class="mini" data-act="archive" data-id="${item.id}"><i class="fa-solid fa-box-archive"></i> ${item.archived ? "Restore" : "Archive"}</button>
+            <button class="mini danger" data-act="delete" data-id="${item.id}"><i class="fa-solid fa-trash"></i> Delete</button>
+          </div>
+        `;
+      }
+
+      function renderList(){
+        const items = filterItems(state.items);
+        if(!items.length){
+          $("#listView").innerHTML = emptyHtml("No items match the current filters.", "Try a different search, view, or command.");
+          return;
+        }
+        $("#listView").innerHTML = `<div class="cards">${items.map(item => {
+          const left = daysLeft(item.ppt);
+          const u = urgency(item);
+          return `
+            <article class="card ${state.settings.density === "compact" ? "compact" : ""} ${u} ${item.completed ? "done" : ""}" data-id="${item.id}">
+              <div class="card-inner">
+                <div class="card-head">
+                  <div style="min-width:0">
+                    <h4 class="title">${escapeHtml(item.name)}</h4>
+                    <p class="desc">${escapeHtml(item.desc || "No description added.")}</p>
+                  </div>
+                  <div class="chip"><i class="fa-regular fa-clock"></i> ${left <= 0 ? Math.abs(left) + "d overdue" : left + "d left"}</div>
+                </div>
+                <div class="meta">
+                  <span class="chip"><i class="fa-solid fa-calendar-day"></i> Start <strong>${fmt(item.start)}</strong></span>
+                  <span class="chip"><i class="fa-solid fa-flag-checkered"></i> End <strong>${fmt(item.end)}</strong></span>
+                  <span class="chip"><i class="fa-solid fa-file-powerpoint"></i> PPT <strong>${fmt(item.ppt)}</strong></span>
+                  <span class="chip"><i class="fa-solid fa-tag"></i> ${escapeHtml(item.tags || "No tags")}</span>
+                </div>
+                <div class="progress"><span style="width:${progress(item)}%"></span></div>
+                <div class="muted" style="font-size:.82rem;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap">
+                  <span>Priority: <strong style="color:var(--text)">${escapeHtml(item.priority)}</strong></span>
+                  <span>${item.pinned ? "Pinned" : "Not pinned"} • ${item.archived ? "Archived" : "Live"}</span>
+                </div>
+                ${item.notes ? `<p class="desc" style="margin-top:12px"><strong style="color:var(--text)">Notes:</strong> ${escapeHtml(item.notes)}</p>` : ""}
+                ${item.website ? `<p class="desc" style="margin-top:-6px"><a href="${escapeAttr(item.website)}" target="_blank" rel="noopener" style="color:var(--primary2);text-decoration:none"><i class="fa-solid fa-arrow-up-right-from-square"></i> Open website</a></p>` : ""}
+                ${cardActions(item)}
+              </div>
+            </article>
+          `;
+        }).join("")}</div>`;
+      }
+
+      function renderBoard(){
+        const items = filterItems(state.items).filter(i => !i.archived);
+        const groups = {
+          upcoming: items.filter(i => !i.completed && urgency(i) === "low"),
+          active: items.filter(i => !i.completed && (urgency(i) === "medium" || urgency(i) === "high")),
+          done: items.filter(i => i.completed)
+        };
+        $("#boardView").innerHTML = `
+          <div class="board">
+            ${boardCol("Upcoming", "fa-calendar-plus", groups.upcoming, "upcoming")}
+            ${boardCol("Active", "fa-bolt", groups.active, "active")}
+            ${boardCol("Done", "fa-circle-check", groups.done, "done")}
+          </div>
+        `;
+        $$("#boardView .mini-card").forEach(card => {
+          card.draggable = true;
+          card.addEventListener("dragstart", e => {
+            e.dataTransfer.setData("text/plain", card.dataset.id);
+            e.dataTransfer.effectAllowed = "move";
+          });
+        });
+        $$("#boardView .dropzone").forEach(zone => {
+          zone.addEventListener("dragover", e => { e.preventDefault(); zone.classList.add("drag-over"); });
+          zone.addEventListener("dragleave", () => zone.classList.remove("drag-over"));
+          zone.addEventListener("drop", e => {
+            e.preventDefault(); zone.classList.remove("drag-over");
+            const id = e.dataTransfer.getData("text/plain");
+            const item = state.items.find(x => x.id === id);
+            if(!item) return;
+            const target = zone.dataset.group;
+            if(target === "done") item.completed = true;
+            if(target === "active") item.completed = false, item.archived = false;
+            if(target === "upcoming") item.completed = false;
+            save(); renderAll(); toast("Moved", "Item updated with drag and drop.", "fa-circle-check");
+          });
+        });
+      }
+      function boardCol(title, icon, arr, group){
+        return `
+          <div class="col">
+            <h4><span><i class="fa-solid ${icon}" style="color:var(--primary2);margin-right:8px"></i>${title}</span><span class="badge">${arr.length}</span></h4>
+            <div class="dropzone" data-group="${group}">
+              ${arr.length ? arr.map(item => `
+                <div class="mini-card" data-id="${item.id}">
+                  <div class="t">${escapeHtml(item.name)}</div>
+                  <div class="m">${fmt(item.ppt)} • ${escapeHtml(item.tags || "No tags")}</div>
+                </div>
+              `).join("") : `<div class="empty"><i class="fa-solid fa-box-open"></i><h4>Empty</h4><p>Drop cards here</p></div>`}
+            </div>
+          </div>
+        `;
+      }
+
+      function renderTimeline(){
+        const items = filterItems(state.items).filter(i => !i.archived);
+        if(!items.length){ $("#timelineView").innerHTML = emptyHtml("No timeline items found.", "Adjust filters or add a new project."); return; }
+        $("#timelineView").innerHTML = `<div class="timeline">
+          ${items.map(item => `
+            <article class="card tl-item ${urgency(item)} ${item.completed ? "done" : ""}">
+              <div class="card-inner tl-card">
+                <div class="card-head">
+                  <div><h4 class="title">${escapeHtml(item.name)}</h4><p class="desc">${escapeHtml(item.desc || "")}</p></div>
+                  <div class="chip"><i class="fa-solid fa-hourglass-half"></i> ${fmt(item.ppt)}</div>
+                </div>
+                <div class="meta">
+                  <span class="chip">Start <strong>${fmt(item.start)}</strong></span>
+                  <span class="chip">End <strong>${fmt(item.end)}</strong></span>
+                  <span class="chip">Priority <strong>${escapeHtml(item.priority)}</strong></span>
+                </div>
+                ${cardActions(item)}
+              </div>
+            </article>
+          `).join("")}
+        </div>`;
+      }
+
+      function renderCalendar(){
+        const base = new Date(today.getFullYear(), today.getMonth(), 1);
+        const start = new Date(base);
+        start.setDate(base.getDate() - base.getDay());
+        const days = [];
+        for(let i=0;i<42;i++){
+          const d = new Date(start);
+          d.setDate(start.getDate()+i);
+          days.push(d);
+        }
+        const items = filterItems(state.items).filter(i => !i.archived);
+        const map = new Map();
+        for(const item of items){
+          [item.start, item.end, item.ppt].forEach(dt => {
+            if(!map.has(dt)) map.set(dt, []);
+            map.get(dt).push(item);
+          });
+        }
+        const weekdays = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+        $("#calendarView").innerHTML = `
+          <div class="calendar">
+            ${weekdays.map(w => `<div class="cal-head">${w}</div>`).join("")}
+            ${days.map(d => {
+              const key = d.toISOString().slice(0,10);
+              const inMonth = d.getMonth() === today.getMonth();
+              const list = map.get(key) || [];
+              return `<div class="day ${inMonth ? "" : "muted"}">
+                <div class="day-num">${d.getDate()}</div>
+                ${list.slice(0,3).map(it => `<span class="event-dot">${escapeHtml(it.name)}</span>`).join("")}
+                ${list.length > 3 ? `<span class="muted" style="font-size:.72rem">+${list.length - 3} more</span>` : ""}
+              </div>`;
+            }).join("")}
+          </div>
+        `;
+      }
+
+      function renderAnalytics(){
+        const items = state.items.filter(i => !i.archived);
+        const byPriority = {
+          high: items.filter(i => i.priority === "high").length,
+          medium: items.filter(i => i.priority === "medium").length,
+          low: items.filter(i => i.priority === "low").length
+        };
+        const values = [byPriority.high, byPriority.medium, byPriority.low];
+        const max = Math.max(1, ...values);
+        const heat = Array.from({length:28}, (_,i) => `<div class="heat l${(i%4)+1}"></div>`).join("");
+        const recent = Array.from({length:7}, (_,i) => Math.max(1, Math.round((items.length - i) + (i%3))).toString());
+        $("#analyticsView").innerHTML = `
+          <div class="analytics">
+            <div class="panel chart-card">
+              <div class="chart-title"><h4>Priority breakdown</h4><span>live distribution</span></div>
+              <div class="bars">
+                ${[
+                  ["High", byPriority.high, "var(--danger)"],
+                  ["Medium", byPriority.medium, "var(--warn)"],
+                  ["Low", byPriority.low, "var(--accent)"]
+                ].map(([label,val]) => `
+                  <div class="bar-row">
+                    <div>${label}</div>
+                    <div class="bar"><i style="width:${Math.round((val/max)*100)}%"></i></div>
+                    <div>${val}</div>
+                  </div>`).join("")}
+              </div>
+              <div style="height:18px"></div>
+              <div class="chart-title"><h4>Weekly activity</h4><span>sparkline style</span></div>
+              <div class="bars">${recent.map((v,i)=>`
+                <div class="bar-row">
+                  <div>Day ${i+1}</div>
+                  <div class="bar"><i style="width:${Math.min(100, v*12)}%"></i></div>
+                  <div>${v}</div>
+                </div>`).join("")}</div>
+            </div>
+            <div class="panel chart-card">
+              <div class="chart-title"><h4>Donut summary</h4><span>status mix</span></div>
+              <div class="donut-wrap">
+                <div class="donut">
+                  <div class="donut-center">
+                    <div>
+                      <strong>${items.length}</strong>
+                      <span>live items</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="panel chart-card">
+              <div class="chart-title"><h4>Productivity heatmap</h4><span>28-day rhythm</span></div>
+              <div class="heatmap">${heat}</div>
+            </div>
+            <div class="panel chart-card">
+              <div class="chart-title"><h4>Completion trend</h4><span>simple, elegant, readable</span></div>
+              <div class="bars">${Array.from({length:6}, (_,i) => {
+                const val = Math.max(1, Math.round((items.length ? items.filter(x => x.completed).length : 0) + (i % 3)));
+                return `<div class="bar-row"><div>Week ${i+1}</div><div class="bar"><i style="width:${Math.min(100,val*16)}%"></i></div><div>${val}</div></div>`;
+              }).join("")}</div>
+            </div>
+          </div>
+        `;
+      }
+
+      function emptyHtml(title, message){
+        return `<div class="empty panel">
+          <i class="fa-solid fa-inbox"></i>
+          <h4>${escapeHtml(title)}</h4>
+          <p>${escapeHtml(message)}</p>
+          <button class="btn btn-primary" id="emptyNew"><i class="fa-solid fa-plus"></i> Add item</button>
+        </div>`;
+      }
+
+      function escapeAttr(s=""){ return String(s).replace(/"/g, "&quot;"); }
+
+      function renderAll(){
+        renderMeta();
+        renderList();
+        renderBoard();
+        renderTimeline();
+        renderCalendar();
+        renderAnalytics();
+        wireCardEvents();
+      }
+
+      function wireCardEvents(){
+        $$("[data-act]").forEach(btn => btn.onclick = () => act(btn.dataset.act, btn.dataset.id));
+        const emptyNew = $("#emptyNew");
+        if(emptyNew) emptyNew.onclick = openNew;
+      }
+
+      function act(action, id){
+        const item = state.items.find(x => x.id === id);
+        if(!item) return;
+        if(action === "toggle") item.completed = !item.completed;
+        if(action === "pin") item.pinned = !item.pinned;
+        if(action === "archive") item.archived = !item.archived;
+        if(action === "edit") fillForm(item);
+        if(action === "delete") openDelete(item);
+        save(); renderAll();
+        toast("Updated", `${item.name} changed successfully.`, "fa-circle-check");
+      }
+
+      function fillForm(item){
+        state.editId = item.id;
+        $("#id").value = item.id;
+        $("#name").value = item.name;
+        $("#desc").value = item.desc || "";
+        $("#start").value = item.start;
+        $("#end").value = item.end;
+        $("#ppt").value = item.ppt;
+        $("#priority").value = item.priority || "low";
+        $("#tags").value = item.tags || "";
+        $("#website").value = item.website || "";
+        $("#notes").value = item.notes || "";
+        $("#pinBtn").innerHTML = `<i class="fa-solid fa-thumbtack"></i> ${item.pinned ? "Pinned" : "Pin"}`;
+      }
+
+      function resetForm(){
+        state.editId = null;
+        $("#form").reset();
+        $("#id").value = "";
+        $("#pinBtn").innerHTML = `<i class="fa-solid fa-thumbtack"></i> Pin`;
+      }
+
+      function openNew(){
+        resetForm();
+        $("#name").focus();
+        toast("Ready", "Start a new entry.", "fa-pen-to-square");
+      }
+
+      function openDelete(item){
+        state.pendingDelete = item.id;
+        $("#modalTitle").textContent = "Delete item?";
+        $("#modalBody").textContent = `Delete "${item.name}" permanently? This cannot be undone.`;
+        showModal(true);
+      }
+
+      function showModal(show){
+        $("#overlay").classList.toggle("show", show);
+        $("#modal").classList.toggle("show", show);
+      }
+      function showPalette(show){
+        $("#overlay").classList.toggle("show", show);
+        $("#palette").classList.toggle("show", show);
+        if(show) $("#paletteInput").focus();
+      }
+      function showSettings(show){
+        $("#overlay").classList.toggle("show", show);
+        $("#settings").classList.toggle("show", show);
+      }
+
+      function openSettings(){
+        showSettings(true);
+      }
+      function closeAll(){
+        showModal(false); showPalette(false); showSettings(false);
+      }
+
+      // theme / density / motion controls
+      const themes = [
+        ["dark","Midnight"],
+        ["light","Light"],
+        ["ocean","Ocean"],
+        ["forest","Forest"],
+        ["sunset","Sunset"]
+      ];
+      const densities = [
+        ["comfortable","Comfortable"],
+        ["compact","Compact"]
+      ];
+      const motions = [
+        ["full","Full motion"],
+        ["soft","Soft motion"],
+        ["minimal","Minimal"]
+      ];
+      function pillGroup(root, list, key){
+        root.innerHTML = list.map(([value,label]) => `<button class="pill ${state.settings[key]===value ? "active" : ""}" data-key="${key}" data-value="${value}">${label}</button>`).join("");
+      }
+
+      function applySettings(){
+        document.body.setAttribute("data-theme", state.settings.theme);
+        document.body.dataset.density = state.settings.density;
+        document.body.dataset.motion = state.settings.motion;
+        save();
+      }
+
+      function paletteItems(){
+        const commands = [
+          ["New item", "Create a fresh hackathon entry", "N"],
+          ["Search", "Focus the search field", "/"],
+          ["Settings", "Open settings drawer", "S"],
+          ["Toggle completed", "Show or hide completed items", "C"],
+          ["List view", "Switch to list", "1"],
+          ["Board view", "Switch to board", "2"],
+          ["Timeline view", "Switch to timeline", "3"],
+          ["Calendar view", "Switch to calendar", "4"],
+          ["Analytics", "Switch to analytics", "5"]
+        ];
+        $("#paletteList").innerHTML = commands.map(([title,sub,hot]) => `
+          <div class="palette-item" data-cmd="${escapeAttr(title)}">
+            <div><strong>${escapeHtml(title)}</strong><span>${escapeHtml(sub)}</span></div>
+            <kbd>${escapeHtml(hot)}</kbd>
+          </div>
+        `).join("");
+        $$(".palette-item").forEach(el => el.onclick = () => runCommand(el.dataset.cmd));
+      }
+
+      function runCommand(cmd){
+        closeAll();
+        if(cmd === "New item") return openNew();
+        if(cmd === "Search") return $("#search").focus();
+        if(cmd === "Settings") return openSettings();
+        if(cmd === "Toggle completed") return ($("#toggleComplete").click(), null);
+        if(cmd === "List view") return setView("list");
+        if(cmd === "Board view") return setView("board");
+        if(cmd === "Timeline view") return setView("timeline");
+        if(cmd === "Calendar view") return setView("calendar");
+        if(cmd === "Analytics") return setView("analytics");
+      }
+
+      function setView(view){
+        state.view = view;
+        $$(".view-btn").forEach(b => b.classList.toggle("active", b.dataset.view === view));
+        $$(".panel-view").forEach(p => p.classList.remove("active"));
+        $("#"+view+"View").classList.add("active");
+      }
+
+      // events
+      $("#overlay").onclick = closeAll;
+      $("#modalClose").onclick = () => showModal(false);
+      $("#modalCancel").onclick = () => showModal(false);
+      $("#modalOk").onclick = () => {
+        if(state.pendingDelete){
+          state.items = state.items.filter(i => i.id !== state.pendingDelete);
+          state.pendingDelete = null;
+          save(); renderAll(); toast("Deleted", "Item removed permanently.", "fa-trash");
+        }
+        showModal(false);
+      };
+      $("#newBtn").onclick = openNew;
+      $("#qaNew").onclick = openNew;
+      $("#qaPalette").onclick = () => showPalette(true);
+      $("#qaTheme").onclick = () => openSettings();
+      $("#qaSettings").onclick = () => openSettings();
+      $("#settingsBtn").onclick = () => openSettings();
+      $("#closeSettings").onclick = () => showSettings(false);
+      $("#resetForm").onclick = resetForm;
+      $("#toggleComplete").onclick = () => {
+        state.showCompleted = !state.showCompleted;
+        $("#toggleComplete").innerHTML = `<i class="fa-solid fa-check"></i> ${state.showCompleted ? "Show completed" : "Hide completed"}`;
+        renderAll();
+      };
+      $("#search").oninput = e => { state.search = e.target.value; renderAll(); };
+      $("#sort").onchange = e => { state.sort = e.target.value; renderAll(); };
+      $("#paletteInput").oninput = e => {
+        const q = e.target.value.toLowerCase();
+        $$(".palette-item").forEach(it => {
+          it.style.display = it.innerText.toLowerCase().includes(q) ? "flex" : "none";
+        });
+      };
+      $("#modalClose").onclick = () => showModal(false);
+
+      $("#form").onsubmit = e => {
+        e.preventDefault();
+        const item = {
+          id: state.editId || crypto.randomUUID(),
+          name: $("#name").value.trim(),
+          desc: $("#desc").value.trim(),
+          start: $("#start").value,
+          end: $("#end").value,
+          ppt: $("#ppt").value,
+          priority: $("#priority").value,
+          tags: $("#tags").value.trim(),
+          website: $("#website").value.trim(),
+          notes: $("#notes").value.trim(),
+          completed: false,
+          pinned: state.pinMode,
+          archived: false,
+          createdAt: state.editId ? (state.items.find(i => i.id === state.editId)?.createdAt || Date.now()) : Date.now()
+        };
+        if(!item.name || !item.start || !item.end || !item.ppt){
+          toast("Missing fields", "Please fill the required fields.", "fa-triangle-exclamation");
+          return;
+        }
+        if(new Date(item.end) < new Date(item.start)){
+          toast("Invalid dates", "End must be after start.", "fa-triangle-exclamation");
+          return;
+        }
+        const idx = state.items.findIndex(i => i.id === item.id);
+        if(idx >= 0) state.items[idx] = {...state.items[idx], ...item};
+        else state.items.unshift(item);
+        save(); renderAll(); resetForm(); setView("list");
+        toast("Saved", "Your item has been updated.", "fa-circle-check");
+      };
+
+      $("#pinBtn").onclick = () => {
+        state.pinMode = !state.pinMode;
+        $("#pinBtn").innerHTML = `<i class="fa-solid fa-thumbtack"></i> ${state.pinMode ? "Pinned" : "Pin"}`;
+        toast("Pin mode", state.pinMode ? "New items will be pinned." : "Pin mode disabled.", "fa-thumbtack");
+      };
+
+      $("#exportBtn").onclick = () => {
+        const blob = new Blob([JSON.stringify({items:state.items,settings:state.settings}, null, 2)], {type:"application/json"});
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "hacktrack-export.json";
+        a.click();
+        URL.revokeObjectURL(a.href);
+      };
+      $("#importBtn").onclick = () => $("#importFile").click();
+      $("#importFile").onchange = async e => {
+        const file = e.target.files?.[0];
+        if(!file) return;
+        const text = await file.text();
+        try{
+          const data = JSON.parse(text);
+          if(Array.isArray(data.items)) state.items = data.items;
+          if(data.settings) state.settings = {...state.settings, ...data.settings};
+          applySettings(); renderAll(); toast("Imported", "Workspace data loaded.", "fa-upload");
+        }catch{
+          toast("Import failed", "The JSON file was not valid.", "fa-triangle-exclamation");
+        }
+      };
+
+      $$(".view-btn").forEach(btn => btn.onclick = () => setView(btn.dataset.view));
+      $$(".nav-btn").forEach(btn => btn.onclick = () => {
+        $$(".nav-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        state.nav = btn.dataset.nav;
+        renderAll();
+      });
+
+      // settings pills
+      pillGroup($("#themePills"), themes, "theme");
+      pillGroup($("#densityPills"), densities, "density");
+      pillGroup($("#motionPills"), motions, "motion");
+      ["themePills","densityPills","motionPills"].forEach(id => {
+        $("#"+id).onclick = e => {
+          const pill = e.target.closest(".pill");
+          if(!pill || !pill.dataset.value) return;
+          const key = pill.dataset.key;
+          const value = pill.dataset.value;
+          state.settings[key] = value;
+          applySettings();
+          pillGroup($("#themePills"), themes, "theme");
+          pillGroup($("#densityPills"), densities, "density");
+          pillGroup($("#motionPills"), motions, "motion");
+          toast("Updated", `${key} set to ${value}.`, "fa-sliders");
+        };
+      });
+
+      // hotkeys
+      document.addEventListener("keydown", e => {
+        if(e.key === "Escape"){ closeAll(); return; }
+        if((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k"){ e.preventDefault(); showPalette(true); return; }
+        if(e.key === "/" && document.activeElement !== $("#search")){ e.preventDefault(); $("#search").focus(); return; }
+        if(e.key.toLowerCase() === "n" && !["INPUT","TEXTAREA"].includes(document.activeElement?.tagName)){ openNew(); return; }
+        if(e.key.toLowerCase() === "s" && !["INPUT","TEXTAREA"].includes(document.activeElement?.tagName)){ openSettings(); return; }
+        if(e.key.toLowerCase() === "c" && !["INPUT","TEXTAREA"].includes(document.activeElement?.tagName)){ $("#toggleComplete").click(); return; }
+        const map = { "1":"list", "2":"board", "3":"timeline", "4":"calendar", "5":"analytics" };
+        if(map[e.key]) setView(map[e.key]);
+      });
+
+      // theme init and motion
+      load();
+      applySettings();
+      pillGroup($("#themePills"), themes, "theme");
+      pillGroup($("#densityPills"), densities, "density");
+      pillGroup($("#motionPills"), motions, "motion");
+      paletteItems();
+
+      if(!localStorage.getItem(STORAGE_KEY)){
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state.items));
+      }
+
+      $("#loader").classList.add("hide");
+      renderAll();
+      toast("Ready", "Ultra-premium workspace loaded.", "fa-rocket");
+
+      // expose quick edit actions inside cards
+      document.addEventListener("click", e => {
+        const card = e.target.closest(".card");
+        if(card && e.target.closest(".actions")) return;
+        if(card){
+          const item = state.items.find(x => x.id === card.dataset.id);
+          if(item && e.detail === 2) fillForm(item);
+        }
+      });
+    })();
   </script>
 </body>
 </html>
